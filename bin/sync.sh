@@ -7,11 +7,20 @@ cd "$ROOT_DIR"
 # Configuration
 LOG_FILE="$ROOT_DIR/sync.log"
 LOCK_FILE="$ROOT_DIR/.sync.lock"
+CONFIG_FILE="$ROOT_DIR/sync-config.json"
 CRON_SCHEDULE="0 * * * *" # Every hour by default
 
-# Flags
+# Flags (Default values)
 QUIET=false
 AUTO_UPDATE=true
+
+# Read AUTO_UPDATE from config if exists
+if [ -f "$CONFIG_FILE" ]; then
+  JSON_AUTO_UPDATE=$(node -p "const c = require('$CONFIG_FILE'); c.autoUpdate !== undefined ? c.autoUpdate : true" 2>/dev/null)
+  if [ "$JSON_AUTO_UPDATE" = "false" ]; then
+    AUTO_UPDATE=false
+  fi
+fi
 
 # Helper for logging
 log() {
