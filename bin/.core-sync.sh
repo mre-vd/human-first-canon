@@ -65,8 +65,7 @@ run_core_sync() {
 
   # 2. Run Sync Script
   log "Starting rule synchronization..."
-  NODE_BIN=$(which node)
-  if "$NODE_BIN" "$ROOT_DIR/scripts/sync.js" >> "$LOG_FILE" 2>&1; then
+  if node "$ROOT_DIR/scripts/sync.js" >> "$LOG_FILE" 2>&1; then
     log "Sync complete."
   else
     log "Error: Synchronization failed. Check $LOG_FILE for details."
