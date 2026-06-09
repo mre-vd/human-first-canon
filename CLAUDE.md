@@ -1,8 +1,9 @@
 <!-- GENERATED FILE - DO NOT EDIT MANUALLY - SEE AI-Process-Architecture REPO -->
 
+
 --- From Module: engineering/general ---
 
-# CLAUDE.md — Engineering Standards (General)
+# CLAUDE.md — General Engineering Standards
 
 ## Technical Discipline: Professional Standards for System Integrity
 
@@ -67,6 +68,38 @@ Decluttering is the principle of intentionally removing anything that does not s
 
 Side-effecting operations whose trigger can fire twice MUST be idempotent. Retries happen — network blips, a consumer crashing, webhook senders retrying.
 
+## Per-project versioning — bump the number so the running build shows the fix
+
+Each shippable project carries its own running semantic version, shown in small font in its own UI. The point is operational: looking at a deployed website, admin panel, or desktop app, you can tell at a glance whether that build already carries a given fix — without diffing commits or asking. The version is per-project, so each surface tells its own story; a fix shipped to admin doesn't silently imply the website got it too.
+
+**One source of truth per project** — the single file the version lives in, and where its UI reads it:
+
+- **website** → `modules/website/package.json`. Injected into the static export by `next.config.ts` (`env.NEXT_PUBLIC_APP_VERSION`), shown in the Footer.
+- **admin** → `modules/admin/frontend/package.json`. Vite define exposes `__APP_VERSION__`, shown in the Sidebar.
+- **notary / desktop** → `modules/notary/desktop/src-tauri/tauri.conf.json` (authoritative — it's both the desktop release version and what the CI /updates guard compares against). The notary SPA shows it in its Sidebar via Vite `__APP_VERSION__`, which reads `modules/notary/frontend/package.json` — a mirror the bump keeps in lockstep. The mirror exists because the SPA's Docker build context is only `modules/notary/frontend`, so it physically can't read `tauri.conf.json`; the bump writing both files is what prevents the two from drifting (the exact drift that motivated this rule: the desktop was releasing 0.1.14 while its UI showed 0.1.0).
+
+**Bump it as part of the task.** During the self-review pass, before opening the PR, bump the version of every project the diff touches. Any change to a project's shippable files bumps at least its patch — touch two projects, bump both, independently.
+
+You classify the bump:
+
+- **major** — a breaking change to that project's behavior or public contract (see "API contract changes (Hyrum's Law)").
+- **minor** — a new user-facing feature.
+- **patch** — everything else that still ships: fix, refactor, chore, style, perf.
+
+**Mechanism** — one command, never hand-edit the version files:
+
+```bash
+make bump ARGS="<website|admin|notary> <major|minor|patch>"   # wraps scripts/bump-version.sh
+```
+
+For notary it writes both the authoritative `tauri.conf.json` and the mirror `package.json` atomically — so "single source of truth" holds: the editable source is `tauri.conf.json`, `package.json` is tool-written, never hand-edited (consistent with "Generated artifacts have a single source of truth").
+
+The desktop-release CI patch auto-bump is a fallback only. `.github/workflows/desktop-release.yml` still auto-increments the patch if a desktop-affecting PR merged without an in-PR bump, and it mirrors `package.json` too so it can't reintroduce drift. Don't lean on it — bump in the PR with the correct type; CI only patches what you forgot.
+
+**Relationship to the v1.0.0 milestone (next section):** these 0.x running versions are the per-build markers shown in each UI throughout the MVP. The global v1.0.0 tag is the one-time launch milestone after the final audit — a different axis, not a replacement.
+
+**Why a rule:** without it, "is the fix live?" is answered by archaeology — diffing commits against a deploy nobody recorded. A visible per-project version turns it into a glance.
+
 ## Versioning — v1.0.0 after the final audit
 
 After the final security audit and all fixes — bump every package to `1.0.0` and tag `v1.0.0`.
@@ -83,9 +116,10 @@ Every shipped API field is consumed by _some_ client — including production ap
 
 Any script that uses relative paths MUST `cd "$(dirname "$0")"` as the first command after the shebang.
 
+
 --- From Module: engineering/security ---
 
-# Security rules & audit checklist — PAUSED FOR MVP
+# CLAUDE.md — Security Standards
 
 > **STATUS: PAUSED.** These rules are disabled for the MVP per the operator's call. They are kept here so nothing is lost. **Re-enable before any real launch** (public web, app-store submission, real user PII) by integrating them into the active sections of `CLAUDE.md`.
 
@@ -142,9 +176,44 @@ This checklist serves as a standard for auditing changes.
 
 _This checklist is intended to be expanded based on the specific technology stack used in the project._
 
+
+--- From Module: engineering/devops ---
+
+# CLAUDE.md — DevOps Standards
+
+## Core Principles
+
+- **IaC (Infrastructure as Code):** Every piece of infrastructure must be defined in code (Terraform, Pulumi, or K8s manifests). Manual changes via Cloud Consoles are forbidden.
+- **GitOps:** The state of the infrastructure should reflect the state of the Git repository.
+
+## CI/CD (GitHub Actions)
+
+- **Workflow Modularity:** Use reusable workflows to avoid duplication.
+- **Security:** Use OIDC for cloud provider authentication. Never use long-lived secrets/keys.
+- **Validation:** Every PR must trigger linting, security scanning (Trivy, Snyk), and unit tests.
+
+## Docker & Containers
+
+- **Multi-stage Builds:** Use multi-stage builds to keep production images small and secure.
+- **Base Images:** Use minimal base images (Alpine or Distroless).
+- **Rootless:** Run containers as non-root users.
+
+## Kubernetes
+
+- **Resource Limits:** Always define `requests` and `limits` for CPU and Memory.
+- **Probes:** Define `livenessProbe`, `readinessProbe`, and `startupProbe` for all deployments.
+- **Config & Secrets:** Use `ConfigMaps` for configuration and `Secrets` (integrated with Vault/AWS Secrets Manager) for sensitive data.
+
+## Observability
+
+- **Metrics:** Expose Prometheus-compatible `/metrics` endpoints.
+- **Logs:** Ensure logs are output in JSON format to stdout for easy aggregation (ELK/Loki).
+- **Tracing:** Use OpenTelemetry for distributed tracing in microservices.
+
+
 --- From Module: backend/go ---
 
-# CLAUDE.md — Go (Golang) Engineering Standards
+# CLAUDE.md — Go Standards
 
 ## Project Organization (Go)
 
@@ -179,9 +248,10 @@ _This checklist is intended to be expanded based on the specific technology stac
 - **Table-Driven Tests:** Use the table-driven pattern for testing multiple scenarios in a single test function.
 - **Benchmarks:** Use `testing.B` for performance-critical code.
 
+
 --- From Module: backend/jvm ---
 
-# CLAUDE.md — Backend & JVM Standards
+# CLAUDE.md — JVM & Backend Standards
 
 ## Project organization (Backend)
 
@@ -244,6 +314,7 @@ Invoke subprocesses via the structured builder, not a shell string. Check the ex
 
 Any scheduled job with a cadence less frequent than daily MUST also expose a boot-time catch-up that compares last successful run against expected fire time.
 
+
 --- From Module: backend/nestjs ---
 
 # CLAUDE.md — Node.js & NestJS Standards
@@ -297,9 +368,10 @@ Any scheduled job with a cadence less frequent than daily MUST also expose a boo
 - **Structured Logging:** Use a professional logger like `pino` or `winston`. Log errors with full stack traces.
 - **Health Checks:** Implement a `/health` endpoint using `@nestjs/terminus`.
 
+
 --- From Module: backend/python ---
 
-# CLAUDE.md — Python & FastAPI Engineering Standards
+# CLAUDE.md — Python & FastAPI Standards
 
 ## Project Organization
 
@@ -337,9 +409,10 @@ Any scheduled job with a cadence less frequent than daily MUST also expose a boo
 
 - **Tools:** Use `ruff` for extremely fast linting and formatting. Adhere to PEP 8.
 
+
 --- From Module: backend/rust ---
 
-# CLAUDE.md — Rust Engineering Standards
+# CLAUDE.md — Rust Standards
 
 ## Project Organization (Rust)
 
@@ -381,9 +454,10 @@ Any scheduled job with a cadence less frequent than daily MUST also expose a boo
 - **Zero-Cost Abstractions:** Leverage traits and generics. Prefer `Iterators` over manual loops.
 - **Allocation:** Minimize heap allocations in hot loops. Use `SmallVec` or `ArrayVec` for small fixed-size collections.
 
+
 --- From Module: frontend/react ---
 
-# CLAUDE.md — Web & React Standards
+# CLAUDE.md — React & Web Standards
 
 ## Code style
 
@@ -460,9 +534,10 @@ A handler should do **only** what its name implies. Extract teardown/cleanup log
 - Keys mirror the screen path: `find.proposalEmpty`.
 - A key added in one locale file MUST be added to every other locale file.
 
+
 --- From Module: frontend/svelte ---
 
-# CLAUDE.md — Svelte Engineering Standards
+# CLAUDE.md — Svelte Standards
 
 ## Project Organization (Svelte/SvelteKit)
 
@@ -497,9 +572,10 @@ A handler should do **only** what its name implies. Extract teardown/cleanup log
 - **Immutable State:** When updating objects or arrays, use the spread operator (`state = [...state, newItem]`) to trigger reactivity.
 - **Transitions:** Use built-in `svelte/transition` for smooth UI interactions without external libraries.
 
+
 --- From Module: frontend/vue ---
 
-# CLAUDE.md — Vue.js Engineering Standards
+# CLAUDE.md — Vue Standards
 
 ## Project Organization (Vue)
 
@@ -535,9 +611,10 @@ A handler should do **only** what its name implies. Extract teardown/cleanup log
 - **Template Logic:** Keep logic in templates minimal. Move complex expressions to `computed` properties.
 - **Watchers:** Use `watchEffect` for simple side effects and `watch` when you need access to old/new values.
 
+
 --- From Module: mobile/flutter ---
 
-# CLAUDE.md — Flutter Engineering Standards
+# CLAUDE.md — Flutter Standards
 
 ## Project Organization
 
@@ -574,36 +651,3 @@ A handler should do **only** what its name implies. Extract teardown/cleanup log
 ### Assets & Localization
 
 - **Generated Code:** Use `flutter_gen` for type-safe asset access and `slang` or `easy_localization` for i18n.
-
---- From Module: engineering/devops ---
-
-# CLAUDE.md — DevOps & Infrastructure Standards
-
-## Core Principles
-
-- **IaC (Infrastructure as Code):** Every piece of infrastructure must be defined in code (Terraform, Pulumi, or K8s manifests). Manual changes via Cloud Consoles are forbidden.
-- **GitOps:** The state of the infrastructure should reflect the state of the Git repository.
-
-## CI/CD (GitHub Actions)
-
-- **Workflow Modularity:** Use reusable workflows to avoid duplication.
-- **Security:** Use OIDC for cloud provider authentication. Never use long-lived secrets/keys.
-- **Validation:** Every PR must trigger linting, security scanning (Trivy, Snyk), and unit tests.
-
-## Docker & Containers
-
-- **Multi-stage Builds:** Use multi-stage builds to keep production images small and secure.
-- **Base Images:** Use minimal base images (Alpine or Distroless).
-- **Rootless:** Run containers as non-root users.
-
-## Kubernetes
-
-- **Resource Limits:** Always define `requests` and `limits` for CPU and Memory.
-- **Probes:** Define `livenessProbe`, `readinessProbe`, and `startupProbe` for all deployments.
-- **Config & Secrets:** Use `ConfigMaps` for configuration and `Secrets` (integrated with Vault/AWS Secrets Manager) for sensitive data.
-
-## Observability
-
-- **Metrics:** Expose Prometheus-compatible `/metrics` endpoints.
-- **Logs:** Ensure logs are output in JSON format to stdout for easy aggregation (ELK/Loki).
-- **Tracing:** Use OpenTelemetry for distributed tracing in microservices.

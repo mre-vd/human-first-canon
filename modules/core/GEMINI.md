@@ -80,6 +80,14 @@ Whenever a piece of state is shared across surfaces, exactly **one** location is
 2. **Generate, don't copy.** Provide a script that regenerates derived locations from the source.
 3. **Forbid hand-editing derived files.**
 
+## Rule Synchronization Engine
+
+This repository serves as the **Global Source of Truth** for engineering rules across all company projects. To maintain consistency and prevent manual drift, use the provided synchronization tools:
+
+- **Source:** This repository (`modules/` directory).
+- **Distribution:** Managed via `bin/setup.sh` (or `manual-sync.sh`).
+- **Policy:** Never hand-edit `GEMINI.md` or `CLAUDE.md` in target projects. Always update the rules here and run a sync.
+
 ## Localization
 
 - **Automatic Alignment:** When editing content or copy, always automatically find and apply the corresponding updates to every language variant without waiting for explicit instruction.

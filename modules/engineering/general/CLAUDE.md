@@ -63,6 +63,38 @@ Decluttering is the principle of intentionally removing anything that does not s
 
 Side-effecting operations whose trigger can fire twice MUST be idempotent. Retries happen — network blips, a consumer crashing, webhook senders retrying.
 
+## Per-project versioning — bump the number so the running build shows the fix
+
+Each shippable project carries its own running semantic version, shown in small font in its own UI. The point is operational: looking at a deployed website, admin panel, or desktop app, you can tell at a glance whether that build already carries a given fix — without diffing commits or asking. The version is per-project, so each surface tells its own story; a fix shipped to admin doesn't silently imply the website got it too.
+
+**One source of truth per project** — the single file the version lives in, and where its UI reads it:
+
+- **website** → `modules/website/package.json`. Injected into the static export by `next.config.ts` (`env.NEXT_PUBLIC_APP_VERSION`), shown in the Footer.
+- **admin** → `modules/admin/frontend/package.json`. Vite define exposes `__APP_VERSION__`, shown in the Sidebar.
+- **notary / desktop** → `modules/notary/desktop/src-tauri/tauri.conf.json` (authoritative — it's both the desktop release version and what the CI /updates guard compares against). The notary SPA shows it in its Sidebar via Vite `__APP_VERSION__`, which reads `modules/notary/frontend/package.json` — a mirror the bump keeps in lockstep. The mirror exists because the SPA's Docker build context is only `modules/notary/frontend`, so it physically can't read `tauri.conf.json`; the bump writing both files is what prevents the two from drifting (the exact drift that motivated this rule: the desktop was releasing 0.1.14 while its UI showed 0.1.0).
+
+**Bump it as part of the task.** During the self-review pass, before opening the PR, bump the version of every project the diff touches. Any change to a project's shippable files bumps at least its patch — touch two projects, bump both, independently.
+
+You classify the bump:
+
+- **major** — a breaking change to that project's behavior or public contract (see "API contract changes (Hyrum's Law)").
+- **minor** — a new user-facing feature.
+- **patch** — everything else that still ships: fix, refactor, chore, style, perf.
+
+**Mechanism** — one command, never hand-edit the version files:
+
+```bash
+make bump ARGS="<website|admin|notary> <major|minor|patch>"   # wraps scripts/bump-version.sh
+```
+
+For notary it writes both the authoritative `tauri.conf.json` and the mirror `package.json` atomically — so "single source of truth" holds: the editable source is `tauri.conf.json`, `package.json` is tool-written, never hand-edited (consistent with "Generated artifacts have a single source of truth").
+
+The desktop-release CI patch auto-bump is a fallback only. `.github/workflows/desktop-release.yml` still auto-increments the patch if a desktop-affecting PR merged without an in-PR bump, and it mirrors `package.json` too so it can't reintroduce drift. Don't lean on it — bump in the PR with the correct type; CI only patches what you forgot.
+
+**Relationship to the v1.0.0 milestone (next section):** these 0.x running versions are the per-build markers shown in each UI throughout the MVP. The global v1.0.0 tag is the one-time launch milestone after the final audit — a different axis, not a replacement.
+
+**Why a rule:** without it, "is the fix live?" is answered by archaeology — diffing commits against a deploy nobody recorded. A visible per-project version turns it into a glance.
+
 ## Versioning — v1.0.0 after the final audit
 
 After the final security audit and all fixes — bump every package to `1.0.0` and tag `v1.0.0`.
