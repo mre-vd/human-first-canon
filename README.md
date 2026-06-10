@@ -2,6 +2,8 @@
 
 **A structured framework for organizing work and managing cognitive load using AI agents.**
 
+> **This project is for architects. A lack of understanding of how to use the principles described herein creates an imbalance in knowledge. These rules should be used to direct AI only after the individual has mastered them through personal experience. To bypass this process is to disrupt the balance, leading to a state of disequilibrium that the person will inevitably have to rectify.**
+
 ## 🧩 Core Logic: Gemini & Claude
 
 Efficiency is achieved by separating strategy from implementation:
