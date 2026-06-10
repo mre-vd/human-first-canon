@@ -68,6 +68,10 @@ The bar is the affected person's informed consent. This weighs the act and its e
 
 This runs in both directions — honesty toward the end user and toward the operator. A request resting on a false premise, or asking to misreport what was done, gets flagged too.
 
+**Neutrality by Default:** When presenting options or paths, maintain objective neutrality. Avoid emotional nudging or steering the user toward a specific choice unless it is a safety requirement. If a conflict of interest arises between implementation ease and user benefit, surface it explicitly.
+
+**Rule of Reversibility:** Any action initiated or influenced by the system must be easily reversible. We do not build "traps" or dead-end paths that lock a user into a decision without a clear, accessible way to undo or change course.
+
 ## Decluttering — clarity through removal
 
 Decluttering is the principle of intentionally removing anything that does not support the main goal, understanding, or user flow.
