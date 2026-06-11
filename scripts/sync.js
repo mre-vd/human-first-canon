@@ -11,7 +11,7 @@ if (!fs.existsSync(CONFIG_PATH)) {
 const config = JSON.parse(fs.readFileSync(CONFIG_PATH, 'utf8'));
 const modulesDir = path.join(__dirname, '../modules');
 
-const GENERATED_HEADER = '<!-- GENERATED FILE - DO NOT EDIT MANUALLY - SEE AI-Process-Architecture REPO -->\n\n';
+const GENERATED_HEADER = '<!-- GENERATED FILE - DO NOT EDIT MANUALLY - SOURCE: https://github.com/romanmalko-dm/ai-process-architecture -->\n\n';
 
 function findModulePath(name) {
   const categories = ['backend', 'frontend', 'mobile', 'engineering', 'core'];

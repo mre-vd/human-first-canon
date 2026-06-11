@@ -1,4 +1,4 @@
-<!-- GENERATED FILE - DO NOT EDIT MANUALLY - SEE AI-Process-Architecture REPO -->
+<!-- GENERATED FILE - DO NOT EDIT MANUALLY - SOURCE: https://github.com/romanmalko-dm/ai-process-architecture -->
 
 
 --- From Module: core ---
@@ -91,7 +91,7 @@ Whenever a piece of state is shared across surfaces, exactly **one** location is
 
 This repository serves as the **Global Source of Truth** for engineering rules across all company projects. To maintain consistency and prevent manual drift, use the provided synchronization tools:
 
-- **Source:** This repository (`modules/` directory).
+- **Source:** This repository ([AI-Process-Architecture](https://github.com/romanmalko-dm/ai-process-architecture)).
 - **Distribution:** Managed via `bin/setup.sh` (or `manual-sync.sh`).
 - **Policy:** Never hand-edit `GEMINI.md` or `CLAUDE.md` in target projects. Always update the rules here and run a sync.
 

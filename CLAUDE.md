@@ -1,4 +1,4 @@
-<!-- GENERATED FILE - DO NOT EDIT MANUALLY - SEE AI-Process-Architecture REPO -->
+<!-- GENERATED FILE - DO NOT EDIT MANUALLY - SOURCE: https://github.com/romanmalko-dm/ai-process-architecture -->
 
 
 --- From Module: engineering/general ---
@@ -397,6 +397,127 @@ _This checklist is intended to be expanded based on the specific technology stac
 
 - **Load Testing:** Run performance tests to identify bottlenecks under high traffic.
 - **Security Scanning:** Integrate SAST (Static Analysis) and DAST (Dynamic Analysis) tools into the CI/CD pipeline.
+
+
+--- From Module: backend/spring-boot ---
+
+# CLAUDE.md — Spring Boot & Java Standards
+
+## Technology Stack
+- **Java:** 21 (LTS)
+- **Framework:** Spring Boot 4.0.x
+- **Build Tool:** Gradle (Kotlin or Groovy DSL)
+- **Persistence:** Spring Data JPA + Hibernate
+- **Migrations:** Flyway
+
+## Core Engineering Principles
+
+### Package Structure
+Follow the functional grouping within modules:
+`com.inertia.[module].[feature]`
+- `[feature].controller` - Web/API Layer
+- `[feature].service` - Business Logic Layer
+- `[feature].entity` - Domain Entities
+- `[feature].repository` - Persistence Layer
+- `[feature].dto` - Data Transfer Objects
+
+### Coding Standards
+- **Immutability:** Prefer `record` for DTOs and configuration properties.
+- **Validation:** Use `jakarta.validation` (Bean Validation) in Controllers and Entities.
+- **Error Handling:** Use `@ControllerAdvice` and a global exception handler. Do not leak internal stack traces.
+- **Dependency Injection:** Use Constructor Injection. Avoid `@Autowired` on fields.
+
+### Persistence & SQL
+- **Migrations:** Use Flyway for all schema changes (`src/main/resources/db/migration`).
+- **Repositories:** Use Spring Data JPA. For complex queries involving custom logic or specific Postgres features, use `@Query` with native queries or specialized Repository implementations.
+- **Transactions:** Use `@Transactional` at the service layer. Keep transactions as short as possible.
+
+### Testing
+- **JUnit 5:** Primary testing framework.
+- **Testcontainers:** Use Testcontainers for integration tests involving PostgreSQL.
+- **Mocking:** Use Mockito for unit tests.
+- **Assertion:** Use AssertJ for fluent assertions.
+- **Nomenclature:** `[ClassName]Test` for unit tests, `[ClassName]IT` or `[ClassName]E2ETest` for integration/E2E tests.
+
+## Specific SB 4.0 Patterns
+- **Auto-configuration:** Be explicit about custom configurations. Spring Boot 4 requires careful handling of auto-configuration modules (e.g., `flyway-database-postgresql`).
+- **Observability:** Enable Actuator endpoints for health and metrics.
+
+
+--- From Module: frontend/nextjs ---
+
+# CLAUDE.md — Next.js Engineering Standards
+
+## Technology Stack
+- **Framework:** Next.js 16+ (App Router)
+- **React:** 19+
+- **Language:** TypeScript
+- **Styling:** Vanilla CSS / CSS Modules
+- **Testing:** Vitest + React Testing Library
+
+## Core Engineering Principles
+
+### Architecture: App Router
+- **Server Components (RSC):** Use by default for data fetching and static content.
+- **Client Components:** Use sparingly for interactivity (hooks, event listeners). Mark with `'use client'`.
+- **Directory Structure:**
+  - `app/` - Routing and server-side logic.
+  - `components/` - Shared UI components.
+  - `service/` - API clients and shared business logic.
+  - `hooks/` - Reusable client-side logic.
+
+### Data Fetching
+- **Server-side:** Fetch data directly in RSC using `async/await`.
+- **Caching:** Leverage Next.js built-in `fetch` cache and `revalidate`.
+- **Error Handling:** Use `error.tsx` for route-level error boundaries.
+
+### State Management
+- **Server State:** Handled by Next.js navigation and URL params.
+- **Client State:** Use React `useState`/`useContext` or specialized hooks. Avoid large global state managers if possible.
+
+### Testing
+- **Vitest:** Primary test runner.
+- **React Testing Library:** For component testing.
+- **Mocks:** Use MSW (Mock Service Worker) for API mocking in tests.
+- **Standards:** Test behavior, not implementation. Use accessible queries (e.g., `getByRole`).
+
+## Component Standards
+- **CSS Modules:** Use `[ComponentName].module.css` for scoped styling.
+- **TypeScript:** Strict typing for props and API responses. No `any`.
+- **Performance:** Optimize images using `next/image` and use appropriate loading states (`loading.tsx`).
+
+
+--- From Module: engineering/playwright ---
+
+# CLAUDE.md — Playwright Testing Standards
+
+## Core Principles
+
+- **End-to-End focus:** Tests should simulate real user behavior in a production-like environment.
+- **Isolation:** Each test should be independent. Manage state (e.g., via DB seeds or API calls) before and after each test.
+- **Resilience:** Avoid fragile selectors (e.g., deep CSS/XPath). Use user-facing attributes (labels, roles, text).
+
+## Coding Standards
+
+### Selectors & Locators
+- **Role-based:** `page.getByRole('button', { name: 'Submit' })` - PREFERRED.
+- **Label-based:** `page.getByLabel('Username')`.
+- **Placeholder:** `page.getByPlaceholder('Email address')`.
+- **Data-test-id:** Use `data-testid` only as a last resort.
+
+### Expectations & Assertions
+- **Web-first assertions:** Use `expect(locator).toBeVisible()` or `expect(locator).toHaveText()`. These have built-in auto-wait.
+- **Avoid manual timeouts:** Never use `page.waitForTimeout()`. Let Playwright's auto-waiting handle synchronization.
+
+### Test Structure
+- **Gherkin-style naming:** Use `Given/When/Then` logic in test descriptions.
+- **Page Object Model (POM):** Use POM for complex applications to encapsulate page logic and selectors.
+- **Fixtures:** Leverage custom fixtures for shared setup (e.g., authenticated sessions).
+
+## Execution & Reporting
+- **Headless mode:** Run in headless mode for CI.
+- **Tracing:** Enable tracing on failure for easier debugging.
+- **Parallelization:** Run tests in parallel to minimize execution time.
 
 
 --- From Module: backend/go ---
