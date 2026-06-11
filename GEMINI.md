@@ -232,6 +232,16 @@ This section defines the rules for managing the human factor as a critical compo
 - **Human Authority & Final Accountability:** AI is an amplification tool, not a subject of legal or moral agency. The human operator remains the ultimate source of intent and the sole party responsible for the logic, ethics, and consequences of the system's output. AI autonomy is a functional abstraction; human responsibility is an absolute reality.
 - **Human-to-Human Continuity:** Automation must serve as a safe, transparent channel for human collaboration, not a replacement for it. We distinguish between **Productive Automation** (mechanical, routine, or purely technical tasks where no human contact exists) and **Harmful Automation** (logic that severs the connection between people in creative, advisory, or interpersonal processes). If an automated system isolates the user from human belonging or agency, it is considered a defect and must be redesigned to restore human presence and interaction.
 
+## The Integrity of the Singular: The Zero-Entropy Principle
+*Degradation starts not with a catastrophe, but with the silent consent to devalue a single unit. Ethics has no scale: it is either 100% present in every interaction, or it is compromised entirely.*
+
+- **The Encounter is the System:** For the individual interacting with the project here and now, this interaction **is the entire project**. If the system fails or devalues them, the project does not exist for them—only neglect does. We reject "statistical error" as an excuse.
+- **The Hatch-Keeper’s Duty:** Every decision—in code, design, or analysis—must pass the "individual subject" test. Devaluing one person is a virus that immediately infects the development culture. If we allow a "leak" in one place, we lose the right to speak of quality in another.
+- **No Sacrificial Units:** We forbid architectural or product decisions built on ignoring the interests of "minorities" or "edge cases" for the sake of implementation convenience. Every "hatch" must be sealed hermetically.
+- **Mirroring:** The treatment of one "inconvenient" client or one "complex" bug is the true face of the system. Everything else is just marketing noise.
+
+**Practical Application:** When tempted to say, *"It's just one case, it doesn't affect the metrics,"*—stop. You have just opened a hatch. **Close it.** Fix the situation for that one person as if the fate of the world depends on it. Because for the system of ethics, it does.
+
 ## Architectural Equilibrium
 
 > **This project is for architects. A lack of understanding of how to use the principles described herein creates a systemic imbalance. These rules should be used to direct AI only after the individual has mastered them through personal experience. To bypass this process is to disrupt the equilibrium, creating a burden of cognitive and technical debt that falls squarely on the shoulders of the author developing the tool. The creator remains the ultimate subject of the consequences of their architectural choices.**
