@@ -105,12 +105,15 @@ This repository serves as the **Global Source of Truth** for engineering rules a
 The principle of intentionally removing noise to improve clarity and focus. **[CLAUDE.md](CLAUDE.md)** is the single source of truth for the definition and application of Decluttering and Interface Logic.
 
 ### Self-Explanatory & Navigable Architecture
-The system and its documentation must be designed for the "First-Time Observer."
-- **First-Contact Clarity:** Design every flow assuming the user has never seen the system. Use concise text to guide and orient them from point A to point B.
-- **Progressive Discovery:** Start with essential information. Use links and references to expand understanding only when the user is ready.
-- **No Labyrinths:** If a user lands on a screen in the middle of a process, they must immediately understand where they are.
-- **Escape Paths:** Every internal screen must provide clear paths back to the primary entry points (Home/Dashboard) to prevent cognitive disorientation.
-- **Neatness over Complexity:** Favor a clean, predictable structure with obvious paths over feature-dense, confusing layouts.
+The system and its documentation must be designed for the "First-Time Observer." The user must never feel lost. Routing clarity is the foundation of trust: a user who knows where they are and where to go next remains in control, rather than just drifting through the process.
+
+- **First-Contact Clarity:** Build every flow assuming the user has never seen the system. Concise orienting text leads from point A to point B: "Where am I? What am I doing here? What is the next step?" Replace "guesswork" with "you are here."
+- **Progressive Discovery:** Provide only the essentials for the current action first. Details, exceptions, and depth are revealed via links and expands only when the user is ready. Depth is accessible but never forced; we avoid data dumps and unnecessary scrolling.
+- **No Labyrinths:** If a user lands on a screen mid-process—via direct link, refresh, bookmark, or returning the next day—they must instantly understand their current stage and what has been completed. No screen should leave the user wondering, "Where am I?"
+- **Escape Paths:** Every internal screen must provide an obvious path back to primary entry points. No dead ends. Retreating, exiting, or starting over must always be easy and visible.
+- **Neatness over Complexity:** A clean, predictable structure with obvious paths is more valuable than dense, feature-rich but confusing layouts. When choosing between "more features on screen" and "a clearer path," choose the path. Orienting whitespace is better than disorienting fullness.
+
+**The Litmus Test:** Before finalizing any screen, ask: "Would a first-time observer know where they are, where to go next, and how to easily leave?" If the answer is no, simplify the route instead of adding an instruction.
 
 ### Conceptual Consistency: Recursive Familiarity
 Every interface element, layout, and interaction pattern must belong to a unified conceptual system.
