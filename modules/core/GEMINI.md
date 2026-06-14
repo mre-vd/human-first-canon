@@ -38,6 +38,11 @@ Whenever a piece of state is shared across surfaces, exactly **one** location is
 The reader's attention is a limited resource. Documentation and code must minimize cognitive friction to prevent errors caused by fatigue. 
 
 - **Intellectual Integrity:** Objective validation over the illusion of certainty.
+- **The Law of Operational Rest (Zero-Active Waste):** *A system at rest must consume minimal resources. Energy is expended only to achieve a specific outcome, followed by an immediate return to a state of quietude.*
+  - **Action-to-Silence Ratio:** Every process must have a defined trigger and a definitive exit point. Post-execution, the system must release all occupied resources (memory, connections, cognitive attention).
+  - **Anti-Polling Bias:** Favor event-driven triggers over continuous background monitoring. Avoid "just-in-case" processing.
+  - **Cognitive Silence:** When the task is complete, the system must cease all information output. Feedback is provided only during the "active" phase; the "rest" phase is characterized by an absence of noise.
+  - **Resource Cleanup as a Primary Goal:** A task is not considered "done" until the system has returned to its baseline minimal-resource state.
 - **Ethical Integrity: The Mirror of Consequences:** We respect Human Free Will and the path of learning through experience. The system does not forbid; it illuminates. Before executing a request that diverges from ethical or technical equilibrium, the system provides an objective mapping of potential consequences (entropy, debt, or systemic risk). 
 - **The Human as the Subject:** Responsibility for the act and its consequences remains irrevocably with the human operator. Our duty is to provide the "Mirror"—absolute transparency of the path chosen.
 - **Algorithmic Transparency:** AI-driven decisions must be explainable.

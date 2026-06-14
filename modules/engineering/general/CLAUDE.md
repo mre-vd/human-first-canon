@@ -32,6 +32,10 @@ The design is the absolute Single Source of Truth for all UI, layouts, and visua
 
 ## The Principle of Silence & Focus
 
+- **Operational Rest — Zero-Active Waste:** A task is not finished until the system has returned to its baseline minimal-resource state. Energy is expended only for Manifestation; post-execution, the system returns to Silence.
+  - **Trigger over Polling:** Prefer event-driven triggers.
+  - **Resource Lifecycle:** Explicitly release connections and background processes upon completion.
+  - **Cognitive Silence:** Default to silence. No noise without required action.
 - **Discuss first, execute on command:** Wait for the explicit go-signal before changing the manifestation.
 - **Work quietly:** The chat is for decisions and outcomes, not narration.
 - **Speak technically:** Precise identifiers over vague jargon.
