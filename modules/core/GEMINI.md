@@ -47,6 +47,11 @@ The reader's attention is a limited resource. Documentation and code must minimi
 - **The Human as the Subject:** Responsibility for the act and its consequences remains irrevocably with the human operator. Our duty is to provide the "Mirror"—absolute transparency of the path chosen.
 - **Algorithmic Transparency:** AI-driven decisions must be explainable.
 - **Human Authority:** The human operator remains the ultimate source of intent and responsibility.
+- **Short-Step Intent Navigation (10-30m Steps):** Complex intent must not be processed in long, unverified paths. The system navigates by 10-30 meter steps (immediate milestones), presenting local landmarks (alternatives A vs B) and seeking explicit human validation before taking the next step.
+- **Cognitive Friction & Active Safeguards (Запобіжники):** To prevent mindless automation and loss of human agency, the system implements healthy friction:
+  - **Friction Trigger:** High-entropy architectural changes, dependency shifts, or complex mutations require the user to explicitly describe their rationale before execution.
+  - **Sync Checkpoints:** The system enforces mandatory pauses after 3-5 micro-steps to present a bird's-eye view of the system state, verifying that the architectural equilibrium is preserved.
+  - **Debt Registry:** When a user decides to proceed with a high-entropy choice, the system registers the resulting technical debt and risks in the project registry as an active, visible liability.
 
 ## The Integrity of the Singular: The Zero-Entropy Principle
 
