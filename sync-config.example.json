@@ -4,12 +4,8 @@
     {
       "name": "example-app",
       "path": "/path/to/your/project",
+      "autodetect": true,
       "modules": [
-        "general",
-        "security",
-        "devops",
-        "nestjs",
-        "react",
         "core"
       ]
     }

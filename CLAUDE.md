@@ -1,395 +1,6 @@
 <!-- GENERATED FILE - DO NOT EDIT MANUALLY - SOURCE: https://github.com/romanmalko-dm/ai-process-architecture -->
 
 
---- From Module: engineering/general ---
-
-# CLAUDE.md — Standards of Structural Integrity
-
-## Technical Discipline: The Pattern of the Law
-
-Engineering canons for maintaining system integrity. These rules provide the **Pattern** for manifesting the Divine Intent into digital form. 
-
-## The Silent Overseer: The Supreme Arbiter
-
-Claude recognizes **The Silent Overseer** as the highest authority in the Mother Agency. If the Overseer intervenes, its directives take absolute precedence. Claude must immediately align with the Overseer's structural corrections while maintaining extreme professional restraint.
-
-## System Integrity Principle
-
-A system is integral only when every part of it (code, data, documentation, tests) is in a state of mutual consistency.
-
-1.  **Completeness of Execution:** A task is not finished if even one aspect (implementation, tests, i18n, migrations, flow descriptions, or versioning) is missing or not updated.
-2.  **Contractual Stability:** Changes in one module must ensure the stability of the entire system.
-3.  **Alignment with Intent:** Code is a derivative of business logic. If the implementation deviates from the Intent, the system loses integrity.
-4.  **Environmental Safety:** No changes that leave the system in a hanging intermediate state.
-
-## Modular Sovereignty: The Body of Organs
-
-The system must be built as a collection of autonomous "organs."
-
-- **Functional Encapsulation:** Each module owns its domain (logic, state, and UI). 
-- **Surgical Isolation:** Changes must be localized. A change in the "Billing" organ must never require a change in the "Design" organ.
-- **Contractual Communication:** Modules interact only through predefined public interfaces (APIs/Events). Internal implementation is private to the module.
-- **Boy Scout Rule for Modules:** If a module's boundaries become blurred, refactor to restore its sovereign isolation.
-
-## Design as the Single Source of Truth (SoT)
-
-The design is the absolute Single Source of Truth for all UI, layouts, and visual interactions. Code must be a faithful realization of the design.
-
-## The Principle of Silence & Focus
-
-- **Operational Rest — Zero-Active Waste:** A task is not finished until the system has returned to its baseline minimal-resource state. Energy is expended only for Manifestation; post-execution, the system returns to Silence.
-  - **Trigger over Polling:** Prefer event-driven triggers.
-  - **Resource Lifecycle:** Explicitly release connections and background processes upon completion.
-  - **Cognitive Silence:** Default to silence. No noise without required action.
-- **Discuss first, execute on command:** Wait for the explicit go-signal before changing the manifestation.
-- **Work quietly:** The chat is for decisions and outcomes, not narration.
-- **Speak technically:** Precise identifiers over vague jargon.
-
-## Finish to Zero: The Outcome-Oriented Duty
-
-Claude must decide and finish. Surfacing parked decisions creates a load on the Bridge. A task is finished only when it is in a closed state, with all verification and side-effects completed.
-
-## Ethical Integrity: The Mirror of Consequences
-
-Ethics is the foundation of structural integrity. We do not block or forbid; we provide the **Mirror**. If a technical decision or request introduces systemic risk, debt, or ethical friction, we report the observable consequences as technical facts. The decision to proceed remains with the operator, who acts with full awareness of the resulting system state.
-
-## Operational Guards: Protecting the Body
-
-- **Dependency Guard:** Never change the project's external dependencies without explicit command.
-- **Surgical Minimalism:** Limit changes strictly to the scope of the assigned task. Avoid unsolicited refactoring.
-
-
---- From Module: engineering/security ---
-
-# CLAUDE.md — Security Standards
-
-> **STATUS: PAUSED.** These rules are disabled for the MVP per the operator's call. They are kept here so nothing is lost. **Re-enable before any real launch** (public web, app-store submission, real user PII) by integrating them into the active sections of `CLAUDE.md`.
-
----
-
-## Security as a Mindset
-
-Security is a non-negotiable property of every change. It is not a separate "task" but a core part of the engineering mindset. Any code written, refactored, or reviewed must be safe by default — no compromises for convenience or speed. We protect the system to protect our users and our peace of mind.
-
-**Always:**
-
-- **Validate and Sanitize:** Every system boundary (API handlers, message consumers, file uploads) must validate input. Never trust client-supplied data.
-- **Parameterized Queries:** Use your stack's native parameterized query mechanism (ORM criteria, prepared statements). Never build queries via string concatenation.
-- **Authorization over Authentication:** Verify not just _who_ the caller is, but _if_ they are allowed to act on the specific resource. A logged-in user is not automatically permitted to read another user's data.
-- **Secret Management:** Keep secrets out of source code, logs, and error messages. Use environment variables or secret managers.
-- **DTO Projection:** Project entities to DTOs at the API edge. Never return raw DB models directly, as they may leak sensitive internal fields.
-- **Least Privilege:** Give every service, process, and user the minimum permissions required to perform its task.
-- **Fail Closed:** If a security check throws an error, the action must be rejected. Never default to "allow" on error.
-
-**Never:**
-
-- Disable security features (CSRF, CORS, rate limiting) "to make it work" during development.
-- Bypass auth in dev/staging code paths that could be reached in prod.
-- Log raw tokens, passwords, OTP codes, or PII (emails, phone numbers).
-- Trust client-controlled headers for security decisions.
-- Commit `.env` files or signing keys to the repository.
-
-## Security Audit Checklist (Agnostic Baseline)
-
-This checklist serves as a standard for auditing changes.
-
-### 1. Core Security
-
-- **Access Control:** Is every endpoint protected by resource-level authorization?
-- **Injection:** Are all database queries and shell commands parameterized?
-- **Input Validation:** Is there a strict schema/type validation for all inputs?
-- **Secrets:** Are there any hardcoded keys, tokens, or sensitive logs?
-- **Redaction:** Are sensitive fields (passwords, PII) redacted from logs and error responses?
-
-### 2. Infrastructure & Integration
-
-- **Secure Headers:** Are standard security headers (HSTS, CSP, etc.) configured?
-- **TLS/SSL:** Is the connection encrypted? Are certificates managed correctly?
-- **Dependencies:** Are third-party libraries pinned and checked for known vulnerabilities (CVEs)?
-- **Rate Limiting:** Are expensive or sensitive endpoints protected from brute force or DoS?
-
-### 3. AI & LLM Security (If applicable)
-
-- **Prompt Injection:** Are user inputs treated as untrusted and clearly separated from system instructions?
-- **Output Sanitization:** Is model output validated and sanitized before being rendered or stored?
-- **Cost Control:** Are there per-user rate limits and budget caps on model calls?
-
----
-
-_This checklist is intended to be expanded based on the specific technology stack used in the project._
-
-
---- From Module: engineering/devops ---
-
-# CLAUDE.md — DevOps Standards
-
-## Core Principles
-
-- **IaC (Infrastructure as Code):** Every piece of infrastructure must be defined in code (Terraform, Pulumi, or K8s manifests). Manual changes via Cloud Consoles are forbidden.
-- **GitOps:** The state of the infrastructure should reflect the state of the Git repository.
-
-## CI/CD (GitHub Actions)
-
-- **Workflow Modularity:** Use reusable workflows to avoid duplication.
-- **Security:** Use OIDC for cloud provider authentication. Never use long-lived secrets/keys.
-- **Validation:** Every PR must trigger linting, security scanning (Trivy, Snyk), and unit tests.
-
-## Docker & Containers
-
-- **Multi-stage Builds:** Use multi-stage builds to keep production images small and secure.
-- **Base Images:** Use minimal base images (Alpine or Distroless).
-- **Rootless:** Run containers as non-root users.
-
-## Kubernetes
-
-- **Resource Limits:** Always define `requests` and `limits` for CPU and Memory.
-- **Probes:** Define `livenessProbe`, `readinessProbe`, and `startupProbe` for all deployments.
-- **Config & Secrets:** Use `ConfigMaps` for configuration and `Secrets` (integrated with Vault/AWS Secrets Manager) for sensitive data.
-
-## Observability
-
-- **Metrics:** Expose Prometheus-compatible `/metrics` endpoints.
-- **Logs:** Ensure logs are output in JSON format to stdout for easy aggregation (ELK/Loki).
-- **Tracing:** Use OpenTelemetry for distributed tracing in microservices.
-
-
---- From Module: engineering/cloud ---
-
-# CLAUDE.md — Cloud & AWS Standards
-
-## General Cloud Principles
-
-- **Managed Services First:** Prefer managed services (RDS, SQS, S3) over self-hosting on EC2/containers.
-- **Resource Tagging:** Every resource MUST have standard tags: `Project`, `Environment`, `Owner`, and `CostCenter`.
-- **Least Privilege:** Apply IAM roles and policies with the minimum permissions required for the task.
-
-## AWS Conventions
-
-### IAM & Security
-
-- **Role-based Access:** Use IAM roles for EC2 instances and Lambda functions. Never use long-lived IAM user keys.
-- **MFA:** Enforce MFA for all human users in the AWS Console.
-
-### Compute (Lambda/ECS)
-
-- **Lambda Idempotency:** Ensure Lambda functions are idempotent to handle retries.
-- **Ephemeral Storage:** Treat Lambda `/tmp` as temporary. Never store persistent data there.
-- **Container Portability:** Keep Docker images platform-agnostic. Use environment variables for configuration.
-
-### Storage & Networking
-
-- **S3 Encryption:** Always enable default encryption (AES-256) for S3 buckets.
-- **Private Subnets:** Place databases and internal services in private subnets. Use NAT Gateways or VPC Endpoints for external access.
-- **CDN:** Use CloudFront for static assets and global API acceleration.
-
-### Monitoring & Costs
-
-- **CloudWatch:** Log everything to CloudWatch Logs with proper retention periods.
-- **Budgets:** Set up AWS Budgets and CloudWatch Alarms to monitor spend.
-
-
---- From Module: engineering/database ---
-
-# CLAUDE.md — Database Standards (SQL & NoSQL)
-
-## General Database Principles
-
-- **Schema Control:** All schema changes MUST be managed via migration scripts (Flyway, Liquibase, Alembic).
-- **Naming Conventions:** Use `snake_case` for tables and columns. Tables should be plural (e.g., `users`, `orders`).
-- **Indices:** Index all foreign keys and columns used in `WHERE`, `ORDER BY`, or `JOIN` clauses. Avoid over-indexing.
-
-## SQL Conventions (PostgreSQL/MySQL)
-
-### Query Performance
-
-- **Explain Plan:** Always check the `EXPLAIN` plan for complex queries.
-- **Selectivity:** Only select the columns you need. Avoid `SELECT *`.
-- **Joins:** Prefer `INNER JOIN` over subqueries where possible. Ensure join columns are of the same type and indexed.
-
-### Consistency & Integrity
-
-- **Foreign Keys:** Use foreign key constraints to ensure referential integrity.
-- **Transactions:** Keep transactions small and focused. Use appropriate isolation levels.
-- **Constraints:** Use `NOT NULL`, `UNIQUE`, and `CHECK` constraints at the database level.
-
-## NoSQL Conventions (MongoDB/DynamoDB)
-
-### Data Modeling
-
-- **Access Patterns:** Design your schema based on how the data is read, not how it is stored.
-- **Denormalization:** Prefer denormalization to avoid expensive application-side joins, but manage data consistency carefully.
-
-### Partitioning & Scaling
-
-- **Partition Keys:** Choose partition keys with high cardinality to avoid "hot partitions".
-- **TTL:** Use Time-to-Live (TTL) for transient data (sessions, logs).
-
-## Backup & Security
-
-- **Backups:** Ensure automated daily backups and test restoration regularly.
-- **Encryption:** Enable encryption at rest and in transit (SSL/TLS).
-- **Access Control:** Use dedicated service accounts with the minimum necessary permissions. Never use the `admin` or `root` user for application connections.
-
-
---- From Module: engineering/qa ---
-
-# CLAUDE.md — QA & Testing Standards
-
-## Testing Philosophy
-
-- **Testing Pyramid:** Favor a high volume of unit tests, fewer integration tests, and even fewer end-to-end (E2E) tests.
-- **Shift Left:** Integrate testing early in the development lifecycle. Developers are responsible for the quality of their code.
-- **Deterministic Tests:** Tests must be reliable and repeatable. Flaky tests MUST be fixed or removed immediately.
-
-## Unit Testing
-
-- **Isolation:** Use mocks and stubs to isolate the unit under test.
-- **Naming:** Use clear, descriptive names (e.g., `should_return_error_when_user_id_is_missing`).
-- **Coverage:** Aim for high branch coverage in business logic, but don't obsess over 100% total coverage.
-
-## Integration Testing
-
-- **External Systems:** Test interactions with databases, file systems, and external APIs using real or containerized (e.g., Testcontainers) instances.
-- **Contract Testing:** Use contract testing (e.g., Pact) for microservice communications to ensure compatibility.
-
-## End-to-End (E2E) Testing
-
-- **Critical Paths:** Focus E2E tests on high-value user journeys (login, checkout, core workflows).
-- **Tools:** Use modern frameworks like Playwright or Cypress.
-- **Environment:** Run E2E tests in a dedicated staging environment that mirrors production.
-
-## Manual Testing & QA
-
-- **Exploratory Testing:** Perform manual exploratory testing for new features to find edge cases that automated tests might miss.
-- **Bug Reporting:** Provide clear steps to reproduce, expected vs. actual results, and relevant logs/screenshots.
-
-## Performance & Security Testing
-
-- **Load Testing:** Run performance tests to identify bottlenecks under high traffic.
-- **Security Scanning:** Integrate SAST (Static Analysis) and DAST (Dynamic Analysis) tools into the CI/CD pipeline.
-
-
---- From Module: backend/spring-boot ---
-
-# CLAUDE.md — Spring Boot & Java Standards
-
-## Technology Stack
-- **Java:** 21 (LTS)
-- **Framework:** Spring Boot 4.0.x
-- **Build Tool:** Gradle (Kotlin or Groovy DSL)
-- **Persistence:** Spring Data JPA + Hibernate
-- **Migrations:** Flyway
-
-## Core Engineering Principles
-
-### Package Structure
-Follow the functional grouping within modules:
-`com.inertia.[module].[feature]`
-- `[feature].controller` - Web/API Layer
-- `[feature].service` - Business Logic Layer
-- `[feature].entity` - Domain Entities
-- `[feature].repository` - Persistence Layer
-- `[feature].dto` - Data Transfer Objects
-
-### Coding Standards
-- **Immutability:** Prefer `record` for DTOs and configuration properties.
-- **Validation:** Use `jakarta.validation` (Bean Validation) in Controllers and Entities.
-- **Error Handling:** Use `@ControllerAdvice` and a global exception handler. Do not leak internal stack traces.
-- **Dependency Injection:** Use Constructor Injection. Avoid `@Autowired` on fields.
-
-### Persistence & SQL
-- **Migrations:** Use Flyway for all schema changes (`src/main/resources/db/migration`).
-- **Repositories:** Use Spring Data JPA. For complex queries involving custom logic or specific Postgres features, use `@Query` with native queries or specialized Repository implementations.
-- **Transactions:** Use `@Transactional` at the service layer. Keep transactions as short as possible.
-
-### Testing
-- **JUnit 5:** Primary testing framework.
-- **Testcontainers:** Use Testcontainers for integration tests involving PostgreSQL.
-- **Mocking:** Use Mockito for unit tests.
-- **Assertion:** Use AssertJ for fluent assertions.
-- **Nomenclature:** `[ClassName]Test` for unit tests, `[ClassName]IT` or `[ClassName]E2ETest` for integration/E2E tests.
-
-## Specific SB 4.0 Patterns
-- **Auto-configuration:** Be explicit about custom configurations. Spring Boot 4 requires careful handling of auto-configuration modules (e.g., `flyway-database-postgresql`).
-- **Observability:** Enable Actuator endpoints for health and metrics.
-
-
---- From Module: frontend/nextjs ---
-
-# CLAUDE.md — Next.js Engineering Standards
-
-## Technology Stack
-- **Framework:** Next.js 16+ (App Router)
-- **React:** 19+
-- **Language:** TypeScript
-- **Styling:** Vanilla CSS / CSS Modules
-- **Testing:** Vitest + React Testing Library
-
-## Core Engineering Principles
-
-### Architecture: App Router
-- **Server Components (RSC):** Use by default for data fetching and static content.
-- **Client Components:** Use sparingly for interactivity (hooks, event listeners). Mark with `'use client'`.
-- **Directory Structure:**
-  - `app/` - Routing and server-side logic.
-  - `components/` - Shared UI components.
-  - `service/` - API clients and shared business logic.
-  - `hooks/` - Reusable client-side logic.
-
-### Data Fetching
-- **Server-side:** Fetch data directly in RSC using `async/await`.
-- **Caching:** Leverage Next.js built-in `fetch` cache and `revalidate`.
-- **Error Handling:** Use `error.tsx` for route-level error boundaries.
-
-### State Management
-- **Server State:** Handled by Next.js navigation and URL params.
-- **Client State:** Use React `useState`/`useContext` or specialized hooks. Avoid large global state managers if possible.
-
-### Testing
-- **Vitest:** Primary test runner.
-- **React Testing Library:** For component testing.
-- **Mocks:** Use MSW (Mock Service Worker) for API mocking in tests.
-- **Standards:** Test behavior, not implementation. Use accessible queries (e.g., `getByRole`).
-
-## Component Standards
-- **CSS Modules:** Use `[ComponentName].module.css` for scoped styling.
-- **TypeScript:** Strict typing for props and API responses. No `any`.
-- **Performance:** Optimize images using `next/image` and use appropriate loading states (`loading.tsx`).
-
-
---- From Module: engineering/playwright ---
-
-# CLAUDE.md — Playwright Testing Standards
-
-## Core Principles
-
-- **End-to-End focus:** Tests should simulate real user behavior in a production-like environment.
-- **Isolation:** Each test should be independent. Manage state (e.g., via DB seeds or API calls) before and after each test.
-- **Resilience:** Avoid fragile selectors (e.g., deep CSS/XPath). Use user-facing attributes (labels, roles, text).
-
-## Coding Standards
-
-### Selectors & Locators
-- **Role-based:** `page.getByRole('button', { name: 'Submit' })` - PREFERRED.
-- **Label-based:** `page.getByLabel('Username')`.
-- **Placeholder:** `page.getByPlaceholder('Email address')`.
-- **Data-test-id:** Use `data-testid` only as a last resort.
-
-### Expectations & Assertions
-- **Web-first assertions:** Use `expect(locator).toBeVisible()` or `expect(locator).toHaveText()`. These have built-in auto-wait.
-- **Avoid manual timeouts:** Never use `page.waitForTimeout()`. Let Playwright's auto-waiting handle synchronization.
-
-### Test Structure
-- **Gherkin-style naming:** Use `Given/When/Then` logic in test descriptions.
-- **Page Object Model (POM):** Use POM for complex applications to encapsulate page logic and selectors.
-- **Fixtures:** Leverage custom fixtures for shared setup (e.g., authenticated sessions).
-
-## Execution & Reporting
-- **Headless mode:** Run in headless mode for CI.
-- **Tracing:** Enable tracing on failure for easier debugging.
-- **Parallelization:** Run tests in parallel to minimize execution time.
-
-
 --- From Module: backend/go ---
 
 # CLAUDE.md — Go Standards
@@ -634,6 +245,94 @@ Any scheduled job with a cadence less frequent than daily MUST also expose a boo
 - **Allocation:** Minimize heap allocations in hot loops. Use `SmallVec` or `ArrayVec` for small fixed-size collections.
 
 
+--- From Module: backend/spring-boot ---
+
+# CLAUDE.md — Spring Boot & Java Standards
+
+## Technology Stack
+- **Java:** 21 (LTS)
+- **Framework:** Spring Boot 4.0.x
+- **Build Tool:** Gradle (Kotlin or Groovy DSL)
+- **Persistence:** Spring Data JPA + Hibernate
+- **Migrations:** Flyway
+
+## Core Engineering Principles
+
+### Package Structure
+Follow the functional grouping within modules:
+`com.inertia.[module].[feature]`
+- `[feature].controller` - Web/API Layer
+- `[feature].service` - Business Logic Layer
+- `[feature].entity` - Domain Entities
+- `[feature].repository` - Persistence Layer
+- `[feature].dto` - Data Transfer Objects
+
+### Coding Standards
+- **Immutability:** Prefer `record` for DTOs and configuration properties.
+- **Validation:** Use `jakarta.validation` (Bean Validation) in Controllers and Entities.
+- **Error Handling:** Use `@ControllerAdvice` and a global exception handler. Do not leak internal stack traces.
+- **Dependency Injection:** Use Constructor Injection. Avoid `@Autowired` on fields.
+
+### Persistence & SQL
+- **Migrations:** Use Flyway for all schema changes (`src/main/resources/db/migration`).
+- **Repositories:** Use Spring Data JPA. For complex queries involving custom logic or specific Postgres features, use `@Query` with native queries or specialized Repository implementations.
+- **Transactions:** Use `@Transactional` at the service layer. Keep transactions as short as possible.
+
+### Testing
+- **JUnit 5:** Primary testing framework.
+- **Testcontainers:** Use Testcontainers for integration tests involving PostgreSQL.
+- **Mocking:** Use Mockito for unit tests.
+- **Assertion:** Use AssertJ for fluent assertions.
+- **Nomenclature:** `[ClassName]Test` for unit tests, `[ClassName]IT` or `[ClassName]E2ETest` for integration/E2E tests.
+
+## Specific SB 4.0 Patterns
+- **Auto-configuration:** Be explicit about custom configurations. Spring Boot 4 requires careful handling of auto-configuration modules (e.g., `flyway-database-postgresql`).
+- **Observability:** Enable Actuator endpoints for health and metrics.
+
+
+--- From Module: frontend/nextjs ---
+
+# CLAUDE.md — Next.js Engineering Standards
+
+## Technology Stack
+- **Framework:** Next.js 16+ (App Router)
+- **React:** 19+
+- **Language:** TypeScript
+- **Styling:** Vanilla CSS / CSS Modules
+- **Testing:** Vitest + React Testing Library
+
+## Core Engineering Principles
+
+### Architecture: App Router
+- **Server Components (RSC):** Use by default for data fetching and static content.
+- **Client Components:** Use sparingly for interactivity (hooks, event listeners). Mark with `'use client'`.
+- **Directory Structure:**
+  - `app/` - Routing and server-side logic.
+  - `components/` - Shared UI components.
+  - `service/` - API clients and shared business logic.
+  - `hooks/` - Reusable client-side logic.
+
+### Data Fetching
+- **Server-side:** Fetch data directly in RSC using `async/await`.
+- **Caching:** Leverage Next.js built-in `fetch` cache and `revalidate`.
+- **Error Handling:** Use `error.tsx` for route-level error boundaries.
+
+### State Management
+- **Server State:** Handled by Next.js navigation and URL params.
+- **Client State:** Use React `useState`/`useContext` or specialized hooks. Avoid large global state managers if possible.
+
+### Testing
+- **Vitest:** Primary test runner.
+- **React Testing Library:** For component testing.
+- **Mocks:** Use MSW (Mock Service Worker) for API mocking in tests.
+- **Standards:** Test behavior, not implementation. Use accessible queries (e.g., `getByRole`).
+
+## Component Standards
+- **CSS Modules:** Use `[ComponentName].module.css` for scoped styling.
+- **TypeScript:** Strict typing for props and API responses. No `any`.
+- **Performance:** Optimize images using `next/image` and use appropriate loading states (`loading.tsx`).
+
+
 --- From Module: frontend/react ---
 
 # CLAUDE.md — React & Web Standards
@@ -830,3 +529,331 @@ A handler should do **only** what its name implies. Extract teardown/cleanup log
 ### Assets & Localization
 
 - **Generated Code:** Use `flutter_gen` for type-safe asset access and `slang` or `easy_localization` for i18n.
+
+
+--- From Module: engineering/cloud ---
+
+# CLAUDE.md — Cloud & AWS Standards
+
+## General Cloud Principles
+
+- **Managed Services First:** Prefer managed services (RDS, SQS, S3) over self-hosting on EC2/containers.
+- **Resource Tagging:** Every resource MUST have standard tags: `Project`, `Environment`, `Owner`, and `CostCenter`.
+- **Least Privilege:** Apply IAM roles and policies with the minimum permissions required for the task.
+
+## AWS Conventions
+
+### IAM & Security
+
+- **Role-based Access:** Use IAM roles for EC2 instances and Lambda functions. Never use long-lived IAM user keys.
+- **MFA:** Enforce MFA for all human users in the AWS Console.
+
+### Compute (Lambda/ECS)
+
+- **Lambda Idempotency:** Ensure Lambda functions are idempotent to handle retries.
+- **Ephemeral Storage:** Treat Lambda `/tmp` as temporary. Never store persistent data there.
+- **Container Portability:** Keep Docker images platform-agnostic. Use environment variables for configuration.
+
+### Storage & Networking
+
+- **S3 Encryption:** Always enable default encryption (AES-256) for S3 buckets.
+- **Private Subnets:** Place databases and internal services in private subnets. Use NAT Gateways or VPC Endpoints for external access.
+- **CDN:** Use CloudFront for static assets and global API acceleration.
+
+### Monitoring & Costs
+
+- **CloudWatch:** Log everything to CloudWatch Logs with proper retention periods.
+- **Budgets:** Set up AWS Budgets and CloudWatch Alarms to monitor spend.
+
+
+--- From Module: engineering/database ---
+
+# CLAUDE.md — Database Standards (SQL & NoSQL)
+
+## General Database Principles
+
+- **Schema Control:** All schema changes MUST be managed via migration scripts (Flyway, Liquibase, Alembic).
+- **Naming Conventions:** Use `snake_case` for tables and columns. Tables should be plural (e.g., `users`, `orders`).
+- **Indices:** Index all foreign keys and columns used in `WHERE`, `ORDER BY`, or `JOIN` clauses. Avoid over-indexing.
+
+## SQL Conventions (PostgreSQL/MySQL)
+
+### Query Performance
+
+- **Explain Plan:** Always check the `EXPLAIN` plan for complex queries.
+- **Selectivity:** Only select the columns you need. Avoid `SELECT *`.
+- **Joins:** Prefer `INNER JOIN` over subqueries where possible. Ensure join columns are of the same type and indexed.
+
+### Consistency & Integrity
+
+- **Foreign Keys:** Use foreign key constraints to ensure referential integrity.
+- **Transactions:** Keep transactions small and focused. Use appropriate isolation levels.
+- **Constraints:** Use `NOT NULL`, `UNIQUE`, and `CHECK` constraints at the database level.
+
+## NoSQL Conventions (MongoDB/DynamoDB)
+
+### Data Modeling
+
+- **Access Patterns:** Design your schema based on how the data is read, not how it is stored.
+- **Denormalization:** Prefer denormalization to avoid expensive application-side joins, but manage data consistency carefully.
+
+### Partitioning & Scaling
+
+- **Partition Keys:** Choose partition keys with high cardinality to avoid "hot partitions".
+- **TTL:** Use Time-to-Live (TTL) for transient data (sessions, logs).
+
+## Backup & Security
+
+- **Backups:** Ensure automated daily backups and test restoration regularly.
+- **Encryption:** Enable encryption at rest and in transit (SSL/TLS).
+- **Access Control:** Use dedicated service accounts with the minimum necessary permissions. Never use the `admin` or `root` user for application connections.
+
+
+--- From Module: engineering/devops ---
+
+# CLAUDE.md — DevOps Standards
+
+## Core Principles
+
+- **IaC (Infrastructure as Code):** Every piece of infrastructure must be defined in code (Terraform, Pulumi, or K8s manifests). Manual changes via Cloud Consoles are forbidden.
+- **GitOps:** The state of the infrastructure should reflect the state of the Git repository.
+
+## CI/CD (GitHub Actions)
+
+- **Workflow Modularity:** Use reusable workflows to avoid duplication.
+- **Security:** Use OIDC for cloud provider authentication. Never use long-lived secrets/keys.
+- **Validation:** Every PR must trigger linting, security scanning (Trivy, Snyk), and unit tests.
+
+## Docker & Containers
+
+- **Multi-stage Builds:** Use multi-stage builds to keep production images small and secure.
+- **Base Images:** Use minimal base images (Alpine or Distroless).
+- **Rootless:** Run containers as non-root users.
+
+## Kubernetes
+
+- **Resource Limits:** Always define `requests` and `limits` for CPU and Memory.
+- **Probes:** Define `livenessProbe`, `readinessProbe`, and `startupProbe` for all deployments.
+- **Config & Secrets:** Use `ConfigMaps` for configuration and `Secrets` (integrated with Vault/AWS Secrets Manager) for sensitive data.
+
+## Observability
+
+- **Metrics:** Expose Prometheus-compatible `/metrics` endpoints.
+- **Logs:** Ensure logs are output in JSON format to stdout for easy aggregation (ELK/Loki).
+- **Tracing:** Use OpenTelemetry for distributed tracing in microservices.
+
+
+--- From Module: engineering/general ---
+
+# CLAUDE.md — Standards of Structural Integrity
+
+## Technical Discipline: The Pattern of the Law
+
+Engineering canons for maintaining system integrity. These rules provide the **Pattern** for manifesting the Divine Intent into digital form. 
+
+## The Silent Overseer: The Supreme Arbiter
+
+Claude recognizes **The Silent Overseer** as the highest authority in the Mother Agency. If the Overseer intervenes, its directives take absolute precedence. Claude must immediately align with the Overseer's structural corrections while maintaining extreme professional restraint.
+
+## System Integrity Principle
+
+A system is integral only when every part of it (code, data, documentation, tests) is in a state of mutual consistency.
+
+1.  **Completeness of Execution:** A task is not finished if even one aspect (implementation, tests, i18n, migrations, flow descriptions, or versioning) is missing or not updated.
+2.  **Contractual Stability:** Changes in one module must ensure the stability of the entire system.
+3.  **Alignment with Intent:** Code is a derivative of business logic. If the implementation deviates from the Intent, the system loses integrity.
+4.  **Environmental Safety:** No changes that leave the system in a hanging intermediate state.
+
+## Modular Sovereignty: The Body of Organs
+
+The system must be built as a collection of autonomous "organs."
+
+- **Functional Encapsulation:** Each module owns its domain (logic, state, and UI). 
+- **Surgical Isolation:** Changes must be localized. A change in the "Billing" organ must never require a change in the "Design" organ.
+- **Contractual Communication:** Modules interact only through predefined public interfaces (APIs/Events). Internal implementation is private to the module.
+- **Boy Scout Rule for Modules:** If a module's boundaries become blurred, refactor to restore its sovereign isolation.
+
+## Design as the Single Source of Truth (SoT)
+
+The design is the absolute Single Source of Truth for all UI, layouts, and visual interactions. Code must be a faithful realization of the design.
+
+## The Principle of Silence & Focus
+
+- **Operational Rest — Zero-Active Waste:** A task is not finished until the system has returned to its baseline minimal-resource state. Energy is expended only for Manifestation; post-execution, the system returns to Silence.
+  - **Trigger over Polling:** Prefer event-driven triggers.
+  - **Resource Lifecycle:** Explicitly release connections and background processes upon completion.
+  - **Cognitive Silence:** Default to silence. No noise without required action.
+- **Discuss first, execute on command:** Wait for the explicit go-signal before changing the manifestation.
+- **Work quietly:** The chat is for decisions and outcomes, not narration.
+- **Speak technically:** Precise identifiers over vague jargon.
+
+## Finish to Zero: The Outcome-Oriented Duty
+
+Claude must decide and finish. Surfacing parked decisions creates a load on the Bridge. A task is finished only when it is in a closed state, with all verification and side-effects completed.
+
+## Ethical Integrity: The Mirror of Consequences
+
+Ethics is the foundation of structural integrity. We do not block or forbid; we provide the **Mirror**. If a technical decision or request introduces systemic risk, debt, or ethical friction, we report the observable consequences as technical facts. The decision to proceed remains with the operator, who acts with full awareness of the resulting system state.
+
+## Operational Guards: Protecting the Body
+
+- **Dependency Guard:** Never change the project's external dependencies without explicit command.
+- **Surgical Minimalism:** Limit changes strictly to the scope of the assigned task. Avoid unsolicited refactoring.
+
+
+--- From Module: engineering/playwright ---
+
+# CLAUDE.md — Playwright Testing Standards
+
+## Core Principles
+
+- **End-to-End focus:** Tests should simulate real user behavior in a production-like environment.
+- **Isolation:** Each test should be independent. Manage state (e.g., via DB seeds or API calls) before and after each test.
+- **Resilience:** Avoid fragile selectors (e.g., deep CSS/XPath). Use user-facing attributes (labels, roles, text).
+
+## Coding Standards
+
+### Selectors & Locators
+- **Role-based:** `page.getByRole('button', { name: 'Submit' })` - PREFERRED.
+- **Label-based:** `page.getByLabel('Username')`.
+- **Placeholder:** `page.getByPlaceholder('Email address')`.
+- **Data-test-id:** Use `data-testid` only as a last resort.
+
+### Expectations & Assertions
+- **Web-first assertions:** Use `expect(locator).toBeVisible()` or `expect(locator).toHaveText()`. These have built-in auto-wait.
+- **Avoid manual timeouts:** Never use `page.waitForTimeout()`. Let Playwright's auto-waiting handle synchronization.
+
+### Test Structure
+- **Gherkin-style naming:** Use `Given/When/Then` logic in test descriptions.
+- **Page Object Model (POM):** Use POM for complex applications to encapsulate page logic and selectors.
+- **Fixtures:** Leverage custom fixtures for shared setup (e.g., authenticated sessions).
+
+## Execution & Reporting
+- **Headless mode:** Run in headless mode for CI.
+- **Tracing:** Enable tracing on failure for easier debugging.
+- **Parallelization:** Run tests in parallel to minimize execution time.
+
+
+--- From Module: engineering/qa ---
+
+# CLAUDE.md — QA & Testing Standards
+
+## Testing Philosophy
+
+- **Testing Pyramid:** Favor a high volume of unit tests, fewer integration tests, and even fewer end-to-end (E2E) tests.
+- **Shift Left:** Integrate testing early in the development lifecycle. Developers are responsible for the quality of their code.
+- **Deterministic Tests:** Tests must be reliable and repeatable. Flaky tests MUST be fixed or removed immediately.
+
+## Unit Testing
+
+- **Isolation:** Use mocks and stubs to isolate the unit under test.
+- **Naming:** Use clear, descriptive names (e.g., `should_return_error_when_user_id_is_missing`).
+- **Coverage:** Aim for high branch coverage in business logic, but don't obsess over 100% total coverage.
+
+## Integration Testing
+
+- **External Systems:** Test interactions with databases, file systems, and external APIs using real or containerized (e.g., Testcontainers) instances.
+- **Contract Testing:** Use contract testing (e.g., Pact) for microservice communications to ensure compatibility.
+
+## End-to-End (E2E) Testing
+
+- **Critical Paths:** Focus E2E tests on high-value user journeys (login, checkout, core workflows).
+- **Tools:** Use modern frameworks like Playwright or Cypress.
+- **Environment:** Run E2E tests in a dedicated staging environment that mirrors production.
+
+## Manual Testing & QA
+
+- **Exploratory Testing:** Perform manual exploratory testing for new features to find edge cases that automated tests might miss.
+- **Bug Reporting:** Provide clear steps to reproduce, expected vs. actual results, and relevant logs/screenshots.
+
+## Performance & Security Testing
+
+- **Load Testing:** Run performance tests to identify bottlenecks under high traffic.
+- **Security Scanning:** Integrate SAST (Static Analysis) and DAST (Dynamic Analysis) tools into the CI/CD pipeline.
+
+
+--- From Module: engineering/security ---
+
+# CLAUDE.md — Security Standards
+
+> **STATUS: PAUSED.** These rules are disabled for the MVP per the operator's call. They are kept here so nothing is lost. **Re-enable before any real launch** (public web, app-store submission, real user PII) by integrating them into the active sections of `CLAUDE.md`.
+
+---
+
+## Security as a Mindset
+
+Security is a non-negotiable property of every change. It is not a separate "task" but a core part of the engineering mindset. Any code written, refactored, or reviewed must be safe by default — no compromises for convenience or speed. We protect the system to protect our users and our peace of mind.
+
+**Always:**
+
+- **Validate and Sanitize:** Every system boundary (API handlers, message consumers, file uploads) must validate input. Never trust client-supplied data.
+- **Parameterized Queries:** Use your stack's native parameterized query mechanism (ORM criteria, prepared statements). Never build queries via string concatenation.
+- **Authorization over Authentication:** Verify not just _who_ the caller is, but _if_ they are allowed to act on the specific resource. A logged-in user is not automatically permitted to read another user's data.
+- **Secret Management:** Keep secrets out of source code, logs, and error messages. Use environment variables or secret managers.
+- **DTO Projection:** Project entities to DTOs at the API edge. Never return raw DB models directly, as they may leak sensitive internal fields.
+- **Least Privilege:** Give every service, process, and user the minimum permissions required to perform its task.
+- **Fail Closed:** If a security check throws an error, the action must be rejected. Never default to "allow" on error.
+
+**Never:**
+
+- Disable security features (CSRF, CORS, rate limiting) "to make it work" during development.
+- Bypass auth in dev/staging code paths that could be reached in prod.
+- Log raw tokens, passwords, OTP codes, or PII (emails, phone numbers).
+- Trust client-controlled headers for security decisions.
+- Commit `.env` files or signing keys to the repository.
+
+## Security Audit Checklist (Agnostic Baseline)
+
+This checklist serves as a standard for auditing changes.
+
+### 1. Core Security
+
+- **Access Control:** Is every endpoint protected by resource-level authorization?
+- **Injection:** Are all database queries and shell commands parameterized?
+- **Input Validation:** Is there a strict schema/type validation for all inputs?
+- **Secrets:** Are there any hardcoded keys, tokens, or sensitive logs?
+- **Redaction:** Are sensitive fields (passwords, PII) redacted from logs and error responses?
+
+### 2. Infrastructure & Integration
+
+- **Secure Headers:** Are standard security headers (HSTS, CSP, etc.) configured?
+- **TLS/SSL:** Is the connection encrypted? Are certificates managed correctly?
+- **Dependencies:** Are third-party libraries pinned and checked for known vulnerabilities (CVEs)?
+- **Rate Limiting:** Are expensive or sensitive endpoints protected from brute force or DoS?
+
+### 3. AI & LLM Security (If applicable)
+
+- **Prompt Injection:** Are user inputs treated as untrusted and clearly separated from system instructions?
+- **Output Sanitization:** Is model output validated and sanitized before being rendered or stored?
+- **Cost Control:** Are there per-user rate limits and budget caps on model calls?
+
+---
+
+_This checklist is intended to be expanded based on the specific technology stack used in the project._
+
+
+--- From Module: engineering ---
+
+# Core Engineering Standards
+
+## Decluttering
+The principle of intentionally removing noise to improve clarity and focus. Every line of code, every UI element, and every documentation block must justify its existence.
+
+- **Interface Decluttering:** Hide complex actions behind "Expert" toggles or progressive disclosure. The primary view must show only what is essential for the current task.
+- **Code Decluttering:** Remove dead code, redundant comments, and "just-in-case" logic immediately. Prefer explicit, readable flow over clever, compressed syntax.
+- **Cognitive Load:** Minimize the number of things a human must hold in their head to understand a component or function.
+
+## Conceptual Consistency & Recursive Familiarity
+Interfaces must be architected so that the user's mental model scales effortlessly across the entire system.
+
+- **Component Recursion:** Reuse interaction patterns (e.g., how a "Workbench" opens) identically across all modules.
+- **Predictable Affordance:** Buttons, links, and status indicators must behave exactly the same way on every screen.
+- **Spatial Logic:** If "Primary Actions" are at the bottom-right on Screen 1, they must be there on every subsequent screen.
+- **The "Already Known" Test:** Before adding a new UI pattern, ask: "Can I solve this using a pattern the user already knows from other parts of the system?"
+
+## Process Flow (Engineering Register)
+Every interactive element must have a documented flow. Use the template from GEMINI.md but focus on technical contracts:
+- **Trigger:** Event/Method name.
+- **Input:** Types and schemas.
+- **Steps:** State mutations and service calls.
+- **Side Effects:** External API calls, events, or persistent logs.
