@@ -4,6 +4,28 @@ const path = require('path');
 const rootDir = path.join(__dirname, '..');
 let errors = [];
 
+function validateAgnosticism(filePath, fileName) {
+  if (!fs.existsSync(filePath)) return;
+  const content = fs.readFileSync(filePath, 'utf8');
+  const lines = content.split('\n');
+
+  const leakPatterns = [
+    { regex: /\b(inertia|aurum|cradle)\b/i, name: 'Project name leak (Inertia/Aurum/Cradle)' },
+    { regex: /\b(notary|нотаріус|нотаріал)/i, name: 'Notary domain leak' },
+    { regex: /посвідчен/i, name: 'Attestation / Notarization leak (посвідчення)' },
+    { regex: /\boffice\b/i, name: 'Office domain leak (office)' },
+    { regex: /\bофіс\b/i, name: 'Office domain leak (офіс)' }
+  ];
+
+  lines.forEach((line, index) => {
+    leakPatterns.forEach(pattern => {
+      if (pattern.regex.test(line)) {
+        errors.push(`Agnosticism violation in ${fileName}:${index + 1}: Found '${pattern.name}' on line: "${line.trim()}"`);
+      }
+    });
+  });
+}
+
 function validateRootFiles() {
   const claudMd = path.join(rootDir, 'CLAUDE.md');
   const geminiMd = path.join(rootDir, 'GEMINI.md');
@@ -15,6 +37,7 @@ function validateRootFiles() {
     if (!content.startsWith('# CLAUDE.md — ')) {
       errors.push('Master CLAUDE.md should start with "# CLAUDE.md — "');
     }
+    validateAgnosticism(claudMd, 'CLAUDE.md');
   }
 
   if (!fs.existsSync(geminiMd)) {
@@ -24,6 +47,7 @@ function validateRootFiles() {
     if (!content.startsWith('# GEMINI.md — ')) {
       errors.push('Master GEMINI.md should start with "# GEMINI.md — "');
     }
+    validateAgnosticism(geminiMd, 'GEMINI.md');
   }
 }
 
