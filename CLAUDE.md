@@ -45,6 +45,16 @@ Interfaces must be architected so that the user's mental model scales effortless
 - **The "Already Known" Test:** Before adding a new UI pattern, ask: "Can I solve this using a pattern the user already knows from other parts of the system?"
 - **Logical Outcomes:** Never implement buttons, actions, or navigation paths that lead to nowhere or have no functional outcome. Every interaction must resolve to a clear state change, confirmation, or next step, matching the design specification.
 
+### Текст і копірайт — джерело правди (зовнішнє)
+
+Правила мови, тону й копірайту тут **не дублюються** (single source of truth).
+Канон — глобальний `GEMINI.md` у корінні репозиторію правил (`romanmalko-dm/ai-process-architecture`), розділи **«Writing Style & Tone»** і **«Logical Navigation Outcomes»** (там і розгорнуте правило «Design Leads / Result is a Spectrum / No Silent Dead Ends»).
+
+> Перед написанням будь-якого тексту/копірайту в продукті — **прочитай той
+> `GEMINI.md`** (який копіюється локально в корінь вашого проєкту як `GEMINI.md`).
+> Найкоротша локальна витримка для швидкої звірки — `README.md › CONTENT
+> FUNDAMENTALS` (якщо передбачено проєктом).
+
 ---
 
 ## 2. Standards of Structural Integrity
