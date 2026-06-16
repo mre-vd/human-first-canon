@@ -312,6 +312,11 @@ Before submitting or finalizing any UI/UX change, verify:
 - [ ] **Component Recursion:** Are we reusing existing design patterns instead of introducing a new ad-hoc style?
 - [ ] **Least Emojis:** Did we check for and remove any accidental emojis?
 
+### 4. Design Leads to a Result (Дизайн веде до результату — але крок робить нотаріус)
+- **Principle:** Дизайн завжди веде до результату — але крок робить нотаріус. Жоден екран не лишає людину з порожніми руками.
+- **Result Spectrum:** Результат — це спектр: завершена дія (посвідчення), готова чернетка документа або просто ясність — відповідь, розуміння ситуації, знання, що далі (навіть висновок «так робити не можна» є результатом).
+- **Navigation & Control:** На кожному екрані видно, що наближає до результату й куди рухатись; жодних глухих кутів. Але система ніколи не завершує сама й не приховує відступ: рух уперед — пропозиція, рішення — за людиною.
+
 ---
 
 ## Core Design Principles
