@@ -4,10 +4,17 @@
 
 ## 🧩 The Divine Intent: Pattern & Law
 
-This repository represents the **Divine Intent**—the source of pure ethics, engineering laws, and architectural patterns.
+This repository represents the **Divine Intent**—the source of pure ethics, engineering laws, and architectural patterns. The rules are divided to target different agents and workflows:
 
-- **Strategic Frame (The Bridge):** Guidelines for translating Intent into Strategy. See [GEMINI.md](GEMINI.md).
-- **Surgical Execution (The Pattern):** The standards of structural integrity. See [CLAUDE.md](CLAUDE.md).
+*   **`GEMINI.md` (Strategic Frame & Analysis):**
+    *   *Audience:* Read automatically by **Gemini** (acting as Business Analyst and UX Strategist).
+    *   *Content:* Contains ethical standards, writing style/tone, cognitive discipline safeguards, mental rules, and product-level Process Flow registers.
+*   **`CLAUDE.md` (Surgical Execution & Guardrails):**
+    *   *Audience:* Read automatically by **Claude** (both Claude Coding and Claude Design) at the start of every session.
+    *   *Content:* Contains strict, high-priority guardrails, stack-specific coding conventions (React, NestJS, Go, etc.), and UI/UX design rules. Keep this file concise to save Claude's attention budget.
+*   **`README.md` in Target Projects (Descriptive Specifications):**
+    *   *Audience:* Read manually by developers and AI assistants when starting or exploring a project.
+    *   *Content:* Contains descriptive design specifications, typography, color palettes, iconography, and directory/file indexes. Avoid putting large palettes in `CLAUDE.md`.
 
 ## 🏗️ The Ethical Corpus
 

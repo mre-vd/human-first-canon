@@ -17,6 +17,18 @@ const HEURISTICS = [
   { module: 'core', check: () => true },
   { module: 'general', check: () => true },
   { module: 'security', check: () => true },
+  { 
+    module: 'design', 
+    check: (files, pkg) => 
+      pkg?.dependencies?.['react'] || 
+      pkg?.devDependencies?.['react'] ||
+      pkg?.dependencies?.['vue'] || 
+      pkg?.devDependencies?.['vue'] ||
+      pkg?.dependencies?.['svelte'] || 
+      pkg?.devDependencies?.['svelte'] ||
+      pkg?.dependencies?.['next'] || 
+      files.some(f => f.includes('next.config') || f.includes('nuxt.config'))
+  },
   { module: 'nestjs', check: (files, pkg) => pkg?.dependencies?.['@nestjs/core'] || pkg?.devDependencies?.['@nestjs/core'] },
   { module: 'nextjs', check: (files, pkg) => pkg?.dependencies?.['next'] || files.some(f => f.includes('next.config')) },
   { module: 'react', check: (files, pkg) => pkg?.dependencies?.['react'] || pkg?.devDependencies?.['react'] },
