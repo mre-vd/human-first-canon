@@ -1,13 +1,8 @@
 {
-  "autoUpdate": true,
   "projects": [
     {
       "name": "example-app",
-      "path": "/path/to/your/project",
-      "autodetect": true,
-      "modules": [
-        "core"
-      ]
+      "path": "/path/to/your/project"
     }
   ]
 }

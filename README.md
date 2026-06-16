@@ -16,18 +16,15 @@ This repository represents the **Divine Intent**—the source of pure ethics, en
     *   *Audience:* Read manually by developers and AI assistants when starting or exploring a project.
     *   *Content:* Contains descriptive design specifications, typography, color palettes, iconography, and directory/file indexes. Avoid putting large palettes in `CLAUDE.md`.
 
-## 🏗️ The Ethical Corpus
+## 🏗️ The Unified Rulebook
 
-The framework provides a modular library of laws categorized by their role in the universal order:
-
-- **Core & Meta**: Communication protocols, cognitive discipline, and the ethical contract.
-- **Engineering Foundations**: Stack-agnostic laws for security, integrity, and quality.
-- **Infrastructure & Delivery**: Declarative patterns for alignment and leveling of space.
-- **Domain-Specific Stacks**: Surgical patterns for backend, frontend, and mobile platforms.
+The rules are maintained as two unified, cohesive "books" in the root directory:
+- **`CLAUDE.md`**: The master compilation of design principles, general engineering discipline, and specific coding standards for frontends, backends, mobile, and operations.
+- **`GEMINI.md`**: The master compilation of ethical protocols, writing tone, cognitive safeguards, and analysis guidelines.
 
 ## 🛠️ Usage
 
-This framework acts as the **Global Source of Truth**. Rules are managed here and synchronized to target projects.
+This repository acts as the **Global Source of Truth**. Rules are managed here and synchronized to target projects.
 
 ### 1. Link a New Project
 Create `sync-config.json` in the root (see `sync-config.example.json`):
@@ -36,24 +33,24 @@ Create `sync-config.json` in the root (see `sync-config.example.json`):
   "projects": [
     {
       "name": "your-project",
-      "path": "/absolute/path/to/project",
-      "autodetect": true
+      "path": "/absolute/path/to/project"
     }
   ]
 }
 ```
 
 ### 2. Synchronize
-Run the sync script to distribute the Law:
+Run the sync script to distribute the rulebooks:
 ```bash
 node scripts/sync.js
 ```
-The script recursively scans your project, detects technologies (Next.js, Spring Boot, Docker, etc.), and injects relevant modules into `GEMINI.md` and `CLAUDE.md`.
+The script will directly copy `CLAUDE.md` and `GEMINI.md` from this repository's root to the destination directory of each configured project.
 
 ### 3. Maintain Integrity
 - **Never hand-edit** rule files in target projects.
-- **Update the Law** in the `modules/` directory of this repository.
+- **Update the Law** in the root `CLAUDE.md` and `GEMINI.md` of this repository.
 - **Sync** to propagate changes across the entire ecosystem.
 
 ---
 P.S. These rules are just an instrument. Responsibility for the impact of products born from these rules rests entirely with the individual using them.
+
