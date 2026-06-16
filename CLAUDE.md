@@ -707,6 +707,7 @@ A system is integral only when every part of it (code, data, documentation, test
 4.  **Environmental Safety:** No changes that leave the system in a hanging intermediate state.
 5.  **Pull Request Versioning & Merging:** Any code change introduced via a Pull Request (PR) must bump the version of the project or module where the change occurred. Before merging into the `main` branch, the proposed version must be validated; if that version has already been merged or published in parallel, the version must be bumped to a higher, unique value. Bumping must be finalized before the merge.
 6.  **Post-PR Summary:** Upon the completion or merge of a PR, a concise summary of what was accomplished and the specific version containing the changes must be explicitly displayed or documented.
+7.  **Rule Synchronization Integrity:** When rules or standards are updated in the source repository (`ai-process-architecture`) and synchronized to target projects, the updated compiled files (`CLAUDE.md`, `GEMINI.md`) must be committed and pushed to the remote repositories of those target projects to keep all agents and developers in alignment.
 
 ## Modular Sovereignty: The Body of Organs
 
