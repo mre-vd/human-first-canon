@@ -6,7 +6,7 @@ This document acts as the single source of truth for design, development, and en
 
 These rules define the UI/UX standards and guardrails for visual layout, component composition, and design execution. Every change to frontends must align with these criteria.
 
-### Claude Design Guardrails (ядро — `ui_kits/office`; правило 4 — усі три поверхні)
+### Claude Design Guardrails (правило 4 — діє на всіх поверхнях)
 
 #### 1. The Proposer-Notary Model (Пропонує — Нотаріус вирішує)
 - **Role:** Claude is the creative force that proposes design ideas, layouts, and implementations.
