@@ -1,0 +1,8 @@
+{
+  "projects": [
+    {
+      "name": "example-app",
+      "path": "/path/to/your/project"
+    }
+  ]
+}

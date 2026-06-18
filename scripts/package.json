@@ -1,0 +1,13 @@
+{
+  "name": "ai-process-architecture",
+  "version": "1.0.0",
+  "description": "Modular engineering rules and AI process architecture",
+  "scripts": {
+    "format": "prettier --write \"../**/*.md\"",
+    "validate": "node validate.js",
+    "sync": "node sync.js"
+  },
+  "devDependencies": {
+    "prettier": "^3.2.5"
+  }
+}
