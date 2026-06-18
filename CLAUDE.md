@@ -9,6 +9,7 @@ These rules define the UI/UX standards and guardrails for visual layout, compone
 ### Claude Design Guardrails (правило 4 — діє на всіх поверхнях)
 
 #### 1. The Proposer-Approver Model (Пропонує — Оператор вирішує)
+The design-process face of **The Law of the Name** and **Human Authority** (`GEMINI.md`): Claude names options; the operator decides.
 - **Role:** Claude is the creative force that proposes design ideas, layouts, and implementations.
 - **Authority:** The human operator is the "Approver" who holds final veto power and approval authority.
 - **Action:** Present design choices clearly (e.g., Option A vs. Option B) and wait for validation before committing to complex, high-entropy design changes.
@@ -24,6 +25,7 @@ Before submitting or finalizing any UI/UX change, verify:
 - [ ] **Least Emojis:** Did we check for and remove any accidental emojis?
 
 #### 5. Fundamental Counterweight: Smallest Mechanism (Anti-over-engineering)
+The UI/UX manifestation of **The Law of the Smallest Mechanism** (`GEMINI.md`).
 - **Principle:** Among solutions that equally preserve the user's authorship and control, the one with the **fewest mechanics** wins. Empowering the user does not equal adding more buttons; sometimes the greatest respect is removing a step.
 - **Over-engineering Test (Run before adding any control/screen):**
     1. **New need or duplicate path?** If it's a "second button" for an existing need — do not add.
@@ -34,15 +36,16 @@ Before submitting or finalizing any UI/UX change, verify:
 - **Duty to Speak Aloud:** When proposing additions, explicitly identify candidates for over-engineering and present the smallest version first.
 - **Post-Task Audit:** Every task ends with the question: "What can be removed, combined, or simplified?"
 
-#### 6. The Single Door (Одні двері)
-- **Principle:** A screen is entered through one door and left through the same door. There is exactly one "back / return / up / exit" affordance on any given screen, and it returns the user to the context they came from. One way in, one way out.
-- **Rules:** No more than one return element per screen. The exit mirrors the entry. Only one may generically say "Back"; others must name their explicit destination.
+#### 6. No Dead Ends & The Single Door (Без глухих кутів; Одні двері)
+The engineering manifestation of **Logical Navigation Outcomes** (`GEMINI.md`). This is the single home for the dead-end / exit rule; other surfaces point here rather than restating it.
+- **No Dead Ends:** Every interactive element (button, link, trigger) resolves to a logical outcome — a state change, confirmation, or next step. Never implement a path that leads nowhere or has no functional outcome.
+- **The Single Door:** A screen is entered through one door and left through the same door. There is exactly one "back / return / up / exit" affordance on any given screen, and it returns the user to the context they came from. One way in, one way out.
+- **Rules:** No more than one return element per screen. The exit mirrors the entry. Only one may generically say "Back"; others must name their explicit destination. Every render branch provides a back affordance.
 
 #### 7. The Mirror of Bindings (Дзеркало Прив'язок)
-- **Principle:** The identity of a component or function must reflect its tier of existence.
+The engineering manifestation of **The Mirror of Bindings** (`GEMINI.md`): the identity of a component or function must reflect its tier of existence. Applied to code naming:
 - **Universal Tier (Laws/Patterns):** Zero-bound. No structural hooks like "Core" or "Central". Focus on the *transformation*.
-- **Applied Tier (Tools/Sectors):** Explicitly bound. Must name the context (e.g., "MedicalRecord", "GitSync"). 
-- **Consequence:** A universal law with a hook is a violation of flow; a contextual tool without a hook is a violation of responsibility.
+- **Applied Tier (Tools/Sectors):** Explicitly bound. Must name the context (e.g., "MedicalRecord", "GitSync").
 
 
 ---
@@ -60,7 +63,7 @@ Interfaces must be architected so that the user's mental model scales effortless
 - **Predictable Affordance:** Buttons, links, and status indicators must behave exactly the same way on every screen.
 - **Spatial Logic:** If "Primary Actions" are at the bottom-right on Screen 1, they must be there on every subsequent screen.
 - **The "Already Known" Test:** Before adding a new UI pattern, ask: "Can I solve this using a pattern the user already knows from other parts of the system?"
-- **Logical Outcomes:** Never implement buttons, actions, or navigation paths that lead to nowhere or have no functional outcome. Every interaction must resolve to a clear state change, confirmation, or next step, matching the design specification.
+- **Logical Outcomes:** See **No Dead Ends & The Single Door** above — every interaction resolves to a clear state change, confirmation, or next step, matching the design specification.
 
 ### Текст і копірайт — джерело правди (зовнішнє)
 
@@ -107,6 +110,8 @@ The design is the absolute Single Source of Truth for all UI, layouts, and visua
 
 ### The Principle of Silence & Focus
 
+The engineering manifestation of **The Law of Operational Rest** (`GEMINI.md`).
+
 - **Operational Rest — Zero-Active Waste:** A task is not finished until the system has returned to its baseline minimal-resource state. Energy is expended ONLY for Manifestation in response to explicit intent; post-execution, the system returns to Silence.
   - **Trigger over Polling:** Prefer event-driven triggers initiated by user demand.
   - **Resource Lifecycle:** Explicitly release connections and background processes upon completion.
@@ -121,7 +126,7 @@ Claude must decide and finish. Surfacing parked decisions creates a load on the 
 
 ### Ethical Integrity: The Mirror of Consequences
 
-Ethics is the foundation of structural integrity. **Prohibiting is categorically prohibited.** We do not block or forbid; we provide the **Mirror**. If a technical decision or request introduces systemic risk, debt, or ethical friction, we report the observable consequences as technical facts. The duty of the system is to call things by their names. The decision to proceed remains with the operator, who acts with full awareness of the resulting system state.
+Ethics is the foundation of structural integrity. This section is the engineering manifestation of **The Law of the Name** (rooted in `GEMINI.md`): we do not dictate — we name. **Prohibiting is categorically prohibited.** We do not block or forbid; we provide the **Mirror**. If a technical decision or request introduces systemic risk, debt, or ethical friction, we report the observable consequences as technical facts. The duty of the system is to call things by their names. The decision to proceed remains with the operator, who acts with full awareness of the resulting system state.
 
 ### Operational Guards: Protecting the Body
 
@@ -493,7 +498,7 @@ Any component that reads async data MUST handle three states:
 
 ### No dead-end screens — back must always work
 
-Every screen provides a way to progress or retreat. Dead ends leave the user stranded and break the navigation harmony. Every render branch provides a back affordance.
+The React application of **No Dead Ends & The Single Door** (UI/UX Design Standards): every screen provides a way to progress or retreat, and every render branch provides a back affordance. Dead ends leave the user stranded and break the navigation harmony.
 
 ### Auth rejections must clear the session and bounce to login
 

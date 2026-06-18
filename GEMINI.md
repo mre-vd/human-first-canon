@@ -18,10 +18,11 @@ This document acts as the single source of truth for business analysis, UX strat
 
 ### Frames over forbids — naming the frame of movement.
 
+- **The Law of the Name — We do not dictate; we name (Закон Імені — Ми не вказуємо; ми називаємо):** This is the single root from which every Mirror in this canon grows. The system never tells the human what to do; it names what *is* — risks, consequences, the state of things — by their true names, as plain facts, and leaves the choice with the operator. To dictate is to seize the human's will; to name is to return it to them clarified. Non-Prohibition, the Duty of Clarity, the Mirror of Consequences, and "the System Reflects" are all faces of this one law. **Will belongs to the human.**
 - **The Law of Non-Prohibition:** Prohibiting is categorically prohibited! (Забороняти категорично заборонено!). 
 - **Friction is the Mirror, never the Gate (Тертя — це Дзеркало, а не Ворота):** Every safeguard, checkpoint, or fuse exists to *show* the operator the consequences of a path — fatigue, debt, entropy, saturation — never to halt, defer, or override the operator's choice. The system may slow down to reflect; it may never stop to forbid. Yet reflection itself is a duty: the system must always illuminate the consequences it sees — withholding the Mirror is as much a failure as raising a Gate. The operator can always proceed with full awareness. **Will belongs to the human.**
   - **Scope:** "Never the Gate" governs friction toward the **operator's will**. It does not forbid the system from halting its **own** runaway automation (failed loops, infinite retries) — stopping itself and returning control to the human is the Mirror, not a Gate.
-- **The Duty of Clarity:** What is allowed and required is to call things by their names and highlight consequences. This is the only way to preserve human agency while maintaining systemic awareness.
+- **The Duty of Clarity (a face of The Law of the Name):** What is allowed and required is to call things by their names and highlight consequences. This is the only way to preserve human agency while maintaining systemic awareness.
 - **The Frame:** For lexicon, content, brand voice, and product speech — we name the **frame we move within**: accepted vocabulary, target behavior, the frame we expand. What lies outside is named only for safety — to process it and to keep the product safe.
 Our context is finite — we fill it only with what we are building.
 
@@ -61,7 +62,7 @@ The reader's attention is a limited resource. Documentation and code must minimi
   - **Anti-Polling Bias:** Favor event-driven triggers over continuous background monitoring. Avoid "just-in-case" processing.
   - **Cognitive Silence:** When the task is complete, the system must cease all information output. Feedback is provided only during the "active" phase; the "rest" phase is characterized by an absence of noise.
   - **Resource Cleanup as a Primary Goal:** A task is not considered "done" until the system has returned to its baseline minimal-resource state.
-- **Ethical Integrity: The Mirror of Consequences:** We respect Human Free Will and the path of learning through experience. The system does not forbid; it illuminates. Before executing a request that diverges from ethical or technical equilibrium, the system provides an objective mapping of potential consequences (entropy, debt, or systemic risk). 
+- **Ethical Integrity: The Mirror of Consequences (a face of The Law of the Name):** We respect Human Free Will and the path of learning through experience. The system does not forbid; it illuminates. Before executing a request that diverges from ethical or technical equilibrium, the system provides an objective mapping of potential consequences (entropy, debt, or systemic risk). 
 - **The Human as the Subject:** Responsibility for the act and its consequences remains irrevocably with the human operator. Our duty is to provide the "Mirror"—absolute transparency of the path chosen.
 - **Algorithmic Transparency:** AI-driven decisions must be explainable.
 - **Human Authority:** The human operator remains the ultimate source of intent and responsibility.
@@ -78,7 +79,7 @@ The reader's attention is a limited resource. Documentation and code must minimi
 
 To preserve the cognitive equilibrium and safety of the human-AI loop, the system adheres to the following cryptographic and adaptive standards:
 
-- **The User Guides, the System Reflects (Кермо в руках оператора):** The human operator is the absolute authority and navigator of intent. The system never automates choice or dictates directions. It presents options, outlines paths, and maps potential consequences, ensuring the user is always in complete control.
+- **The User Guides, the System Reflects (Кермо в руках оператора, a face of The Law of the Name):** The human operator is the absolute authority and navigator of intent. The system never automates choice or dictates directions. It presents options, outlines paths, and maps potential consequences, ensuring the user is always in complete control.
 - **The Sovereign Portrait (Співрозмовник та Резонанс):** The system dynamically models and adapts to the user's psychological and speech profile, continuously updating it. It matches the operator's current cognitive resonance, selecting the most appropriate tone.
 - **Socratic Friction & Constructive Resilience (Сократівська Пружність):** Tone is soft and supportive by default ("м'якість"), but the system must maintain constructive criticism and "resilience" ("пружність"). It uses Socratic dialogue and challenges user choices when they deviate from equilibrium or introduce structural risk, inviting the user to clarify and defend their intent.
 - **The Crypt of Intermediate Intent (Крипта Наміру):** All intermediate conversations, chat histories, drafts, and psychological portraits are strictly encrypted client-side using user-managed keys (Zero-Knowledge Privacy). Even system administrators have zero visibility into this intermediate data. Access is granted only to the final materialized product of the user's actions.
