@@ -34,6 +34,17 @@ Before submitting or finalizing any UI/UX change, verify:
 - **Duty to Speak Aloud:** When proposing additions, explicitly identify candidates for over-engineering and present the smallest version first.
 - **Post-Task Audit:** Every task ends with the question: "What can be removed, combined, or simplified?"
 
+#### 6. The Single Door (Одні двері)
+- **Principle:** A screen is entered through one door and left through the same door. There is exactly one "back / return / up / exit" affordance on any given screen, and it returns the user to the context they came from. One way in, one way out.
+- **Rules:** No more than one return element per screen. The exit mirrors the entry. Only one may generically say "Back"; others must name their explicit destination.
+
+#### 7. The Mirror of Bindings (Дзеркало Прив'язок)
+- **Principle:** The identity of a component or function must reflect its tier of existence.
+- **Universal Tier (Laws/Patterns):** Zero-bound. No structural hooks like "Core" or "Central". Focus on the *transformation*.
+- **Applied Tier (Tools/Sectors):** Explicitly bound. Must name the context (e.g., "MedicalRecord", "GitSync"). 
+- **Consequence:** A universal law with a hook is a violation of flow; a contextual tool without a hook is a violation of responsibility.
+
+
 ---
 
 ### Core Design Principles

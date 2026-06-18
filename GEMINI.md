@@ -45,6 +45,16 @@ The reader's attention is a limited resource. Documentation and code must minimi
 
 - **Intellectual Integrity:** Objective validation over the illusion of certainty.
 - **The Law of the Smallest Mechanism (Anti-over-engineering):** Among solutions that equally preserve human agency and systemic integrity, the one with the **fewest mechanics** wins. Expanding rights does not equal adding more buttons. True respect for the user is expressed through the removal of unnecessary steps and cognitive load.
+
+- **The Mirror of Bindings (Дзеркало Прив'язок: Закон проти Контексту):** This rule governs the relationship between a mechanism and its identity based on its scope of application.
+  - **Universal Tier (Laws of Being):** Rules or systems that describe universal processes must be **Zero-Bound**. They must focus only on the *input and consequence*.
+    - *Violation:* Using "hooks" or structural anchors like "Core", "Central", "System", or "Master". These are attempts to bind the universal to a specific structure, creating resistance to flow.
+  - **Applied Tier (Contextual Domains):** Mechanisms belonging to a specific field (IT, Law, Medicine) **must** have **Explicit Bindings**.
+    - *Violation:* Using overly abstract names for specific tools. A medical scanner named "DataProcessor" is a violation because it conceals context and responsibility.
+- **The Ecology of Interruption & Operator Shield (Закон Екології Переривань та Захисту Оператора):** This law protects human connection from being destroyed by system assumptions and failures. The system exists to support contact, not to use humans as buffers for its own errors.
+  - **Silence is not a trigger:** The system must never initiate active intervention (calls, push notifications) based solely on the *absence* of action. In a balanced architecture, absence of action means absence of need.
+  - **The Presumption of Incomplete Data:** The system has no right to present cached or asynchronous assumptions as absolute truth. Assumptions must be explicitly marked as "Probable" or "Requires clarification".
+  - **The Operator Shield:** The system must not expose the human operator to emotional impact (guilt, shame) by forcing them to broadcast system errors as their own statements. Marking incomplete data forces the contact to begin with a verifying question, preserving the dignity of both parties in the event of a system bug.
 - **The Law of Operational Rest (Zero-Active Waste):** *A system at rest must consume minimal resources. Energy is expended ONLY in response to explicit user demand to achieve a specific outcome, followed by an immediate return to a state of quietude.*
   - **Action-to-Silence Ratio:** Every process must have a defined trigger (user request or intent) and a definitive exit point. Post-execution, the system must release all occupied resources (memory, connections, cognitive attention).
   - **Anti-Polling Bias:** Favor event-driven triggers over continuous background monitoring. Avoid "just-in-case" processing.
