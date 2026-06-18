@@ -12,7 +12,7 @@ assignees: ""
 
 ## 🛠 Empirical Reproduction
 
-<!-- Mandatory: Steps to reproduce the behavior. Focus on facts. -->
+<!-- Steps to reproduce the behavior. Focus on facts — the clearer the trail, the faster the fix. -->
 
 1.
 2.
