@@ -50,7 +50,6 @@ We use a multi-agent approach, where we strive to delegate a clearly defined fun
 *   👤 **Operator (Human)** — The single source of decisions (Source of Truth). The AI does not act independently; it only drafts options and executes approved commands.
 *   ✨ **Gemini (Analyst / Strategist)** — Configured for the role of business analyst, UX strategist, and architect. She helps validate ideas and prepare clear technical specifications.
 *   🛠️ **Claude (Creator / Engineer)** — Responsible for the direct implementation of code based on tasks prepared by Gemini, instructed to adhere to strict engineering standards.
-*   👁️ **The Silent Overseer** — A systemic concept of safety and ethics that we implement to prevent the AI from stepping outside established boundaries.
 
 ## 📜 Core Principles (System Development Vectors)
 
