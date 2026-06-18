@@ -68,7 +68,7 @@ Interfaces must be architected so that the user's mental model scales effortless
 ### Текст і копірайт — джерело правди (зовнішнє)
 
 Правила мови, тону й копірайту тут **не дублюються** (single source of truth).
-Канон — глобальний `GEMINI.md` у корінні репозиторію правил (`romanmalko-dm/ai-process-architecture`), розділи **«Writing Style & Tone»** і **«Logical Navigation Outcomes»** (там і розгорнуте правило «Design Leads / Result is a Spectrum / No Silent Dead Ends»).
+Канон — глобальний `GEMINI.md` у корінні репозиторію правил, розділи **«Writing Style & Tone»** і **«Logical Navigation Outcomes»** (там і розгорнуте правило «Design Leads / Result is a Spectrum / No Silent Dead Ends»).
 
 > Перед написанням будь-якого тексту/копірайту в продукті — **прочитай той
 > `GEMINI.md`** (який копіюється локально в корінь вашого проєкту як `GEMINI.md`).
