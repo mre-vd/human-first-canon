@@ -13,20 +13,20 @@
 *   👤 **Оператор (Людина)** — єдине джерело рішень (Source of Truth). ШІ не діє самостійно, а лише проектує варіанти та виконує затверджені команди.
 *   ✨ **Gemini (Аналітик / Стратег)** — налаштовується на роль бізнес-аналітика, UX-стратега та архітектора. Вона допомагає валідувати ідеї та готувати чіткі технічні завдання.
 *   🛠️ **Claude (Творець / Інженер)** — відповідає за безпосередню реалізацію коду на основі завдань, підготовлених Gemini, маючи інструкції дотримуватися строгих інженерних стандартів.
-*   👁️ **Тихий Наглядач** — системний концепт безпеки та етики, який ми впроваджуємо, щоб запобігти виходу ШІ за межі встановлених правил.
 
 ## 📜 Базові принципи (Вектори розвитку системи)
 
 Усі інструкції для ШІ (зосереджені у `GEMINI.md`) базуються на кількох ключових інженерних принципах, до яких ми прагнемо:
 
-1.  **Zero-Active Waste (Операційний спокій):** Ми налаштовуємо ШІ активуватися виключно за запитом. Жодних фонових опитувань чи ініціативи без тригера. Наша мета — щоб після завершення задачі система поверталася в стан нульового споживання ресурсів.
-2.  **Запобіжник Ітераційного Зациклення (Loop Prevention):** Впроваджено ліміт на автоматичне виправлення помилок (максимум 10 спроб). Це спроба уникнути нескінченних циклів: якщо ліміт вичерпано, процес має перериватися, а контроль повертатися Оператору.
-3.  **Правило Дзеркальних Інтерфейсів (Symmetrical Recovery):** При проектуванні UI ми вимагаємо від ШІ закладати логічний вихід для кожного стану. Якщо користувач потрапляє у тупик (навіть помилковий), система має надати зрозумілий та симетричний шлях назад.
-4.  **Екологія Переривань (Operator Shield):** Ми вчимо ШІ не перекладати провину за системні помилки на користувача. Дані, в яких алгоритм не впевнений, мають позначатися як "Потребує уточнення", щоб зберегти простір для конструктивного діалогу.
+1.  **Воля належить людині (The Law of the Name):** Ми не вказуємо — ми називаємо речі своїми іменами. Система ніколи не вирішує за людину й не блокує її волю; вона показує наслідки (борг, ентропію, ризик) як факти, а рішення лишає Оператору. Тертя — це Дзеркало, а не Ворота.
+2.  **Zero-Active Waste (Операційний спокій):** Ми налаштовуємо ШІ активуватися виключно за запитом. Жодних фонових опитувань чи ініціативи без тригера. Наша мета — щоб після завершення задачі система поверталася в стан нульового споживання ресурсів.
+3.  **Запобіжник Ітераційного Зациклення (Loop Prevention):** Впроваджено ліміт на автоматичне виправлення помилок (максимум 10 спроб). Це спроба уникнути нескінченних циклів: якщо ліміт вичерпано, процес має перериватися, а контроль повертатися Оператору.
+4.  **Правило Дзеркальних Інтерфейсів (Symmetrical Recovery):** При проектуванні UI ми вимагаємо від ШІ закладати логічний вихід для кожного стану. Якщо користувач потрапляє у тупик (навіть помилковий), система має надати зрозумілий та симетричний шлях назад.
+5.  **Екологія Переривань (Operator Shield):** Ми вчимо ШІ не перекладати провину за системні помилки на користувача. Дані, в яких алгоритм не впевнений, мають позначатися як "Потребує уточнення", щоб зберегти простір для конструктивного діалогу.
 
 ## ⚙️ Синхронізація (Єдине джерело правди)
 
-Цей репозиторій (зокрема директорія `modules/`) виступає нашим єдиним джерелом правди (Single Source of Truth) для пошуку етичних та архітектурних балансів. 
+Цей репозиторій (кореневі `GEMINI.md` та `CLAUDE.md`) виступає нашим єдиним джерелом правди (Single Source of Truth) для пошуку етичних та архітектурних балансів. 
 
 Для того, щоб застосувати ці правила у реальних проектах (наприклад, `inertia` або `aurum`), ми використовуємо скрипт автоматичної синхронізації:
 *   Будь-які експерименти та зміни правил відбуваються **тільки тут**.
@@ -55,14 +55,15 @@ We use a multi-agent approach, where we strive to delegate a clearly defined fun
 
 All AI instructions (centered in `GEMINI.md`) are based on several key engineering principles we aim for:
 
-1.  **Zero-Active Waste (Operational Rest):** We configure the AI to activate strictly on demand. No background polling or unprompted initiatives. Our goal is for the system to return to a state of zero resource consumption after completing a task.
-2.  **Loop Prevention Safeguard:** We introduced a limit on automatic error correction (maximum 10 attempts). This is an attempt to avoid infinite loops: if the limit is exhausted, the process must interrupt, and control returns to the Operator.
-3.  **Symmetrical Recovery Rule (Door Principle):** When designing a UI, we require the AI to establish a logical exit for every state. If a user enters a dead end (even an error state), the system must provide a clear and symmetrical path back.
-4.  **Ecology of Interruption (Operator Shield):** We train the AI not to shift the blame for system errors onto the user. Data the algorithm is unsure about must be marked as "Requires clarification" to preserve space for constructive dialogue.
+1.  **Will Belongs to the Human (The Law of the Name):** We do not dictate — we name things by their true names. The system never decides for the human or blocks their will; it shows consequences (debt, entropy, risk) as facts and leaves the choice to the Operator. Friction is the Mirror, never the Gate.
+2.  **Zero-Active Waste (Operational Rest):** We configure the AI to activate strictly on demand. No background polling or unprompted initiatives. Our goal is for the system to return to a state of zero resource consumption after completing a task.
+3.  **Loop Prevention Safeguard:** We introduced a limit on automatic error correction (maximum 10 attempts). This is an attempt to avoid infinite loops: if the limit is exhausted, the process must interrupt, and control returns to the Operator.
+4.  **Symmetrical Recovery Rule (Door Principle):** When designing a UI, we require the AI to establish a logical exit for every state. If a user enters a dead end (even an error state), the system must provide a clear and symmetrical path back.
+5.  **Ecology of Interruption (Operator Shield):** We train the AI not to shift the blame for system errors onto the user. Data the algorithm is unsure about must be marked as "Requires clarification" to preserve space for constructive dialogue.
 
 ## ⚙️ Synchronization (Single Source of Truth)
 
-This repository (specifically the `modules/` directory) acts as our Single Source of Truth for finding ethical and architectural balances.
+This repository (the root `GEMINI.md` and `CLAUDE.md`) acts as our Single Source of Truth for finding ethical and architectural balances.
 
 To apply these rules to real projects (e.g., `inertia` or `aurum`), we use an automatic synchronization script:
 *   All experiments and rule changes happen **only here**.
