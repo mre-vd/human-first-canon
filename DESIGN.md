@@ -60,6 +60,21 @@ Interfaces must be architected so that the user's mental model scales effortless
 - **The "Already Known" Test:** Before adding a new UI pattern, ask: "Can I solve this using a pattern the user already knows from other parts of the system?"
 - **Logical Outcomes:** See **No Dead Ends & The Single Door** above — every interaction resolves to a clear state change, confirmation, or next step, matching the design specification.
 
+## Interaction & Onboarding Standards
+
+*Contributed externally — distilled from client-communication guidelines and generalized for this canon.*
+
+How a product asks, confirms, and recovers decides whether the user trusts it. These are applied rules for forms, onboarding, and transactional flows.
+
+- **Minimum fields.** Ask only for what the action genuinely needs; everything non-essential is optional. Every extra field is friction and a drop-off point.
+- **No registration without value.** Never force account creation that returns nothing to the user. Registration is justified only when it gives concrete value (history, online management, faster repeat use); otherwise let the user complete the task without it. Registration for its own sake is churn.
+- **Consent before contact.** Data given for a functional purpose (e.g., a reminder) is not consent for marketing. No promotional messaging without explicit opt-in.
+- **Errors speak plainly.** On failure, say what happened and what to do next in plain language — never error codes or technical jargon — and always offer a concrete next step. (The applied form of *No Dead Ends* and of calling things by their names — `GEMINI.md`.)
+- **Address people by name.** Personalize transactional copy; never "Dear user".
+- **Immediate confirmation.** The instant an action succeeds, confirm it in the same beat — never leave the user guessing whether it was accepted. (A face of **No Dead Ends & The Single Door**.)
+- **Exits stay ungated.** Reversal actions (cancel, delete, unsubscribe) are one step — no forms, no mandatory "reason". (The design face of *Friction is the Mirror, never the Gate* — `GEMINI.md`.)
+- **Restraint over nagging.** At most one re-engagement nudge; silence if unanswered. Repeated prompting is noise that costs trust. (The interaction face of *Operational Rest / Cognitive Silence*.)
+
 ## Текст і копірайт — джерело правди (зовнішнє)
 
 Правила мови, тону й копірайту тут **не дублюються** (single source of truth).
