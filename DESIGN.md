@@ -102,7 +102,7 @@ Static navigations (simple link to another page with no side effects) do not req
 
 ---
 
-## 3. GLAME Communication Guidelines
+## 3. GLAME Communication Guidelines (Авторство: Yaroslav Rudiak)
 
 ### Клієнтський напрямок: Реєстрація · Бронювання · Нагадування · Скасування · Повернення
 
