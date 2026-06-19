@@ -34,7 +34,8 @@
 *   `DATABASE.md` — дані (SQL & NoSQL)
 *   `DEVOPS.md` — DevOps, CI/CD, хмара/інфра
 *   `TESTING.md` — QA і тестування
-*   `SECURITY.md` — безпека 
+*   `SECURITY.md` — безпека
+*   `SYSTEM-MAP.md` — жива карта проєкта (дерево-організм; навігація для ШІ) 
 
 Для того, щоб застосувати ці правила у реальних проєктах, ми використовуємо скрипт автоматичної синхронізації:
 *   Будь-які експерименти та зміни правил відбуваються **тільки тут**.
@@ -86,6 +87,7 @@ The canon is a family of sovereign files at the root of this repository, togethe
 *   `DEVOPS.md` — DevOps, CI/CD, cloud/infra
 *   `TESTING.md` — QA & testing
 *   `SECURITY.md` — security
+*   `SYSTEM-MAP.md` — living map of the project (organism tree; AI navigation)
 
 To apply these rules to real projects, we use an automatic synchronization script:
 *   All experiments and rule changes happen **only here**.
