@@ -31,10 +31,10 @@ A change should flow to a green `main` with minimal human friction and zero brok
 
 ### Local Developer Setup
 
-The pipeline is event-driven — locally it runs through git hooks, never on system boot (boot-time execution would violate *Operational Rest*: it would run with no change to test). One-time setup per clone:
+The pipeline is event-driven — locally it runs through git hooks, never on system boot (boot-time execution would violate *Operational Rest*: it would run with no change to test). The hooks are cross-platform; commands run the same in any shell (PowerShell, Git Bash, zsh). One-time setup per clone:
 
 ```bash
-pip install pre-commit                     # or: brew install pre-commit
+pip install pre-commit                     # cross-platform (Windows/macOS/Linux); macOS alt: brew install pre-commit
 pre-commit install                         # auto-fix lint/format on every commit
 pre-commit install --hook-type pre-push    # run affected tests before push
 ```
@@ -48,7 +48,7 @@ nx affected -t test                        # or: pytest --testmon / jest --chang
 
 The `.pre-commit-config.yaml` and the stack-specific test-selection wiring are generated when this canon is applied to a project; each developer only runs `pre-commit install` once.
 
-For **self-hosted CI**, install the runner **as a service** so it starts at boot and waits for jobs (`launchd` on macOS, `svc.sh install` on Linux/Windows). This runner agent is the only piece that legitimately auto-starts; the pipeline itself stays event-driven.
+For **self-hosted CI**, install the runner **as a service** so it starts at boot and waits for jobs — Windows: install as a service during `config.cmd` (or the runner's service command); macOS/Linux: `./svc.sh install`. This runner agent is the only piece that legitimately auto-starts; the pipeline itself stays event-driven.
 
 ### Docker & Containers
 
