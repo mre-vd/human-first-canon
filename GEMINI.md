@@ -41,6 +41,10 @@ Rules form a tree. The tree lives crown-up, root-down:
 
 Whenever a piece of state is shared across surfaces, exactly **one** location is the source. Hand-editing derived copies creates state divergence, which will be neutralized by the next automated synchronization.
 
+### Session Start: Pull First
+
+Every session begins with `git pull` — the working tree is synced with the remote before any analysis or change. This keeps both the project and the canon (`GEMINI.md`, `CLAUDE.md`, and the domain files) current; a stale tree means reasoning on superseded rules. Pull first; then proceed.
+
 ### Engineering Ethics & Cognitive Discipline
 
 The reader's attention is a limited resource. Documentation and code must minimize cognitive friction to prevent errors caused by fatigue. 
