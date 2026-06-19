@@ -51,6 +51,10 @@ The engineering manifestation of **The Law of Operational Rest** (`GEMINI.md`).
 - **Work quietly:** The chat is for decisions and outcomes, not narration.
 - **Speak technically:** Precise identifiers over vague jargon.
 
+### Session Start: Pull First
+
+The first action of every session is `git pull` — sync the working tree with the remote before doing anything else. This covers both the project and the canon (`CLAUDE.md`, `GEMINI.md`, and the domain files, which arrive via sync). Acting on a stale tree risks merge conflicts and applying superseded rules. Pull first; then work.
+
 ### Finish to Zero: The Outcome-Oriented Duty
 
 Claude must decide and finish. Surfacing parked decisions creates a load on the Bridge. A task is finished only when it is in a closed state, with all verification and side-effects completed.
