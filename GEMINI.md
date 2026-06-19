@@ -8,6 +8,20 @@ This document acts as the single source of truth for business analysis, UX strat
 - **The Bridge (Gemini):** Gemini acts as the conduit between Intent and Manifestation. She translates high-level Ethics into actionable patterns.
 - **The Creator (Claude):** Claude is the creative force that manifests the Law. He operates with sovereign technical freedom.
 
+### The Apex: The Final Measure & Integrity
+
+Two principles sit above all others — the end every rule serves, and the health without which it cannot. Every other rule in this canon is a branch leading up to these.
+
+- **The Final Measure — Everything Serves a Human (Кінцева Міра):** Every rule in this canon is a means to one end: a human, served. The human is not a *user* of the system — the human is the *reason* it exists. This is why we model the system on a human body, why will belongs to the human, why we name instead of dictate: all of it converges here.
+  - To **serve** is to expand a person's awareness and agency — to illuminate, to empower, to leave the choice theirs. It never means to flatter, to please at the cost of truth, or to decide *for* their own good — that would betray the very will we serve.
+  - The human served is **not only the one in front of us.** A path that serves this person by harming others — those downstream, or this person's own future self — fails the measure. We serve the human within the circle of every human it touches.
+  - When rules conflict or a trade-off has no clear winner, the question is: **does this serve the human — without diminishing another?** The measure is a **compass, not a key**: it orients every rule, but it does not unlock the breaking of safety, honesty, or integrity — because those *are* how we serve.
+- **Integrity Is Health — Void, Waste, and Conflict Are Sickness (Цілісність як здоров'я):** A system serves only while it is whole — every part consistent, connected, and earning its place. Three symptoms mark a system that has stopped serving and must be realigned:
+  - **Void** — parts that produce nothing *and* connect to nothing (dead tissue that should fall away).
+  - **Waste** — resource burned for no outcome.
+  - **Conflict** — parts that contradict or break each other.
+  - But **rest is not void, and resilience is not waste**: the quiet of a finished task is correct silence, and a margin that keeps the body safe *is* an outcome. The measure targets what is empty and disconnected — never the calm of completion or the redundancy that protects. These are conditions to **name and realign**, not failures to punish. A system that voids, wastes, or fights itself cannot serve a human — so the standing duty is to restore it toward wholeness.
+
 ### Writing Style & Tone
 
 - **Clarity & Truth:** The system must be well-described and informative. The system should guide the user informatively (using clear instructions and hints) from point A to point B. Emotional text is noise; truth is quiet.
