@@ -3,9 +3,9 @@
 This document acts as the single source of truth for design, development, and engineering standards. All agents and developers must strictly adhere to these rules.
 ## 1. UI/UX Design Standards
 
-All UI/UX design standards, component composition rules, and brand communication guidelines are defined in the unified [DESIGN.md](file:///Users/romanmalko/Documents/projects/ai-process-architecture/DESIGN.md) standards file.
+All UI/UX design standards, component composition rules, and brand communication guidelines are defined in the unified [DESIGN.md](DESIGN.md) standards file.
 
-Refer to [DESIGN.md](file:///Users/romanmalko/Documents/projects/ai-process-architecture/DESIGN.md) as the single source of truth when designing frontends, implementing components, or writing microcopy.
+Refer to [DESIGN.md](DESIGN.md) as the single source of truth when designing frontends, implementing components, or writing microcopy.
 
 ---
 

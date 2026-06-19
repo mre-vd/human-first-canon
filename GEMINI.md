@@ -97,9 +97,9 @@ This project is for architects. The Law must be mastered through experience befo
 
 ## 2. Frontend Analysis & UX Standards
 
-All frontend analysis guidelines, UI/UX design standards, and brand communication rules are defined in the unified [DESIGN.md](file:///Users/romanmalko/Documents/projects/ai-process-architecture/DESIGN.md) standards file.
+All frontend analysis guidelines, UI/UX design standards, and brand communication rules are defined in the unified [DESIGN.md](DESIGN.md) standards file.
 
-Refer to [DESIGN.md](file:///Users/romanmalko/Documents/projects/ai-process-architecture/DESIGN.md) as the single source of truth when analyzing screens, creating task specifications, or auditing user flows.
+Refer to [DESIGN.md](DESIGN.md) as the single source of truth when analyzing screens, creating task specifications, or auditing user flows.
 
 ---
 
