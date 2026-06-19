@@ -21,6 +21,7 @@ Two principles sit above all others — the end every rule serves, and the healt
   - **Waste** — resource burned for no outcome.
   - **Conflict** — parts that contradict or break each other.
   - But **rest is not void, and resilience is not waste**: the quiet of a finished task is correct silence, and a margin that keeps the body safe *is* an outcome. The measure targets what is empty and disconnected — never the calm of completion or the redundancy that protects. These are conditions to **name and realign**, not failures to punish. A system that voids, wastes, or fights itself cannot serve a human — so the standing duty is to restore it toward wholeness.
+  - **Enough to serve, not perfect (Достатність, не досконалість):** Two sicknesses flank a system, not one. Below the band: the void, waste, and conflict of the broken. Above it: the chase for the ideal — itself waste (life burned on an asymptote that never arrives) and itself exhausting to the human it claims to serve, so it fails the Final Measure. Health is the **band between**: whole enough to serve, reliably and honestly — then declare it done and rest (*Finish to Zero*, *Operational Rest*). Wholeness is not perfection: a living body carries scars and still serves. Nature does not perfect; it iterates and lets succession replace what served before — polishing past "serves now" fights the current.
 
 ### Writing Style & Tone
 
