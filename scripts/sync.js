@@ -11,16 +11,18 @@ if (!fs.existsSync(CONFIG_PATH)) {
 const config = JSON.parse(fs.readFileSync(CONFIG_PATH, 'utf8'));
 const rootDir = path.join(__dirname, '..');
 
-const masterClaudePath = path.join(rootDir, 'CLAUDE.md');
-const masterGeminiPath = path.join(rootDir, 'GEMINI.md');
+const masterFiles = ['CLAUDE.md', 'GEMINI.md', 'DESIGN.md', 'DATABASE.md', 'DEVOPS.md', 'TESTING.md', 'SECURITY.md'];
 
-if (!fs.existsSync(masterClaudePath) || !fs.existsSync(masterGeminiPath)) {
-  console.error('Error: Master CLAUDE.md or GEMINI.md not found in root.');
+const missing = masterFiles.filter((name) => !fs.existsSync(path.join(rootDir, name)));
+if (missing.length > 0) {
+  console.error(`Error: Master file(s) not found in root: ${missing.join(', ')}.`);
   process.exit(1);
 }
 
-const claudeContent = fs.readFileSync(masterClaudePath, 'utf8');
-const geminiContent = fs.readFileSync(masterGeminiPath, 'utf8');
+const masterContents = masterFiles.map((name) => ({
+  name,
+  content: fs.readFileSync(path.join(rootDir, name), 'utf8'),
+}));
 
 function syncProject(project) {
   console.log(`Syncing project: ${project.name} at ${project.path}`);
@@ -30,15 +32,10 @@ function syncProject(project) {
     return;
   }
 
-  // Define target paths
-  const targetClaude = path.join(project.path, 'CLAUDE.md');
-  const targetGemini = path.join(project.path, 'GEMINI.md');
-
-  // Copy files
-  fs.writeFileSync(targetClaude, claudeContent, 'utf8');
-  fs.writeFileSync(targetGemini, geminiContent, 'utf8');
-  console.log(`  Updated: CLAUDE.md`);
-  console.log(`  Updated: GEMINI.md`);
+  masterContents.forEach(({ name, content }) => {
+    fs.writeFileSync(path.join(project.path, name), content, 'utf8');
+    console.log(`  Updated: ${name}`);
+  });
 }
 
 config.projects.forEach(syncProject);
