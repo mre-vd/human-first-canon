@@ -68,10 +68,41 @@ candidate for splitting. The anatomy reveals where the body is malformed; the
 map is a diagnostic, not a decoration.
 
 ## The Artifact
-Each project carries `feature-tree.yaml`: every node has a business
-description, status, optional flow (the Process Flow template, `GEMINI.md`),
-children, and — at surfaces — code anchors. It is the single source the visual
-diagram is rendered from.
+
+Each project carries a `.map/` folder at its root:
+- `feature-tree.yaml` — the map data (the single source the view renders from).
+- `index.html` — the local viewer (see The View); opens directly, no server.
+- `validate-map.mjs` — the immune validator (see The Immune System).
+
+**Node schema** (every node):
+- `id` — stable slug.
+- `business` — one-line human description, in domain language.
+- `organ` — one role from the taxonomy above, or `mixed` (which is a smell).
+- `evidence` — why this organ (the signals that classified it).
+- `status` — `active` | `planned` | `deprecated` | `dead`.
+- `systems` — cross-cutting touches: any of `nervous` (events), `circulatory` (data), `endocrine` (config), `immune` (defense).
+- `flow` — optional Process Flow (`GEMINI.md`).
+- `children` — sub-nodes.
+- `anchors` — code anchors (`file:symbol`, route, event), **only at surfaces**.
+
+**Stopping rule (granularity).** A node earns its place only by carrying
+business meaning. Nodes stop at surfaces; below a surface, implementation lives
+as `anchors`, not as more nodes — do not node-ify every function (Law of the
+Smallest Mechanism). Status `dead` marks tissue reachable from no nerve ending —
+flagged to fall away (backward immunity).
+
+## The View (for humans)
+
+We build for people, so the rendered map must be navigable at a glance, not just
+machine-readable. `index.html` MUST provide:
+- **Tree view** — the body hierarchy, each node colored by its organ; cross-cutting systems shown as colored edges/badges.
+- **Organs view** — a grouped list, organ → its features (the direct answer to "which feature is which organ").
+- **Legend** — organ → its color and one-line function; clicking an organ filters to its features.
+- **Search & filter** — jump to a feature by name; filter by organ or by cross-cutting system.
+
+The viewer obeys `DESIGN.md`: no emojis (color and text, not icons-as-meaning),
+decluttering (detail on demand), and No Dead Ends & The Single Door (back always
+works). The map is a tool a human reaches for, not a diagram they decode.
 
 ## The Immune System (mandatory)
 Any living body needs error-correction or it rots. The immune layer works in
@@ -83,6 +114,19 @@ Any living body needs error-correction or it rots. The immune layer works in
   event, export, or live node) is dead tissue — flagged to fall away. What is
   connected lives; what is not, dies. This is the *Law of the Smallest
   Mechanism* enforced by anatomy.
+
+## Bootstrapping an Existing Body
+
+To build the map for a codebase that already exists:
+1. **Find the nerve endings** — enumerate entry points: routes, jobs, event handlers, exported APIs, UI pages.
+2. **Walk the graph** — from each entry point, follow the dependency graph; what is reachable is alive.
+3. **Cluster into organs** — group reachable code by cohesion (what changes together, what depends on what) into candidate organs.
+4. **Name in business language** — give each cluster a domain name a human actually uses.
+5. **Classify** — assign each its organ by the Anatomical Classification taxonomy, with evidence.
+6. **Surface the dead** — anything reachable from no entry point is dead tissue; list it for removal, do not map it as alive.
+
+Proceed top-down: the whole body at the top levels first (reviewable), then
+descend organ by organ to surfaces and anchors.
 
 ## How Claude uses it
 1. Read the map first; locate the node by business meaning.
