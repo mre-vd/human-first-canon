@@ -2,7 +2,7 @@
 
 This document is the single source of truth for UI/UX design: visual layout, component composition, and design execution. Design is a sovereign domain — a distinct discipline, not a subset of code — kept separate from the engineering canon (`CLAUDE.md`) and the strategy/ethics canon (`GEMINI.md`). Every change to frontends must align with these criteria.
 
-## Claude Design Guardrails (правило 4 — діє на всіх поверхнях)
+## Claude Design Guardrails (діють на всіх поверхнях)
 
 ### 1. The Proposer-Approver Model (Пропонує — Оператор вирішує)
 The design-process face of **The Law of the Name** and **Human Authority** (`GEMINI.md`): Claude names options; the operator decides.
