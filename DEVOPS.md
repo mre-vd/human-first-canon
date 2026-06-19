@@ -17,6 +17,18 @@ Platform and infrastructure engineering is a sovereign domain — kept separate 
 - **Version Gates:** The CI/CD pipeline must enforce that any PR with code changes bumps the project/module version. Prior to merging, the pipeline must check for version collisions with parallel merges/releases and require or automate a bump to a higher, unique value if a collision occurs.
 - **Post-Merge Release & Summary:** Upon merging a PR, the deployment/release workflow must display or publish a brief summary of what was done and the version containing the changes (e.g., as a GitHub Release, Slack notification, or release log).
 
+### Stable Auto-Pipeline: Fix → Affected Tests → Merge Queue → Auto-Merge
+
+A change should flow to a green `main` with minimal human friction and zero broken-main risk. The proven pipeline shape:
+
+1. **Auto-fix first.** Run formatters and linters in `--fix` mode (Prettier/ESLint, `ruff --fix`, `gofmt`, etc.) and commit the fixes back to the PR automatically — via `pre-commit` locally and a CI auto-fix bot (`pre-commit.ci`, `autofix.ci`) on the PR. Bound it: one fix pass, a visible commit, never a self-triggering loop.
+2. **Run only the affected tests.** Gate the PR on the minimal impacted test set (see `TESTING.md` → Test Selection), not the whole suite — the resource rule.
+3. **Required checks + branch up to date.** Branch protection / ruleset requires the status checks to pass and the branch to be current with base before merge.
+4. **Merge queue for the shared branch.** On busy branches, require a merge queue (GitHub `merge_group`): it tests each PR *as if already merged* with the others ahead of it and serializes the merge, so concurrent PRs can never break `main` via semantic conflicts. Required workflows MUST also trigger on the `merge_group` event, and CI capacity must account for both PR and merge-group runs.
+5. **Auto-merge.** Enable auto-merge so a PR lands the instant its required checks pass and approvals are in — combined with the merge queue on high-traffic branches.
+
+**Guardrails:** the full suite still runs nightly and pre-release (selection is never the production gate); auto-merge never bypasses required reviews or the **Version Gates** below; pin third-party actions by commit SHA.
+
 ### Docker & Containers
 
 - **Multi-stage Builds:** Use multi-stage builds to keep production images small and secure.
