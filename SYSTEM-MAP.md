@@ -23,6 +23,50 @@ plant's leaf.
   event); one node may have many anchors and one file may serve many nodes.
   Never force a clean 1:1 tree.
 
+## Anatomical Classification (Which Organ Is a Feature?)
+
+The principle: an organ is defined by **function**, never by name or
+resemblance. A component's organ is what it *does* in the system, read from
+objective code signals — not a metaphor ("billing = heart because money flows").
+This is the Law of the Name applied to structure.
+
+### The organ roles (function → code signal)
+
+| Organ | Function | Code signal |
+|---|---|---|
+| Brain / nervous | decision, orchestration | high fan-out, business branching, coordinates others |
+| Spine / nerves | carries signals | events / queues, no business logic of its own |
+| Heart / circulatory | pumps the lifeblood = data | DB / repositories / state store; nearly everything depends on it |
+| Lungs | exchange with the outside | external integrations, third-party API / SDK |
+| Digestive | intake → transform | parsers / ETL / upload processing |
+| Skin / senses | meets the world | UI / public endpoints (the surfaces) |
+| Immune | defense, integrity | auth / validation / guards / tests / rate-limit |
+| Skeleton | structural support | shared types / contracts: depended on by many, depends on little |
+
+Start with these roles (Law of the Smallest Mechanism); add a role only when a
+real component fits none.
+
+### How Claude classifies
+1. Collect signals per component from the dependency graph: fan-in/out, IO kind,
+   whether it makes decisions, whether it rejects requests, whether it is
+   user-facing, whether it is scheduled, whether it owns data.
+2. Match signals to a role → propose the organ **with its evidence and a
+   confidence** (e.g., "Immune: middleware that rejects unauthorized requests,
+   depends on auth, returns 403").
+3. Ambiguous, or fits none → surface to the operator (Proposer-Approver); never
+   guess silently.
+4. One **primary organ** (containment) plus membership in the cross-cutting
+   systems — a cell belongs to an organ yet is served by nerves, blood, and
+   immunity.
+5. Record the **why** (the evidence), so the classification is re-derivable when
+   the code changes — not an opinion.
+
+### The diagnostic
+A component that cannot be cleanly classified — brain and heart and lungs at
+once — is an architecture smell: it violates *Modular Sovereignty* and is a
+candidate for splitting. The anatomy reveals where the body is malformed; the
+map is a diagnostic, not a decoration.
+
 ## The Artifact
 Each project carries `feature-tree.yaml`: every node has a business
 description, status, optional flow (the Process Flow template, `GEMINI.md`),
