@@ -7,6 +7,7 @@ let errors = [];
 function validateRootFiles() {
   const claudMd = path.join(rootDir, 'CLAUDE.md');
   const geminiMd = path.join(rootDir, 'GEMINI.md');
+  const designMd = path.join(rootDir, 'DESIGN.md');
 
   if (!fs.existsSync(claudMd)) {
     errors.push('Master CLAUDE.md is missing from root.');
@@ -23,6 +24,15 @@ function validateRootFiles() {
     const content = fs.readFileSync(geminiMd, 'utf8');
     if (!content.startsWith('# GEMINI.md — ')) {
       errors.push('Master GEMINI.md should start with "# GEMINI.md — "');
+    }
+  }
+
+  if (!fs.existsSync(designMd)) {
+    errors.push('Master DESIGN.md is missing from root.');
+  } else {
+    const content = fs.readFileSync(designMd, 'utf8');
+    if (!content.startsWith('# DESIGN.md — ')) {
+      errors.push('Master DESIGN.md should start with "# DESIGN.md — "');
     }
   }
 }
