@@ -28,6 +28,21 @@ Security is a non-negotiable property of every change. It is not a separate "tas
 - Trust client-controlled headers for security decisions.
 - Commit `.env` files or signing keys to the repository.
 
+## Threat Modeling: The Adversary Question (Design-Time)
+
+Security starts as a question in design and discussion, not only as implementation-time hardening: **"If someone wanted to do harm — could they, and where?"** Asked before a feature is built, it surfaces the attack surface while it is still cheap to change.
+
+This is the Mirror, not a gate (*The Law of the Name*, `GEMINI.md`): the analysis **names the holes** as facts and hands the operator/architect a map of exposure; the decision to proceed, accept the risk, or mitigate stays with the operator. Holes named early become design choices; holes found late become incidents.
+
+For every consequential feature, ask:
+
+- **Who is the adversary?** An outsider, another user, an insider, a compromised dependency, or the user against themselves.
+- **What could they do?** Read or alter data they shouldn't, escalate privilege, exhaust resources, bypass a limit, impersonate, or exfiltrate.
+- **What's the blast radius?** One record, one tenant, every user, money, reputation, or irreversible damage.
+- **Where's the weakest point?** The boundary that trusts input it shouldn't, the check that can be skipped, the default that fails open.
+
+Record the answer as a short abuse-case / threat note attached to the feature — facts for the operator, not a verdict. The note feeds directly into the audit checklist below at implementation time.
+
 ## Security Audit Checklist (Agnostic Baseline)
 
 This checklist serves as a standard for auditing changes.
