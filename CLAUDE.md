@@ -1,79 +1,10 @@
-# CLAUDE.md — Unified Engineering & Design Standards
+# CLAUDE.md — Unified Engineering Standards
 
-This document acts as the single source of truth for design, development, and engineering standards. All agents and developers must strictly adhere to these rules.
+This document acts as the single source of truth for development and engineering standards. All agents and developers must strictly adhere to these rules.
 
 ## 1. UI/UX Design Standards
 
-These rules define the UI/UX standards and guardrails for visual layout, component composition, and design execution. Every change to frontends must align with these criteria.
-
-### Claude Design Guardrails (правило 4 — діє на всіх поверхнях)
-
-#### 1. The Proposer-Approver Model (Пропонує — Оператор вирішує)
-The design-process face of **The Law of the Name** and **Human Authority** (`GEMINI.md`): Claude names options; the operator decides.
-- **Role:** Claude is the creative force that proposes design ideas, layouts, and implementations.
-- **Authority:** The human operator is the "Approver" who holds final veto power and approval authority.
-- **Action:** Present design choices clearly (e.g., Option A vs. Option B) and wait for validation before committing to complex, high-entropy design changes.
-
-#### 2. Aesthetic Frame (No Emojis)
-- **Standard:** Emojis lie outside the professional, sleek, and premium frame of the system. Their use introduces visual noise and deviates from the established brand voice.
-- **Consequence:** Using emojis in UI components, buttons, or user-facing text devalues the interface clarity. Styling must be achieved through typography, spacing, and color.
-
-#### 3. Verification Checklists
-Before submitting or finalizing any UI/UX change, verify:
-- [ ] **No Dead Ends:** Does every interactive element (button, link, trigger) lead to a logical, terminal outcome or state change?
-- [ ] **Component Recursion:** Are we reusing existing design patterns instead of introducing a new ad-hoc style?
-- [ ] **Least Emojis:** Did we check for and remove any accidental emojis?
-
-#### 4. Fundamental Counterweight: Smallest Mechanism (Anti-over-engineering)
-The UI/UX manifestation of **The Law of the Smallest Mechanism** (`GEMINI.md`).
-- **Principle:** Among solutions that equally preserve the user's authorship and control, the one with the **fewest mechanics** wins. Empowering the user does not equal adding more buttons; sometimes the greatest respect is removing a step.
-- **Over-engineering Test (Run before adding any control/screen):**
-    1. **New need or duplicate path?** If it's a "second button" for an existing need — do not add.
-    2. **One mechanism — one job.** If a toggle does two things (e.g., "Focus" = silence + UI rebuild) — split or discard one.
-    3. **Attention Budget.** "More control" is insufficient; the mechanism must return more attention than it consumes.
-    4. **Mental Model Limit.** No more than two new mental models per screen/ticket. If more — narrow the ticket.
-    5. **No UI for the Unbuilt.** Future feature previews or disabled banners belong in the backlog, not on the working screen.
-- **Duty to Speak Aloud:** When proposing additions, explicitly identify candidates for over-engineering and present the smallest version first.
-- **Post-Task Audit:** Every task ends with the question: "What can be removed, combined, or simplified?"
-
-#### 5. No Dead Ends & The Single Door (Без глухих кутів; Одні двері)
-The engineering manifestation of **Logical Navigation Outcomes** (`GEMINI.md`). This is the single home for the dead-end / exit rule; other surfaces point here rather than restating it.
-- **No Dead Ends:** Every interactive element (button, link, trigger) resolves to a logical outcome — a state change, confirmation, or next step. Never implement a path that leads nowhere or has no functional outcome.
-- **The Single Door:** A screen is entered through one door and left through the same door. There is exactly one "back / return / up / exit" affordance on any given screen, and it returns the user to the context they came from. One way in, one way out.
-- **Rules:** No more than one return element per screen. The exit mirrors the entry. Only one may generically say "Back"; others must name their explicit destination. Every render branch provides a back affordance.
-
-#### 6. The Mirror of Bindings (Дзеркало Прив'язок)
-The engineering manifestation of **The Mirror of Bindings** (`GEMINI.md`): the identity of a component or function must reflect its tier of existence. Applied to code naming:
-- **Universal Tier (Laws/Patterns):** Zero-bound. No structural hooks like "Core" or "Central". Focus on the *transformation*.
-- **Applied Tier (Tools/Sectors):** Explicitly bound. Must name the context (e.g., "MedicalRecord", "GitSync").
-
-
----
-
-### Core Design Principles
-
-#### Decluttering (Interface)
-The principle of intentionally removing noise to improve clarity and focus. Every UI element must justify its existence.
-- **Interface Decluttering:** Hide complex actions behind "Expert" toggles or progressive disclosure. The primary view must show only what is essential for the current task.
-- **Cognitive Load:** Minimize the number of things a user must hold in their head to navigate the interface.
-
-#### Conceptual Consistency & Recursive Familiarity
-Interfaces must be architected so that the user's mental model scales effortlessly across the entire system.
-- **Component Recursion:** Reuse interaction patterns (e.g., how a "Workbench" or "Sidebar" opens) identically across all modules.
-- **Predictable Affordance:** Buttons, links, and status indicators must behave exactly the same way on every screen.
-- **Spatial Logic:** If "Primary Actions" are at the bottom-right on Screen 1, they must be there on every subsequent screen.
-- **The "Already Known" Test:** Before adding a new UI pattern, ask: "Can I solve this using a pattern the user already knows from other parts of the system?"
-- **Logical Outcomes:** See **No Dead Ends & The Single Door** above — every interaction resolves to a clear state change, confirmation, or next step, matching the design specification.
-
-### Текст і копірайт — джерело правди (зовнішнє)
-
-Правила мови, тону й копірайту тут **не дублюються** (single source of truth).
-Канон — глобальний `GEMINI.md` у корінні репозиторію правил, розділи **«Writing Style & Tone»** і **«Logical Navigation Outcomes»** (там і розгорнуте правило «Design Leads / Result is a Spectrum / No Silent Dead Ends»).
-
-> Перед написанням будь-якого тексту/копірайту в продукті — **прочитай той
-> `GEMINI.md`** (який копіюється локально в корінь вашого проєкту як `GEMINI.md`).
-> Найкоротша локальна витримка для швидкої звірки — `README.md › CONTENT
-> FUNDAMENTALS` (якщо передбачено проєктом).
+UI/UX design is a sovereign domain with its own canon: **`DESIGN.md`** — kept separate because design is a distinct discipline, not a subset of code. Before any frontend, layout, or design-execution work, read `DESIGN.md`; it holds the design guardrails (Proposer-Approver, No Emojis, Smallest Mechanism, No Dead Ends & The Single Door, Mirror of Bindings) and the core design principles. Frontend *code* standards remain here in the framework sections below.
 
 ---
 
@@ -498,7 +429,7 @@ Any component that reads async data MUST handle three states:
 
 ### No dead-end screens — back must always work
 
-The React application of **No Dead Ends & The Single Door** (UI/UX Design Standards): every screen provides a way to progress or retreat, and every render branch provides a back affordance. Dead ends leave the user stranded and break the navigation harmony.
+The React application of **No Dead Ends & The Single Door** (`DESIGN.md`): every screen provides a way to progress or retreat, and every render branch provides a back affordance. Dead ends leave the user stranded and break the navigation harmony.
 
 ### Auth rejections must clear the session and bounce to login
 
@@ -654,239 +585,24 @@ A handler should do **only** what its name implies. Extracting teardown/cleanup 
 
 ---
 
-## 14. Database Standards (SQL & NoSQL)
+## 14. Database Standards
 
-### General Database Principles
-
-- **Schema Control:** All schema changes MUST be managed via migration scripts (Flyway, Liquibase, Alembic).
-- **Naming Conventions:** Use `snake_case` for tables and columns. Tables should be plural (e.g., `users`, `orders`).
-- **Indices:** Index all foreign keys and columns used in `WHERE`, `ORDER BY`, or `JOIN` clauses. Avoid over-indexing.
-
-### SQL Conventions (PostgreSQL/MySQL)
-
-#### Query Performance
-
-- **Explain Plan:** Always check the `EXPLAIN` plan for complex queries.
-- **Selectivity:** Only select the columns you need. Avoid `SELECT *`.
-- **Joins:** Prefer `INNER JOIN` over subqueries where possible. Ensure join columns are of the same type and indexed.
-
-#### Consistency & Integrity
-
-- **Foreign Keys:** Use foreign key constraints to ensure referential integrity.
-- **Transactions:** Keep transactions small and focused. Use appropriate isolation levels.
-- **Constraints:** Use `NOT NULL`, `UNIQUE`, and `CHECK` constraints at the database level.
-
-### NoSQL Conventions (MongoDB/DynamoDB)
-
-#### Data Modeling
-
-- **Access Patterns:** Design your schema based on how the data is read, not how it is stored.
-- **Denormalization:** Prefer denormalization to avoid expensive application-side joins, but manage data consistency carefully.
-
-#### Partitioning & Scaling
-
-- **Partition Keys:** Choose partition keys with high cardinality to avoid "hot partitions".
-- **TTL:** Use Time-to-Live (TTL) for transient data (sessions, logs).
-
-### Backup & Security
-
-- **Backups:** Ensure automated daily backups and test restoration regularly.
-- **Encryption:** Enable encryption at rest and in transit (SSL/TLS).
-- **Access Control:** Use dedicated service accounts with the minimum necessary permissions. Never use the `admin` or `root` user for application connections.
+Data is a sovereign domain with its own canon: **`DATABASE.md`** (SQL & NoSQL — schema control, query performance, modeling, partitioning, backup). Read it for any database or data-modeling work.
 
 ---
 
-## 15. DevOps & CI/CD Standards
+## 15. DevOps, CI/CD & Cloud Infrastructure
 
-### Core Principles
-
-- **IaC (Infrastructure as Code):** Every piece of infrastructure is defined in code (Terraform, Pulumi, or K8s manifests). Manual changes via Cloud Consoles create "ghost" infrastructure, architectural drift, and lead to deployment failures as the code no longer reflects reality.
-- **GitOps:** The state of the infrastructure reflects the state of the Git repository.
-
-### CI/CD (GitHub Actions)
-
-- **Workflow Modularity:** Use reusable workflows to avoid duplication.
-- **Security:** Use OIDC for cloud provider authentication. Never use long-lived secrets/keys.
-- **Validation:** Every PR must trigger linting, security scanning (Trivy, Snyk), and unit tests.
-- **Version Gates:** The CI/CD pipeline must enforce that any PR with code changes bumps the project/module version. Prior to merging, the pipeline must check for version collisions with parallel merges/releases and require or automate a bump to a higher, unique version if a collision occurs.
-- **Post-Merge Release & Summary:** Upon merging a PR, the deployment/release workflow must display or publish a brief summary of what was done and the version containing the changes (e.g., as a GitHub Release, Slack notification, or release log).
-
-### Docker & Containers
-
-- **Multi-stage Builds:** Use multi-stage builds to keep production images small and secure.
-- **Base Images:** Use minimal base images (Alpine or Distroless).
-- **Rootless:** Run containers as non-root users.
-
-### Kubernetes
-
-- **Resource Limits:** Always define `requests` and `limits` for CPU and Memory.
-- **Probes:** Define `livenessProbe`, `readinessProbe`, and `startupProbe` for all deployments.
-- **Config & Secrets:** Use `ConfigMaps` for configuration and `Secrets` (integrated with Vault/AWS Secrets Manager) for sensitive data.
-
-### Observability
-
-- **Metrics:** Expose Prometheus-compatible `/metrics` endpoints.
-- **Logs:** Ensure logs are output in JSON format to stdout for easy aggregation (ELK/Loki).
-- **Tracing:** Use OpenTelemetry for distributed tracing in microservices.
+Platform and infrastructure engineering is a sovereign domain with its own canon: **`DEVOPS.md`** (IaC, GitOps, CI/CD, Docker, Kubernetes, observability, and cloud/AWS conventions). Read it for any pipeline, container, or infrastructure work.
 
 ---
 
-## 16. Cloud & Infrastructure Standards
+## 16. QA & Testing
 
-### General Cloud Principles
-
-- **Managed Services First:** Prefer managed services (RDS, SQS, S3) over self-hosting on EC2/containers.
-- **Resource Tagging:** Every resource MUST have standard tags: `Project`, `Environment`, `Owner`, and `CostCenter`.
-- **Least Privilege:** Apply IAM roles and policies with the minimum permissions required for the task.
-
-### AWS Conventions
-
-#### IAM & Security
-
-- **Role-based Access:** Use IAM roles for EC2 instances and Lambda functions. Never use long-lived IAM user keys.
-- **MFA:** Enforce MFA for all human users in the AWS Console.
-
-#### Compute (Lambda/ECS)
-
-- **Lambda Idempotency:** Ensure Lambda functions are idempotent to handle retries.
-- **Ephemeral Storage:** Treat Lambda `/tmp` as temporary. Never store persistent data there.
-- **Container Portability:** Keep Docker images platform-agnostic. Use environment variables for configuration.
-
-#### Storage & Networking
-
-- **S3 Encryption:** Always enable default encryption (AES-256) for S3 buckets.
-- **Private Subnets:** Place databases and internal services in private subnets. Use NAT Gateways or VPC Endpoints for external access.
-- **CDN:** Use CloudFront for static assets and global API acceleration.
-
-#### Monitoring & Costs
-
-- **CloudWatch:** Log everything to CloudWatch Logs with proper retention periods.
-- **Budgets:** Set up AWS Budgets and CloudWatch Alarms to monitor spend.
+Quality engineering is a sovereign domain with its own canon: **`TESTING.md`** (testing pyramid; unit, integration, and E2E strategy; and Playwright automation standards). Read it for any test-strategy or test-authoring work.
 
 ---
 
-## 17. Playwright Automated Testing Standards
+## 17. Security
 
-### Core Principles
-
-- **End-to-End focus:** Tests should simulate real user behavior in a production-like environment.
-- **Isolation:** Each test should be independent. Manage state (e.g., via DB seeds or API calls) before and after each test.
-- **Resilience:** Avoid fragile selectors (e.g., deep CSS/XPath). Use user-facing attributes (labels, roles, text).
-
-### Coding Standards
-
-#### Selectors & Locators
-- **Role-based:** `page.getByRole('button', { name: 'Submit' })` - PREFERRED.
-- **Label-based:** `page.getByLabel('Username')`.
-- **Placeholder:** `page.getByPlaceholder('Email address')`.
-- **Data-test-id:** Use `data-testid` only as a last resort.
-
-#### Expectations & Assertions
-- **Web-first assertions:** Use `expect(locator).toBeVisible()` or `expect(locator).toHaveText()`. These have built-in auto-wait.
-- **Avoid manual timeouts:** Never use `page.waitForTimeout()`. Let Playwright's auto-waiting handle synchronization.
-
-#### Test Structure
-- **Gherkin-style naming:** Use `Given/When/Then` logic in test descriptions.
-- **Page Object Model (POM):** Use POM for complex applications to encapsulate page logic and selectors.
-- **Fixtures:** Leverage custom fixtures for shared setup (e.g., authenticated sessions).
-
-### Execution & Reporting
-- **Headless mode:** Run in headless mode for CI.
-- **Tracing:** Enable tracing on failure for easier debugging.
-- **Parallelization:** Run tests in parallel to minimize execution time.
-
----
-
-## 18. QA & Testing Standards
-
-### Testing Philosophy
-
-- **Testing Pyramid:** Favor a high volume of unit tests, fewer integration tests, and even fewer end-to-end (E2E) tests.
-- **Shift Left:** Integrate testing early in the development lifecycle. Developers are responsible for the quality of their code.
-- **Deterministic Tests:** Tests must be reliable and repeatable. Flaky tests MUST be fixed or removed immediately.
-
-### Unit Testing
-
-- **Isolation:** Use mocks and stubs to isolate the unit under test.
-- **Naming:** Use clear, descriptive names (e.g., `should_return_error_when_user_id_is_missing`).
-- **Coverage:** Aim for high branch coverage in business logic, but don't obsess over 100% total coverage.
-
-### Integration Testing
-
-- **External Systems:** Test interactions with databases, file systems, and external APIs using real or containerized (e.g., Testcontainers) instances.
-- **Contract Testing:** Use contract testing (e.g., Pact) for microservice communications to ensure compatibility.
-
-### End-to-End (E2E) Testing
-
-- **Critical Paths:** Focus E2E tests on high-value user journeys (login, checkout, core workflows).
-- **Tools:** Use modern frameworks like Playwright or Cypress.
-- **Environment:** Run E2E tests in a dedicated staging environment that mirrors production.
-
-### Manual Testing & QA
-
-- **Exploratory Testing:** Perform manual exploratory testing for new features to find edge cases that automated tests might miss.
-- **Bug Reporting:** Provide clear steps to reproduce, expected vs. actual results, and relevant logs/screenshots.
-
-### Performance & Security Testing
-
-- **Load Testing:** Run performance tests to identify bottlenecks under high traffic.
-- **Security Scanning:** Integrate SAST (Static Analysis) and DAST (Dynamic Analysis) tools into the CI/CD pipeline.
-
----
-
-## 19. Security Standards
-
-> **STATUS: PAUSED.** These rules are disabled for the MVP per the operator's call. They are kept here so nothing is lost. **Re-enable before any real launch** (public web, app-store submission, real user PII) by integrating them into the active sections of `CLAUDE.md`.
-
----
-
-### Security as a Mindset
-
-Security is a non-negotiable property of every change. It is not a separate "task" but a core part of the engineering mindset. Any code written, refactored, or reviewed must be safe by default — no compromises for convenience or speed. We protect the system to protect our users and our peace of mind.
-
-**Always:**
-
-- **Validate and Sanitize:** Every system boundary (API handlers, message consumers, file uploads) must validate input. Never trust client-supplied data.
-- **Parameterized Queries:** Use your stack's native parameterized query mechanism (ORM criteria, prepared statements). Never build queries via string concatenation.
-- **Authorization over Authentication:** Verify not just _who_ the caller is, but _if_ they are allowed to act on the specific resource. A logged-in user is not automatically permitted to read another user's data.
-- **Secret Management:** Keep secrets out of source code, logs, and error messages. Use environment variables or secret managers.
-- **DTO Projection:** Project entities to DTOs at the API edge. Never return raw DB models directly, as they may leak sensitive internal fields.
-- **Least Privilege:** Give every service, process, and user the minimum permissions required to perform its task.
-- **Fail Closed:** If a security check throws an error, the action must be rejected. Never default to "allow" on error.
-
-**Never:**
-
-- Disable security features (CSRF, CORS, rate limiting) "to make it work" during development.
-- Bypass auth in dev/staging code paths that could be reached in prod.
-- Log raw tokens, passwords, OTP codes, or PII (emails, phone numbers).
-- Trust client-controlled headers for security decisions.
-- Commit `.env` files or signing keys to the repository.
-
-### Security Audit Checklist (Agnostic Baseline)
-
-This checklist serves as a standard for auditing changes.
-
-#### 1. Core Security
-
-- **Access Control:** Is every endpoint protected by resource-level authorization?
-- **Injection:** Are all database queries and shell commands parameterized?
-- **Input Validation:** Is there a strict schema/type validation for all inputs?
-- **Secrets:** Are there any hardcoded keys, tokens, or sensitive logs?
-- **Redaction:** Are sensitive fields (passwords, PII) redacted from logs and error responses?
-
-#### 2. Infrastructure & Integration
-
-- **Secure Headers:** Are standard security headers (HSTS, CSP, etc.) configured?
-- **TLS/SSL:** Is the connection encrypted? Are certificates managed correctly?
-- **Dependencies:** Are third-party libraries pinned and checked for known vulnerabilities (CVEs)?
-- **Rate Limiting:** Are expensive or sensitive endpoints protected from brute force or DoS?
-
-#### 3. AI & LLM Security (If applicable)
-
-- **Prompt Injection:** Are user inputs treated as untrusted and clearly separated from system instructions?
-- **Output Sanitization:** Is model output validated and sanitized before being rendered or stored?
-- **Cost Control:** Are there per-user rate limits and budget caps on model calls?
-
----
-
-_This checklist is intended to be expanded based on the specific technology stack used in the project._
+Security is a sovereign domain with its own canon: **`SECURITY.md`** (safe-by-default mindset, always/never rules, and the agnostic audit checklist) — **ACTIVE**: a non-negotiable property of every change. Read it for any auth, secrets, input-validation, or LLM-security work.

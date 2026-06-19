@@ -5,26 +5,20 @@ const rootDir = path.join(__dirname, '..');
 let errors = [];
 
 function validateRootFiles() {
-  const claudMd = path.join(rootDir, 'CLAUDE.md');
-  const geminiMd = path.join(rootDir, 'GEMINI.md');
+  const masters = ['CLAUDE.md', 'GEMINI.md', 'DESIGN.md', 'DATABASE.md', 'DEVOPS.md', 'TESTING.md', 'SECURITY.md'];
 
-  if (!fs.existsSync(claudMd)) {
-    errors.push('Master CLAUDE.md is missing from root.');
-  } else {
-    const content = fs.readFileSync(claudMd, 'utf8');
-    if (!content.startsWith('# CLAUDE.md — ')) {
-      errors.push('Master CLAUDE.md should start with "# CLAUDE.md — "');
+  masters.forEach((name) => {
+    const filePath = path.join(rootDir, name);
+    if (!fs.existsSync(filePath)) {
+      errors.push(`Master ${name} is missing from root.`);
+      return;
     }
-  }
-
-  if (!fs.existsSync(geminiMd)) {
-    errors.push('Master GEMINI.md is missing from root.');
-  } else {
-    const content = fs.readFileSync(geminiMd, 'utf8');
-    if (!content.startsWith('# GEMINI.md — ')) {
-      errors.push('Master GEMINI.md should start with "# GEMINI.md — "');
+    const content = fs.readFileSync(filePath, 'utf8');
+    const expectedPrefix = `# ${name} — `;
+    if (!content.startsWith(expectedPrefix)) {
+      errors.push(`Master ${name} should start with "${expectedPrefix}"`);
     }
-  }
+  });
 }
 
 // Validate sync-config.json
