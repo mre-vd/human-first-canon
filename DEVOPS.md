@@ -29,6 +29,27 @@ A change should flow to a green `main` with minimal human friction and zero brok
 
 **Guardrails:** the full suite still runs nightly and pre-release (selection is never the production gate); auto-merge never bypasses required reviews or the **Version Gates** below; pin third-party actions by commit SHA.
 
+### Local Developer Setup
+
+The pipeline is event-driven — locally it runs through git hooks, never on system boot (boot-time execution would violate *Operational Rest*: it would run with no change to test). One-time setup per clone:
+
+```bash
+pip install pre-commit                     # or: brew install pre-commit
+pre-commit install                         # auto-fix lint/format on every commit
+pre-commit install --hook-type pre-push    # run affected tests before push
+```
+
+After that it is automatic: `git commit` runs the auto-fix hooks; `git push` runs the affected-test set and blocks on red. Run manually when needed:
+
+```bash
+pre-commit run --all-files                 # fix across the whole repo
+nx affected -t test                        # or: pytest --testmon / jest --changedSince=main
+```
+
+The `.pre-commit-config.yaml` and the stack-specific test-selection wiring are generated when this canon is applied to a project; each developer only runs `pre-commit install` once.
+
+For **self-hosted CI**, install the runner **as a service** so it starts at boot and waits for jobs (`launchd` on macOS, `svc.sh install` on Linux/Windows). This runner agent is the only piece that legitimately auto-starts; the pipeline itself stays event-driven.
+
 ### Docker & Containers
 
 - **Multi-stage Builds:** Use multi-stage builds to keep production images small and secure.
