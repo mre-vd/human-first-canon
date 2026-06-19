@@ -26,11 +26,19 @@
 
 ## ⚙️ Синхронізація (Єдине джерело правди)
 
-Цей репозиторій (кореневі `GEMINI.md` та `CLAUDE.md`) є нашим єдиним джерелом правди (Single Source of Truth) для пошуку етичних та архітектурних балансів. 
+Канон — це родина суверенних файлів у корені цього репозиторію, що разом є нашим єдиним джерелом правди (Single Source of Truth):
+
+*   `GEMINI.md` — стратегія, етика, аналіз
+*   `CLAUDE.md` — інженерія: цілісність + стандарти коду (мови/фреймворки)
+*   `DESIGN.md` — UI/UX дизайн
+*   `DATABASE.md` — дані (SQL & NoSQL)
+*   `DEVOPS.md` — DevOps, CI/CD, хмара/інфра
+*   `TESTING.md` — QA і тестування
+*   `SECURITY.md` — безпека 
 
 Для того, щоб застосувати ці правила у реальних проєктах, ми використовуємо скрипт автоматичної синхронізації:
 *   Будь-які експерименти та зміни правил відбуваються **тільки тут**.
-*   Запуск `node scripts/sync.js` розповсюджує оновлені інструкції (файли `GEMINI.md`, `CLAUDE.md` тощо) по всіх налаштованих проєктах.
+*   Запуск `node scripts/sync.js` розповсюджує **всі канон-файли** по всіх налаштованих проєктах.
 
 Це допомагає нам утримувати ШІ-помічників у різних робочих директоріях в єдиному актуальному контексті.
 
@@ -63,10 +71,18 @@ All AI instructions (centered in `GEMINI.md`) are based on several key engineeri
 
 ## ⚙️ Synchronization (Single Source of Truth)
 
-This repository (the root `GEMINI.md` and `CLAUDE.md`) acts as our Single Source of Truth for finding ethical and architectural balances.
+The canon is a family of sovereign files at the root of this repository, together our Single Source of Truth:
+
+*   `GEMINI.md` — strategy, ethics, analysis
+*   `CLAUDE.md` — engineering: integrity + code standards (languages/frameworks)
+*   `DESIGN.md` — UI/UX design
+*   `DATABASE.md` — data (SQL & NoSQL)
+*   `DEVOPS.md` — DevOps, CI/CD, cloud/infra
+*   `TESTING.md` — QA & testing
+*   `SECURITY.md` — security
 
 To apply these rules to real projects, we use an automatic synchronization script:
 *   All experiments and rule changes happen **only here**.
-*   Running `node scripts/sync.js` distributes the updated instructions (files like `GEMINI.md`, `CLAUDE.md`, etc.) across all configured projects.
+*   Running `node scripts/sync.js` distributes **all canon files** across all configured projects.
 
 This helps us maintain AI assistants across different working directories within a single, up-to-date context.
