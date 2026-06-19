@@ -17,6 +17,39 @@ Platform and infrastructure engineering is a sovereign domain — kept separate 
 - **Version Gates:** The CI/CD pipeline must enforce that any PR with code changes bumps the project/module version. Prior to merging, the pipeline must check for version collisions with parallel merges/releases and require or automate a bump to a higher, unique value if a collision occurs.
 - **Post-Merge Release & Summary:** Upon merging a PR, the deployment/release workflow must display or publish a brief summary of what was done and the version containing the changes (e.g., as a GitHub Release, Slack notification, or release log).
 
+### Stable Auto-Pipeline: Fix → Affected Tests → Merge Queue → Auto-Merge
+
+A change should flow to a green `main` with minimal human friction and zero broken-main risk. The proven pipeline shape:
+
+1. **Auto-fix first.** Run formatters and linters in `--fix` mode (Prettier/ESLint, `ruff --fix`, `gofmt`, etc.) and commit the fixes back to the PR automatically — via `pre-commit` locally and a CI auto-fix bot (`pre-commit.ci`, `autofix.ci`) on the PR. Bound it: one fix pass, a visible commit, never a self-triggering loop.
+2. **Run only the affected tests.** Gate the PR on the minimal impacted test set (see `TESTING.md` → Test Selection), not the whole suite — the resource rule.
+3. **Required checks + branch up to date.** Branch protection / ruleset requires the status checks to pass and the branch to be current with base before merge.
+4. **Merge queue for the shared branch.** On busy branches, require a merge queue (GitHub `merge_group`): it tests each PR *as if already merged* with the others ahead of it and serializes the merge, so concurrent PRs can never break `main` via semantic conflicts. Required workflows MUST also trigger on the `merge_group` event, and CI capacity must account for both PR and merge-group runs.
+5. **Auto-merge.** Enable auto-merge so a PR lands the instant its required checks pass and approvals are in — combined with the merge queue on high-traffic branches.
+
+**Guardrails:** the full suite still runs nightly and pre-release (selection is never the production gate); auto-merge never bypasses required reviews or the **Version Gates** below; pin third-party actions by commit SHA.
+
+### Local Developer Setup
+
+The pipeline is event-driven — locally it runs through git hooks, never on system boot (boot-time execution would violate *Operational Rest*: it would run with no change to test). The hooks are cross-platform and run identically on **Windows, macOS, and Linux** — in any shell (PowerShell or Git Bash on Windows, bash/zsh on macOS and Linux). One-time setup per clone:
+
+```bash
+pip install pre-commit                     # all OSes; alt: brew (macOS), pipx, or the OS package manager (Linux)
+pre-commit install                         # auto-fix lint/format on every commit
+pre-commit install --hook-type pre-push    # run affected tests before push
+```
+
+After that it is automatic: `git commit` runs the auto-fix hooks; `git push` runs the affected-test set and blocks on red. Run manually when needed:
+
+```bash
+pre-commit run --all-files                 # fix across the whole repo
+nx affected -t test                        # or: pytest --testmon / jest --changedSince=main
+```
+
+The `.pre-commit-config.yaml` and the stack-specific test-selection wiring are generated when this canon is applied to a project; each developer only runs `pre-commit install` once.
+
+For **self-hosted CI**, install the runner **as a service** so it starts at boot and waits for jobs — **Windows:** install as a service during `config.cmd` (or the runner's service command); **Linux:** `sudo ./svc.sh install` (systemd); **macOS:** `./svc.sh install` (launchd). This runner agent is the only piece that legitimately auto-starts; the pipeline itself stays event-driven.
+
 ### Docker & Containers
 
 - **Multi-stage Builds:** Use multi-stage builds to keep production images small and secure.

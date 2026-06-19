@@ -37,6 +37,28 @@ Quality engineering is a sovereign domain — kept separate from the engineering
 - **Load Testing:** Run performance tests to identify bottlenecks under high traffic.
 - **Security Scanning:** Integrate SAST (Static Analysis) and DAST (Dynamic Analysis) tools into the CI/CD pipeline.
 
+## Test Selection (Run Only What the Change Needs)
+
+The resource rule applied to testing — the engineering face of *Operational Rest / Zero-Active Waste* (`GEMINI.md`): a change runs **only the tests reachable from it**, not the whole suite. Energy is spent only where the change can actually break something.
+
+- **The canon says "tests"; the project names its suites.** This rule governs test *selection*, not test *kinds*. The gate is the same everywhere — "run the affected tests, keep a full nightly" — while *which* suites exist and how each maps to a change is bound per project (Mirror of Bindings, `GEMINI.md`). A project declares its own suites — unit, integration, component, browser E2E (e.g. Playwright), desktop E2E (e.g. Tauri / WebDriver), load — and wires each into the affected-set computation. The tool names below are illustrative, not mandates.
+- **Affected-only execution.** Determine the minimal set of tests impacted by a diff and run just those. Three proven approaches — pick what fits the stack:
+  - *Build-graph based* — derive affected targets from the dependency graph: `nx affected`, Bazel (`bazel test` over `rdeps`), Turborepo (`--filter=...[origin/main]`) with remote caching.
+  - *Coverage-mapped (Test Impact Analysis)* — map each test to the lines it covers, then select tests whose covered lines changed: Datadog TIA, Azure DevOps TIA, `pytest-testmon`, Jest `--changedSince`.
+  - *Predictive* — a model trained on past code-change/test-outcome pairs selects the tests most likely to fail (e.g., Develocity Predictive Test Selection).
+- **Always keep a full-suite safety net.** Selection can miss (imperfect mappings, non-code dependencies, config/data changes). Run the **entire** suite on a schedule (nightly) and before any release/tag — never let selection be the only gate to production.
+- **Cache and parallelize.** Cache build and test results so unchanged work is never re-run; shard the selected tests across runners for wall-clock speed.
+- **Selection demands determinism.** Affected-test selection is only trustworthy if tests are isolated and deterministic — see Flakiness below.
+
+## Flakiness & Test Stability
+
+A selective pipeline that auto-merges is only safe if a green result is *trustworthy*. Flaky tests destroy that trust (Atlassian reports ~150k developer-hours/year lost to flakiness across its org).
+
+- **Detect, don't ignore.** Flag a test flaky when it both passes and fails on the same commit (rerun 20–50×) or when its rolling failure rate exceeds ~2% over a 14-day window.
+- **Quarantine with a strict SLA.** A test that flakes on the default branch is auto-quarantined (excluded from the merge gate) but **immediately ticketed with an owner**: fix or delete within one sprint. Cap quarantine at ≤5% of the suite with a hard time limit (e.g., 30 days) — quarantine is a temporary state, never a graveyard.
+- **No silent retries.** Auto-retry is allowed only with full visibility — every retry is recorded and surfaced. A test that quietly passes on attempt 2 while nobody learns it flaked is an anti-pattern that hides real instability.
+- **Determinism is mandatory.** Isolate state (fresh fixtures/containers per test), control time and randomness, allow no inter-test ordering dependencies, and share no mutable external state.
+
 ## Playwright Automated Testing
 
 ### Core Principles
