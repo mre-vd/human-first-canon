@@ -1,141 +1,126 @@
-# SYSTEM-MAP.md — The Living Map (Project as a Human Body)
+# SYSTEM-MAP.md — The System Map
 
-A project is navigated as a living tree, not as flat code. The map is the
-primary interface: orient at the top in business language, descend to code only
-at the point that must change. Grounded in how the **human body** organizes —
-and kept honest the way the body keeps itself honest. We build systems for
-people, so we model them on the human body, not on biology in general.
+A project is navigated by its map, not by flat code. The map is the primary
+interface: orient at the top in business language, descend to code only at the
+boundary that must change. Inspired by how natural systems organize — hierarchy,
+cross-cutting flows, reachability, and self-correction — but expressed in
+engineering terms.
 
-The "tree" is the **shape** of the navigation; the biology underneath is human
-anatomy. Where the model needs a surface that meets the world, that surface is
-the body's own — skin, senses, the linings where exchange happens — not a
-plant's leaf.
+The map is two structures at once:
+- a **containment tree** — where things live;
+- a **dependency graph** — how things relate and reach each other.
 
-## The Model
-- **Containment tree (the body):** Body (product) → Systems → Organs (modules)
-  → Tissues (components) → Surfaces (UI / endpoints / jobs — skin and senses,
-  where the body meets the world) → DNA (the code you actually edit).
-- **Cross-cutting systems (graphs that ignore the hierarchy):** nervous
-  (events), circulatory (data/state), endocrine (config/flags), and the immune
-  system below. A feature is a node in the tree AND a set of touches by these
-  systems.
-- **Anchors are many-to-many:** a node points to its code (`file:symbol`, route,
-  event); one node may have many anchors and one file may serve many nodes.
-  Never force a clean 1:1 tree.
+## The Levels (containment tree)
 
-## Anatomical Classification (Which Organ Is a Feature?)
+System (product) → Domains → Modules → Components → Boundaries (entry points /
+ports — UI, endpoints, jobs: where the system meets the outside) → Code (the
+locus you actually edit).
 
-The principle: an organ is defined by **function**, never by name or
-resemblance. A component's organ is what it *does* in the system, read from
-objective code signals — not a metaphor ("billing = heart because money flows").
-This is the Law of the Name applied to structure.
+## The Cross-cutting Layers (graph; ignore the hierarchy)
 
-### The organ roles (function → code signal)
+- **Eventing** — events / messaging.
+- **Data** — persistence and shared state.
+- **Config** — configuration and flags.
+- **Integrity** — security, validation, and tests (the self-correction layer).
 
-| Organ | Function | Code signal |
-|---|---|---|
-| Brain / nervous | decision, orchestration | high fan-out, business branching, coordinates others |
-| Spine / nerves | carries signals | events / queues, no business logic of its own |
-| Heart / circulatory | pumps the lifeblood = data | DB / repositories / state store; nearly everything depends on it |
-| Lungs | exchange with the outside | external integrations, third-party API / SDK |
-| Digestive | intake → transform | parsers / ETL / upload processing |
-| Skin / senses | meets the world | UI / public endpoints (the surfaces) |
-| Immune | defense, integrity | auth / validation / guards / tests / rate-limit |
-| Skeleton | structural support | shared types / contracts: depended on by many, depends on little |
+A feature is a node in the tree AND a set of touches by these layers. Anchors
+are many-to-many: one node may point to many code locations and one file may
+serve many nodes — never force a clean 1:1 tree.
 
-Start with these roles (Law of the Smallest Mechanism); add a role only when a
-real component fits none.
+## Role Classification (which role is a component?)
 
-### How Claude classifies
-1. Collect signals per component from the dependency graph: fan-in/out, IO kind,
-   whether it makes decisions, whether it rejects requests, whether it is
-   user-facing, whether it is scheduled, whether it owns data.
-2. Match signals to a role → propose the organ **with its evidence and a
-   confidence** (e.g., "Immune: middleware that rejects unauthorized requests,
-   depends on auth, returns 403").
-3. Ambiguous, or fits none → surface to the operator (Proposer-Approver); never
-   guess silently.
-4. One **primary organ** (containment) plus membership in the cross-cutting
-   systems — a cell belongs to an organ yet is served by nerves, blood, and
-   immunity.
-5. Record the **why** (the evidence), so the classification is re-derivable when
-   the code changes — not an opinion.
+A component's role is defined by **function**, read from objective code signals —
+not by name or resemblance (the *Mirror of Bindings* and *Law of the Name*,
+`GEMINI.md`). Each role also carries a **blast radius**: how far a change to it
+ripples.
 
-### The diagnostic
-A component that cannot be cleanly classified — brain and heart and lungs at
-once — is an architecture smell: it violates *Modular Sovereignty* and is a
-candidate for splitting. The anatomy reveals where the body is malformed; the
-map is a diagnostic, not a decoration.
+| Role | Function | Code signal | Blast radius |
+|---|---|---|---|
+| Orchestrator | coordinates a flow, holds decision logic | high fan-out, business branching | medium–wide |
+| Service | encapsulates one domain capability | called by orchestrators/edges, owns logic | local–medium |
+| Store | persistence / shared state | DB, repositories; depended on by many | **wide** |
+| Gateway | boundary to an external system | third-party SDK / outbound API | local |
+| Pipeline | intake → transform → output | parsers / ETL / upload processing | local |
+| Edge | meets the world | UI, public endpoints (entry points) | local |
+| Guard | defense & integrity | auth / validation / rate-limit / tests | medium |
+| Contracts | shared types, interfaces, kernel | depended on by many, depends on little | **wide** |
+
+Start with these roles (*Law of the Smallest Mechanism*); add one only when a
+real component fits none. A component that fits none cleanly — or fits several —
+is an architecture smell: it likely breaks *Modular Sovereignty* and is a
+candidate for splitting. Surface it to the operator with evidence; never guess.
 
 ## The Artifact
 
 Each project carries a `.map/` folder at its root:
-- `feature-tree.yaml` — the map data (the single source the view renders from).
+- `feature-tree.yaml` — the map data (the single source the view renders from, and Claude's primary interface).
 - `index.html` — the local viewer (see The View); opens directly, no server.
-- `validate-map.mjs` — the immune validator (see The Immune System).
+- `validate-map.mjs` — the integrity check (see below); also emits `index.json`.
+- `index.json` — generated **reverse index** (`code path → node ids`), so a file in hand instantly resolves to the feature(s) it serves.
 
-**Node schema** (every node):
-- `id` — stable slug.
-- `business` — one-line human description, in domain language.
-- `organ` — one role from the taxonomy above, or `mixed` (which is a smell).
-- `evidence` — why this organ (the signals that classified it).
+**Node schema** (kept lean — only what speeds real work):
+- `id` — stable semantic slug `domain.module.feature` (survives file moves).
+- `business` — one-line description, in domain language.
+- `role` — one role from the table above (or `mixed` = a smell).
+- `risk` — blast radius (`local` | `medium` | `wide`), from the role.
+- `evidence` — why this role (the signals that classified it).
 - `status` — `active` | `planned` | `deprecated` | `dead`.
-- `systems` — cross-cutting touches: any of `nervous` (events), `circulatory` (data), `endocrine` (config), `immune` (defense).
-- `flow` — optional Process Flow (`GEMINI.md`).
+- `systems` — cross-cutting touches: any of `eventing`, `data`, `config`, `integrity`.
 - `children` — sub-nodes.
-- `anchors` — code anchors (`file:symbol`, route, event), **only at surfaces**.
+- `anchors` — code, **only at boundaries**: `path:symbol`, `METHOD /route`, `event:name` (machine-resolvable).
+- `tests` — test anchors, so the map drives affected-test selection (`TESTING.md`).
 
-**Stopping rule (granularity).** A node earns its place only by carrying
-business meaning. Nodes stop at surfaces; below a surface, implementation lives
-as `anchors`, not as more nodes — do not node-ify every function (Law of the
-Smallest Mechanism). Status `dead` marks tissue reachable from no nerve ending —
-flagged to fall away (backward immunity).
+**Stopping rule (granularity).** A node earns its place only by carrying business
+meaning. Nodes stop at boundaries; below a boundary, implementation lives as
+`anchors`, not as more nodes — do not node-ify every function. Keep the map lean:
+bloat rots, and a map that is not trusted is worse than none.
 
 ## The View (for humans)
 
-We build for people, so the rendered map must be navigable at a glance, not just
-machine-readable. `index.html` MUST provide:
-- **Tree view** — the body hierarchy, each node colored by its organ; cross-cutting systems shown as colored edges/badges.
-- **Organs view** — a grouped list, organ → its features (the direct answer to "which feature is which organ").
-- **Legend** — organ → its color and one-line function; clicking an organ filters to its features.
-- **Search & filter** — jump to a feature by name; filter by organ or by cross-cutting system.
+We build for people, so the rendered map must be navigable at a glance.
+`index.html` MUST provide:
+- **Tree view** — the containment hierarchy, each node colored by its role; cross-cutting layers as colored edges/badges.
+- **Roles view** — grouped list, role → its components (the direct answer to "what is what").
+- **Legend** — role → color and function; clicking a role filters to it.
+- **Search & filter** — jump by name; filter by role or by cross-cutting layer.
 
-The viewer obeys `DESIGN.md`: no emojis (color and text, not icons-as-meaning),
-decluttering (detail on demand), and No Dead Ends & The Single Door (back always
-works). The map is a tool a human reaches for, not a diagram they decode.
+Obeys `DESIGN.md`: no emojis (color and text), decluttering (detail on demand),
+No Dead Ends & The Single Door (back always works).
 
-## The Immune System (mandatory)
-Any living body needs error-correction or it rots. The immune layer works in
-**both** directions:
-- **Forward (map → code):** a validator MUST fail when a node's anchor no longer
-  resolves to real code — a node that lies is drift, caught automatically (like
-  DNA repair and apoptosis).
-- **Backward (code → map):** code reachable from no nerve ending (no route, job,
-  event, export, or live node) is dead tissue — flagged to fall away. What is
-  connected lives; what is not, dies. This is the *Law of the Smallest
-  Mechanism* enforced by anatomy.
+## Integrity (self-correction, mandatory)
 
-## Bootstrapping an Existing Body
+A system that cannot detect its own drift rots. `validate-map.mjs` works in
+**both** directions and runs in the pipeline (CI + pre-commit, `DEVOPS.md`):
+- **Forward (map → code):** fail when a node's anchor no longer resolves to real code — a node that lies is drift.
+- **Backward (code → map):** code reachable from no entry point is dead/unreachable — flag it to remove (`status: dead`). What is connected lives; what is not is removed (*Smallest Mechanism*).
 
-To build the map for a codebase that already exists:
-1. **Find the nerve endings** — enumerate entry points: routes, jobs, event handlers, exported APIs, UI pages.
-2. **Walk the graph** — from each entry point, follow the dependency graph; what is reachable is alive.
-3. **Cluster into organs** — group reachable code by cohesion (what changes together, what depends on what) into candidate organs.
-4. **Name in business language** — give each cluster a domain name a human actually uses.
-5. **Classify** — assign each its organ by the Anatomical Classification taxonomy, with evidence.
-6. **Surface the dead** — anything reachable from no entry point is dead tissue; list it for removal, do not map it as alive.
-
-Proceed top-down: the whole body at the top levels first (reviewable), then
-descend organ by organ to surfaces and anchors.
+A seed is not dead: code *intended but not yet wired* is `planned`, not `dead` —
+do not prune what is deliberately incubating. A green validator is the trust
+signal: only a map that passes is one Claude may rely on blind.
 
 ## How Claude uses it
-1. Read the map first; locate the node by business meaning.
-2. Descend only into that node's anchors — not the whole codebase.
-3. Edit at the locus; update the node; re-validate.
-4. Any feature change updates the tree in the same PR (Completeness of
-   Execution, `CLAUDE.md`).
+
+1. **Orient first.** After `git pull`, read `.map/feature-tree.yaml` before touching code — it is the entry point to every task.
+2. **Locate** the node by business meaning; note its `role` and `risk`.
+3. **Descend** only into that node's anchors — not the whole codebase. From a file in hand, use `index.json` for the reverse lookup.
+4. **Gauge the blast radius** from `risk` before editing (`wide` → expect ripples; verify dependents).
+5. **Run only the node's `tests`** (affected-test selection, `TESTING.md`).
+6. **Edit, update the node, re-validate.** Any feature change updates the tree in the same PR (*Completeness of Execution*, `CLAUDE.md`).
+
+## Bootstrapping an existing project
+
+1. **Entry points** — enumerate routes, jobs, event handlers, exported APIs, UI screens.
+2. **Walk the graph** from them; what is reachable is live.
+3. **Cluster** reachable code by cohesion into candidate modules.
+4. **Name** each in business language.
+5. **Classify** each by the Role table, with evidence and risk.
+6. **Surface the dead** — anything reachable from no entry point; list it, do not map it as live.
+
+Proceed top-down: the whole map at the top levels first (reviewable), then
+descend module by module to boundaries and anchors.
 
 ## What it is not
+
 Not blind imitation of nature: we keep intentional design, global refactoring,
-and the Law of the Smallest Mechanism — no junk DNA, no redundancy. The operator
-views the rendered tree; the depth is for the system to maintain.
+and the *Law of the Smallest Mechanism* — no dead weight, no redundancy beyond
+what protects. Enough to serve, not perfect.
