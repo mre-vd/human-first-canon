@@ -25,7 +25,6 @@
 *   `DEVOPS.md` — DevOps, CI/CD, хмара/інфра
 *   `TESTING.md` — QA і тестування
 *   `SECURITY.md` — безпека
-*   `SYSTEM-MAP.md` — жива карта проєкта (дерево-організм; навігація для ШІ) 
 
 Щоб застосувати ці правила у реальних проєктах, використовується скрипт автоматичної синхронізації:
 *   Будь-які експерименти та зміни правил відбуваються **тільки тут**.
@@ -61,7 +60,6 @@ The canon is a family of sovereign files at the root of this repository, togethe
 *   `DEVOPS.md` — DevOps, CI/CD, cloud/infra
 *   `TESTING.md` — QA & testing
 *   `SECURITY.md` — security
-*   `SYSTEM-MAP.md` — living map of the project (organism tree; AI navigation)
 
 To apply these rules to real projects, an automatic synchronization script is used:
 *   All experiments and rule changes happen **only here**.
