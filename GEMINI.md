@@ -56,12 +56,6 @@ Rules form a tree. The tree lives crown-up, root-down:
 
 Whenever a piece of state is shared across surfaces, exactly **one** location is the source. Hand-editing derived copies creates state divergence, which will be neutralized by the next automated synchronization.
 
-### Provenance: Name the Source (Першоджерело)
-
-The Law of the Name applied to the rules themselves: anyone who adopts, copies, or derives from this canon names its source with a visible link to the origin repository. Not control — honest provenance and a working correction path. When a rule turns out crooked it is fixed at the origin, and the backlink is how that fix becomes findable. (Propagation is `sync.js` for controlled projects, or a re-pull from the named source for external adopters — attribution enables it, it does not happen automatically.)
-
-**Found a crooked rule? Fix it at the source.** Open an **Issue** at the origin repository to flag it, or a **Pull Request** to propose the correction directly. All rule changes happen at the origin and flow out via sync — never patch a derived copy in place: it diverges, and the next sync overwrites it.
-
 ### Session Start: Pull First
 
 Every session begins with `git pull` — the working tree is synced with the remote before any analysis or change. This keeps both the project and the canon (`GEMINI.md`, `CLAUDE.md`, and the domain files) current; a stale tree means reasoning on superseded rules. Pull first; then proceed.
