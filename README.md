@@ -2,13 +2,13 @@
 
 Цей репозиторій — це спроба централізувати конфігурацію та набір правил поведінки ("статут") для взаємодії зі штучним інтелектом під час розробки програмного забезпечення.
 
-Він описує те, як ми **намагаємося налаштувати** ШІ: як він має аналізувати задачі, проєктувати системи та спілкуватися з користувачем. Ми постійно шукаємо баланс, щоб розробка була безпечною, екологічною та передбачуваною.
+Він описує, як саме **налаштовується** ШІ: як він має аналізувати задачі, проєктувати системи та спілкуватися з користувачем. Мета — баланс, щоб розробка була безпечною, екологічною та передбачуваною.
 
 *(Scroll down for the English version)*
 
 ## 👥 Рольова модель
 
-Ми використовуємо мульти-агентний підхід, де намагаємося делегувати кожному ШІ-агенту чітко визначену функцію:
+Підхід — мульти-агентний: кожному ШІ-агенту делегується чітко визначена функція:
 
 *   👤 **Оператор (Людина)** — єдине джерело рішень (Source of Truth). ШІ не діє самостійно, а лише проєктує варіанти та виконує затверджені команди.
 *   ✨ **Gemini (Аналітик / Стратег)** — налаштовується на роль бізнес-аналітика, UX-стратега та архітектора. Вона допомагає валідувати ідеї та готувати чіткі технічні завдання.
@@ -16,7 +16,7 @@
 
 ## ⚙️ Синхронізація (Єдине джерело правди)
 
-Канон — це родина суверенних файлів у корені цього репозиторію, що разом є нашим єдиним джерелом правди (Single Source of Truth):
+Канон — це родина суверенних файлів у корені цього репозиторію, що разом є єдиним джерелом правди (Single Source of Truth):
 
 *   `GEMINI.md` — стратегія, етика, аналіз
 *   `CLAUDE.md` — інженерія: цілісність + стандарти коду (мови/фреймворки)
@@ -27,11 +27,11 @@
 *   `SECURITY.md` — безпека
 *   `SYSTEM-MAP.md` — жива карта проєкта (дерево-організм; навігація для ШІ) 
 
-Для того, щоб застосувати ці правила у реальних проєктах, ми використовуємо скрипт автоматичної синхронізації:
+Щоб застосувати ці правила у реальних проєктах, використовується скрипт автоматичної синхронізації:
 *   Будь-які експерименти та зміни правил відбуваються **тільки тут**.
 *   Запуск `node scripts/sync.js` розповсюджує **всі канон-файли** по всіх налаштованих проєктах.
 
-Це допомагає нам утримувати ШІ-помічників у різних робочих директоріях в єдиному актуальному контексті.
+Це утримує ШІ-помічників у різних робочих директоріях в єдиному актуальному контексті.
 
 ## 🔗 Атрибуція та виправлення
 
@@ -46,11 +46,11 @@
 
 This repository is an attempt to centralize the configuration and behavioral ruleset (the "charter") for interacting with Artificial Intelligence during software development.
 
-It describes how we are **trying to configure** AI: how it should analyze tasks, design systems, and communicate with the user. We are constantly seeking a balance to make development safe, ecological, and predictable.
+It describes how the AI is **configured**: how it should analyze tasks, design systems, and communicate with the user. The goal is a balance that makes development safe, ecological, and predictable.
 
 ## 👥 Role Model
 
-We use a multi-agent approach, where we strive to delegate a clearly defined function to each AI agent:
+The approach is multi-agent: each AI agent is delegated a clearly defined function:
 
 *   👤 **Operator (Human)** — The single source of decisions (Source of Truth). The AI does not act independently; it only drafts options and executes approved commands.
 *   ✨ **Gemini (Analyst / Strategist)** — Configured for the role of business analyst, UX strategist, and architect. She helps validate ideas and prepare clear technical specifications.
@@ -58,7 +58,7 @@ We use a multi-agent approach, where we strive to delegate a clearly defined fun
 
 ## ⚙️ Synchronization (Single Source of Truth)
 
-The canon is a family of sovereign files at the root of this repository, together our Single Source of Truth:
+The canon is a family of sovereign files at the root of this repository, together the Single Source of Truth:
 
 *   `GEMINI.md` — strategy, ethics, analysis
 *   `CLAUDE.md` — engineering: integrity + code standards (languages/frameworks)
@@ -69,11 +69,11 @@ The canon is a family of sovereign files at the root of this repository, togethe
 *   `SECURITY.md` — security
 *   `SYSTEM-MAP.md` — living map of the project (organism tree; AI navigation)
 
-To apply these rules to real projects, we use an automatic synchronization script:
+To apply these rules to real projects, an automatic synchronization script is used:
 *   All experiments and rule changes happen **only here**.
 *   Running `node scripts/sync.js` distributes **all canon files** across all configured projects.
 
-This helps us maintain AI assistants across different working directories within a single, up-to-date context.
+This keeps AI assistants across different working directories within a single, up-to-date context.
 
 ## 🔗 Attribution & Fixes
 
