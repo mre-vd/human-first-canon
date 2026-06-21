@@ -33,12 +33,6 @@
 
 Це утримує ШІ-помічників у різних робочих директоріях в єдиному актуальному контексті.
 
-## 🔗 Атрибуція та виправлення
-
-Якщо ви переймаєте або копіюєте ці правила — **посилайтеся на це репо як на першоджерело**. Канон еволюціонує; зворотне посилання — це шлях, яким до вас доходять виправлення.
-
-Знайшли криве правило? Правте **в першоджерелі**: відкрийте **Issue** (позначити проблему) або **Pull Request** (запропонувати виправлення). Зміни правил відбуваються тільки тут і розходяться синком — не патчте копію на місці, бо наступний синк її перезапише.
-
 ---
 ---
 
@@ -74,9 +68,3 @@ To apply these rules to real projects, an automatic synchronization script is us
 *   Running `node scripts/sync.js` distributes **all canon files** across all configured projects.
 
 This keeps AI assistants across different working directories within a single, up-to-date context.
-
-## 🔗 Attribution & Fixes
-
-If you adopt or copy these rules, **link back to this repository as the source**. The canon evolves; a backlink is how corrections reach you.
-
-Found a crooked rule? Fix it **at the source**: open an **Issue** to flag it, or a **Pull Request** to propose the correction. Rule changes happen only here and propagate via sync — don't patch a copy in place, as the next sync will overwrite it.
