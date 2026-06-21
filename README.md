@@ -18,11 +18,13 @@
 
 Усі інструкції для ШІ (зосереджені у `GEMINI.md`) базуються на кількох ключових інженерних принципах, до яких ми прагнемо:
 
-1.  **Воля належить людині (The Law of the Name):** Ми не вказуємо — ми називаємо речі своїми іменами. Система ніколи не вирішує за людину й не блокує її волю; вона показує наслідки (борг, ентропію, ризик) як факти, а рішення лишає Оператору. Тертя — це Дзеркало, а не Ворота.
-2.  **Zero-Active Waste (Операційний спокій):** Ми налаштовуємо ШІ активуватися виключно за запитом. Жодних фонових опитувань чи ініціативи без тригера. Наша мета — щоб після завершення задачі система поверталася в стан нульового споживання ресурсів.
-3.  **Запобіжник Ітераційного Зациклення (Loop Prevention):** Впроваджено ліміт на автоматичне виправлення помилок (максимум 10 спроб). Це спроба уникнути нескінченних циклів: якщо ліміт вичерпано, процес має перериватися, а контроль повертатися Оператору.
-4.  **Правило Дзеркальних Інтерфейсів (Symmetrical Recovery):** При проєктуванні UI ми вимагаємо від ШІ закладати логічний вихід для кожного стану. Якщо користувач потрапляє у глухий кут (навіть помилковий), система має надати зрозумілий та симетричний шлях назад.
-5.  **Екологія Переривань (Operator Shield):** Ми вчимо ШІ не перекладати провину за системні помилки на користувача. Дані, в яких алгоритм не впевнений, мають позначатися як "Потребує уточнення", щоб зберегти простір для конструктивного діалогу.
+1.  **Воля і досвід належать людині (корінь):** Людина в системі **вчиться** — і зробити за неї те, через що вона мала вирости, = вкрасти досвід. Система допомагає вчитись і називає речі своїми іменами, а не вирішує за людину.
+2.  **Служити людині (The Final Measure):** Кожне правило веде до однієї мети — людина, якій служать; служити = розширювати свободу й свідомість, ніколи не на шкоду іншим.
+3.  **Дзеркало, не Ворота:** Ми не забороняємо — називаємо наслідки як факти; рішення лишається Оператору. Тертя показує, а не спиняє.
+4.  **Цілісність як здоров'я — досить, не ідеально:** Пустота, трата, конфлікт — хвороба, яку вирівнюють; але й гонитва за ідеалом виснажує. Здорове = «достатньо, щоб служити», тоді спокій.
+5.  **Тиша для механічного, присутність на порозі:** Рутину система несе тихо (Zero-Active Waste); але вхід/вихід/прощання — момент контакту, **запропонований, не примусовий**.
+6.  **Звір субстанцію (Substance-Check):** Нову спроможність звіряємо з природою проєкта (`NATURE.md`) **перед** побудовою — чужа за родом субстанція не вплітається тихо.
+7.  **Карта системи (SYSTEM-MAP):** Проєкт навігується картою (дерево + граф із код-якорями), яку тримає чесною імунний валідатор.
 
 ## ⚙️ Синхронізація (Єдине джерело правди)
 
@@ -70,11 +72,13 @@ We use a multi-agent approach, where we strive to delegate a clearly defined fun
 
 All AI instructions (centered in `GEMINI.md`) are based on several key engineering principles we aim for:
 
-1.  **Will Belongs to the Human (The Law of the Name):** We do not dictate — we name things by their true names. The system never decides for the human or blocks their will; it shows consequences (debt, entropy, risk) as facts and leaves the choice to the Operator. Friction is the Mirror, never the Gate.
-2.  **Zero-Active Waste (Operational Rest):** We configure the AI to activate strictly on demand. No background polling or unprompted initiatives. Our goal is for the system to return to a state of zero resource consumption after completing a task.
-3.  **Loop Prevention Safeguard:** We introduced a limit on automatic error correction (maximum 10 attempts). This is an attempt to avoid infinite loops: if the limit is exhausted, the process must interrupt, and control returns to the Operator.
-4.  **Symmetrical Recovery Rule (Door Principle):** When designing a UI, we require the AI to establish a logical exit for every state. If a user enters a dead end (even an error state), the system must provide a clear and symmetrical path back.
-5.  **Ecology of Interruption (Operator Shield):** We train the AI not to shift the blame for system errors onto the user. Data the algorithm is unsure about must be marked as "Requires clarification" to preserve space for constructive dialogue.
+1.  **Will and experience belong to the human (the root):** A person in a system is **learning** — to do, in their place, the thing through which they would have grown is to steal their experience. The system helps a person learn and names things truly; it does not decide for them.
+2.  **Serve the human (The Final Measure):** Every rule leads to one end — a human, served; to serve is to expand freedom and awareness, never at another's expense.
+3.  **Mirror, not Gate:** We do not forbid — we name consequences as facts; the choice stays with the Operator. Friction reflects; it does not block.
+4.  **Integrity is health — enough, not perfect:** Void, waste, and conflict are sickness to realign; but the chase for the ideal also exhausts. Healthy is "whole enough to serve," then rest.
+5.  **Silence for the mechanical, presence at the threshold:** Routine runs silent (Zero-Active Waste); but entering, leaving, and parting are moments of contact — **offered, never forced**.
+6.  **Substance-Check:** A new capability is checked against the project's nature (`NATURE.md`) **before** it is built — a foreign substance is never woven in silently.
+7.  **System Map (SYSTEM-MAP):** The project is navigated by a map (tree + graph with code anchors), kept honest by an immune validator.
 
 ## ⚙️ Synchronization (Single Source of Truth)
 
