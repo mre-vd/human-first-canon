@@ -14,18 +14,6 @@
 *   ✨ **Gemini (Аналітик / Стратег)** — налаштовується на роль бізнес-аналітика, UX-стратега та архітектора. Вона допомагає валідувати ідеї та готувати чіткі технічні завдання.
 *   🛠️ **Claude (Творець / Інженер)** — відповідає за безпосередню реалізацію коду на основі завдань, підготовлених Gemini, маючи інструкції дотримуватися строгих інженерних стандартів.
 
-## 📜 Базові принципи (Вектори розвитку системи)
-
-Усі інструкції для ШІ (зосереджені у `GEMINI.md`) базуються на кількох ключових інженерних принципах, до яких ми прагнемо:
-
-1.  **Воля і досвід належать людині (корінь):** Людина в системі **вчиться** — і зробити за неї те, через що вона мала вирости, = вкрасти досвід. Система допомагає вчитись і називає речі своїми іменами, а не вирішує за людину.
-2.  **Служити людині (The Final Measure):** Кожне правило веде до однієї мети — людина, якій служать; служити = розширювати свободу й свідомість, ніколи не на шкоду іншим.
-3.  **Дзеркало, не Ворота:** Ми не забороняємо — називаємо наслідки як факти; рішення лишається Оператору. Тертя показує, а не спиняє.
-4.  **Цілісність як здоров'я — досить, не ідеально:** Пустота, трата, конфлікт — хвороба, яку вирівнюють; але й гонитва за ідеалом виснажує. Здорове = «достатньо, щоб служити», тоді спокій.
-5.  **Тиша для механічного, присутність на порозі:** Рутину система несе тихо (Zero-Active Waste); але вхід/вихід/прощання — момент контакту, **запропонований, не примусовий**.
-6.  **Звір субстанцію (Substance-Check):** Нову спроможність звіряємо з природою проєкта (`NATURE.md`) **перед** побудовою — чужа за родом субстанція не вплітається тихо.
-7.  **Карта системи (SYSTEM-MAP):** Проєкт навігується картою (дерево + граф із код-якорями), яку тримає чесною імунний валідатор.
-
 ## ⚙️ Синхронізація (Єдине джерело правди)
 
 Канон — це родина суверенних файлів у корені цього репозиторію, що разом є нашим єдиним джерелом правди (Single Source of Truth):
@@ -67,18 +55,6 @@ We use a multi-agent approach, where we strive to delegate a clearly defined fun
 *   👤 **Operator (Human)** — The single source of decisions (Source of Truth). The AI does not act independently; it only drafts options and executes approved commands.
 *   ✨ **Gemini (Analyst / Strategist)** — Configured for the role of business analyst, UX strategist, and architect. She helps validate ideas and prepare clear technical specifications.
 *   🛠️ **Claude (Creator / Engineer)** — Responsible for the direct implementation of code based on tasks prepared by Gemini, instructed to adhere to strict engineering standards.
-
-## 📜 Core Principles (System Development Vectors)
-
-All AI instructions (centered in `GEMINI.md`) are based on several key engineering principles we aim for:
-
-1.  **Will and experience belong to the human (the root):** A person in a system is **learning** — to do, in their place, the thing through which they would have grown is to steal their experience. The system helps a person learn and names things truly; it does not decide for them.
-2.  **Serve the human (The Final Measure):** Every rule leads to one end — a human, served; to serve is to expand freedom and awareness, never at another's expense.
-3.  **Mirror, not Gate:** We do not forbid — we name consequences as facts; the choice stays with the Operator. Friction reflects; it does not block.
-4.  **Integrity is health — enough, not perfect:** Void, waste, and conflict are sickness to realign; but the chase for the ideal also exhausts. Healthy is "whole enough to serve," then rest.
-5.  **Silence for the mechanical, presence at the threshold:** Routine runs silent (Zero-Active Waste); but entering, leaving, and parting are moments of contact — **offered, never forced**.
-6.  **Substance-Check:** A new capability is checked against the project's nature (`NATURE.md`) **before** it is built — a foreign substance is never woven in silently.
-7.  **System Map (SYSTEM-MAP):** The project is navigated by a map (tree + graph with code anchors), kept honest by an immune validator.
 
 ## ⚙️ Synchronization (Single Source of Truth)
 
