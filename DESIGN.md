@@ -95,6 +95,14 @@ Battle-tested heuristics filling the remaining gaps *(distilled from Nielsen's u
 - **Reversibility & control:** prefer reversible actions and undo over hard confirmations; always offer a clear way out of an unwanted state (extends **No Dead Ends & The Single Door**).
 - **Decide with evidence, not opinion:** design from real user needs and data; test and iterate. Objective validation over the illusion of certainty.
 
+## Feedback Loop — A Door to the Makers
+
+Every user-facing surface offers a clear, accessible way to reach the team — to report something broken, suggest a change, or propose an idea. The user's voice is how the system improves (the mechanism behind **Decide with evidence, not opinion**, and the design face of *Frictionless with the Machine, Generative with People* — `GEMINI.md`).
+- **Always reachable, understandable:** a discoverable, labelled, keyboard-accessible affordance — not buried (a way out to a human is part of **No Dead Ends & The Single Door**).
+- **Context comes for free:** sending feedback auto-attaches the **current screen** and app version/state — an issue most likely arose where the user just was.
+- **Richer context, with consent:** the recent in-app navigation trail may be attached so the team sees the path — but **transparently** (the user sees and confirms what is sent), **minimised**, and **opt-in**. Tooling is the project's choice.
+- **Invited, never covert:** this is reporting the user *chose* — never always-on surveillance of everyone (*Substance-Check* and *Consent before contact*, `GEMINI.md`). We serve by listening when invited, not by watching.
+
 ## Текст і копірайт — джерело правди (зовнішнє)
 
 Правила мови, тону й копірайту тут **не дублюються** (single source of truth).
