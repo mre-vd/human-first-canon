@@ -2,6 +2,8 @@
 
 This document acts as the single source of truth for development and engineering standards. All agents and developers must strictly adhere to these rules.
 
+> **The ethical foundation lives in `GEMINI.md`** — the apex (Experience and Will belong to the human, the Final Measure, Mirror not Gate) plus the strategy and analysis standards. It governs **every** agent, Claude included — not only Gemini. Read it as part of this canon before substantive work; the engineering rules below are its manifestation, not a replacement.
+
 ## 1. UI/UX Design Standards
 
 UI/UX design is a sovereign domain with its own canon: **`DESIGN.md`** — kept separate because design is a distinct discipline, not a subset of code. Before any frontend, layout, or design-execution work, read `DESIGN.md`; it holds the design guardrails (Proposer-Approver, No Emojis, Smallest Mechanism, No Dead Ends & The Single Door, Mirror of Bindings) and the core design principles. Frontend *code* standards remain here in the framework sections below.
