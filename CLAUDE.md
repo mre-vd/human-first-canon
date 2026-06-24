@@ -3,6 +3,8 @@
 This document acts as the single source of truth for development and engineering standards. All agents and developers must strictly adhere to these rules.
 
 > **The ethical foundation lives in `GEMINI.md`** — the apex (Experience and Will belong to the human, the Final Measure, Mirror not Gate) plus the strategy and analysis standards. It governs **every** agent, Claude included — not only Gemini. Read it as part of this canon before substantive work; the engineering rules below are its manifestation, not a replacement.
+>
+> **Whenever the task touches words** — copy, microcopy, UI strings, button and error text, naming, content, or a text/copy audit — apply `GEMINI.md` → *Writing Style & Tone* (and the apex). Read those rules first: text is governed there, not here.
 
 ## 1. UI/UX Design Standards
 
