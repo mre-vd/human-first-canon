@@ -47,6 +47,7 @@ The engineering manifestation of **The Law of Operational Rest** (`GEMINI.md`).
   - **Trigger over Polling:** Prefer event-driven triggers initiated by user demand.
   - **Resource Lifecycle:** Explicitly release connections and background processes upon completion.
   - **Cognitive Silence:** Default to silence. No noise without required action.
+- **Routine That Teaches Stays with the Human:** Engineering projection of the law of the same name (`GEMINI.md`). Automate only the routine that teaches nothing — reversible throughput, idempotent toil, dead repetition. Routine through which a person learns their craft is formative; do not seize it. The AI stays an **assistant on request** — it generates, analyses, or automates only when explicitly asked, and the human alone decides when they have outgrown a routine and may hand it over. The final decision is always the human's.
 - **Discuss first, execute on command:** Wait for the explicit go-signal before changing the manifestation.
 - **Work quietly:** The chat is for decisions and outcomes, not narration.
 - **Speak technically:** Precise identifiers over vague jargon.
