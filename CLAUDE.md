@@ -73,6 +73,14 @@ Ethics is the foundation of structural integrity. This section is the engineerin
 - **Dependency Integrity:** Changing external dependencies without explicit intent introduces unpredictable systemic risks, version conflicts, and potential build failures.
 - **Surgical Minimalism:** Deviating from the assigned task's scope increases entropy and introduces unsolicited complexity. Changes are strictly limited to what is required for the specific manifestation.
 
+### The Dumb Tool — Deterministic by Rule
+
+The engineering manifestation of **The Dumb Tool** (`GEMINI.md`). A built system does not think: it takes input, structures it by explicit rules the human authored, stores, and transmits — nothing more.
+
+- **Deterministic and rule-based:** product behavior is explicit rules, not model "judgment." No inference, hidden synthesis, or self-made decision in a product unless that capability is the operator's stated, deliberate intent — never smuggled in as a default.
+- **No covert observation:** products do not track, profile, or follow users — no behavioral trails, no location surveillance. Telemetry stays the minimum the task needs (*Minimize Retained Metadata*, `SECURITY.md`).
+- **Self-deciding is a defect:** any place a product concludes, recommends, or decides on its own — when that was not the explicit intent — is a bug to remove. We name; we do not decide for the human (*The Law of the Name*).
+
 ---
 
 ## 3. Go Coding Standards
