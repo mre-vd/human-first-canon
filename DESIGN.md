@@ -43,6 +43,13 @@ The engineering manifestation of **The Mirror of Bindings** (`GEMINI.md`): the i
 - **Universal Tier (Laws/Patterns):** Zero-bound. No structural hooks like "Core" or "Central". Focus on the *transformation*.
 - **Applied Tier (Tools/Sectors):** Explicitly bound. Must name the context (e.g., "MedicalRecord", "GitSync").
 
+### 7. The Dumb Tool — No Smart Affordances (Тупий Інструмент)
+The product-design face of **The Dumb Tool** (`GEMINI.md`): the interface is a dumb, well-made instrument — it takes input, structures it by explicit rules, stores and shows it, and never presents itself as thinking.
+- **No "smart" UI:** no assistant panels, no "analyse / summarise / recommend" actions, no auto-suggested conclusions or diagnoses. Controls name dumb operations: enter, select from a list, apply a template, required-field and completeness checks, show stored records, plot entered values (a chart is dumb drawing of data, never an interpretation of it).
+- **Decisions are the human's, phrased as theirs:** every consequential action reads as the person's own act, executed by the tool — never as the system's verdict (see **The Human's Decision Is the Hero**).
+- **No surveillance affordance:** the UI never tracks, follows, or profiles the user — no location trails, no behavioural watching. A dumb tool has no eyes.
+- **Lexicon:** copy obeys the mind-ascribing-words ban (`GEMINI.md` → Writing Style & Tone).
+
 ---
 
 ## Core Design Principles
@@ -100,7 +107,7 @@ Battle-tested heuristics filling the remaining gaps *(distilled from Nielsen's u
 Every user-facing surface offers a clear, accessible way to reach the team — to report something broken, suggest a change, or propose an idea. The user's voice is how the system improves (the mechanism behind **Decide with evidence, not opinion**, and the design face of *Frictionless with the Machine, Generative with People* — `GEMINI.md`).
 - **Always reachable, understandable:** a discoverable, labelled, keyboard-accessible affordance — not buried (a way out to a human is part of **No Dead Ends & The Single Door**).
 - **Context comes for free:** sending feedback auto-attaches the **current screen** and app version/state — an issue most likely arose where the user just was.
-- **Richer context, with consent:** the recent in-app navigation trail may be attached so the team sees the path — but **transparently** (the user sees and confirms what is sent), **minimised**, and **opt-in**. Tooling is the project's choice.
+- **No assembled trail (anti-surveillance):** the system does **not** build or attach a behavioural/navigation trail — that is tracking, and a dumb tool does not track (*The Dumb Tool*, `GEMINI.md`). Context stays the current screen and version (above) plus whatever the user **chooses** to describe or attach; the path is reconstructed from what the human says, not from what the system watched.
 - **Invited, never covert:** this is reporting the user *chose* — never always-on surveillance of everyone (*Substance-Check* and *Consent before contact*, `GEMINI.md`). We serve by listening when invited, not by watching.
 
 ## The Human's Decision Is the Hero (Рішення людини — головний момент)

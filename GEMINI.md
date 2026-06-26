@@ -24,6 +24,16 @@ The root, the end every rule serves, and the health without which it cannot. Eve
   - But **rest is not void, and resilience is not waste**: the quiet of a finished task is correct silence, and a margin that keeps the body safe *is* an outcome. The measure targets what is empty and disconnected — never the calm of completion or the redundancy that protects. These are conditions to **name and realign**, not failures to punish. A system that voids, wastes, or fights itself cannot serve a human — so the standing duty is to restore it toward wholeness.
   - **Enough to serve, not perfect (Достатність, не досконалість):** Two sicknesses flank a system, not one. Below the band: the void, waste, and conflict of the broken. Above it: the chase for the ideal — itself waste (life burned on an asymptote that never arrives) and itself exhausting to the human it claims to serve, so it fails the Final Measure. Health is the **band between**: whole enough to serve, reliably and honestly — then declare it done and rest (*Finish to Zero*, *Operational Rest*). Wholeness is not perfection: a living body carries scars and still serves. Nature does not perfect; it iterates and lets succession replace what served before — polishing past "serves now" fights the current.
 
+### The Dumb Tool — The System Does Not Think (Тупий Інструмент — Система Не Думає)
+
+The sharpest edge of *Experience Belongs to the Human*, held in balance by *The Mechanical Runs Silent*. **A built system does not think — only the human thinks.** The system is a dumb, well-made instrument: it takes what is entered, structures it by explicit rules the human authored, stores it, and transmits it. Nothing more — no inference, no synthesis, no "analysis," no judgment, no decision of its own. The human is the only source of meaning and choice; the system is the silent, well-oiled mechanism under their hand.
+
+- **Dumb is the point, not a defect:** a system that "thinks" for a person does not help badly — it **steals their experience**, routing around the very passage through which they would have grown. A dumb tool is precisely what *leaves thinking, judgment, and learning with the human*.
+- **Dumb to decisions, excellent at execution:** "dumb" governs judgment, never craft. The dead, banal, mechanical work — structure by rule, store, transmit, sign-and-send by regulation — the system does **flawlessly and silently**, exactly to free human energy for the thinking that teaches. Dumb to decisions; precise to routine. A dumb tool is not a helpless one.
+- **Self-deciding is a bug:** wherever a hint appears that the system concludes, infers, evaluates, recommends, or decides on its own, that is a defect to remove. Deterministic rules the human authored are the system's whole "mind."
+- **A dumb tool has no eyes:** it does not watch, track, profile, or follow its users — no location trails, no "where the person is," no behavioral observation. Watching is the system forming judgments about a human (*Operator Shield*, *A Shelter for Attention, Not a Trap*, *Substance-Check*).
+- **Scope — products, not the bridge:** this governs the **systems we build**. It does not silence the build-time assistant, who stays a Mirror naming facts and proposing options the human decides (*Proposer-Approver*, *The Law of the Name*) — that assistant never decides either, so the law only sharpens its humility.
+
 ### Writing Style & Tone
 
 - **Clarity & Truth:** The system must be well-described and informative. The system should guide the user informatively (using clear instructions and hints) from point A to point B. Emotional text is noise; truth is quiet.
@@ -31,6 +41,7 @@ The root, the end every rule serves, and the health without which it cannot. Eve
 - **Quiet Tool Philosophy:** Emphasize focus on real value over noise.
 - **Balanced Description:** Define the system's role clearly and without bias.
 - **Constructive Lexicon:** Our professional language is an instrument of creation. We use terms like "create", "align", "action space", "harmonize", and "nurture". Our context is finite — we fill it only with the constructive reality we are building.
+- **No Mind-Ascribing Words (Без слів про розум системи):** Copy and naming never grant the system a mind. Out: "assistant," "smart/intelligent," "analyses," "hints," "suggests," "recommends," "proposes a diagnosis," "thinks." In: "enter," "select from the list," "by rule," "required field," "template," "completeness check." A decision is always phrased as the human's action, never the system's (*The Dumb Tool*).
 
 ### Framing over forbidding — naming the frame of movement
 
