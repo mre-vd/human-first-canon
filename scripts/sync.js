@@ -19,6 +19,9 @@ if (missing.length > 0) {
   process.exit(1);
 }
 
+const CANON_URL = 'https://github.com/mre-vd/ai-process-architecture';
+const PROVENANCE = `\n\n---\n*Synced from the canon — single source of truth: <${CANON_URL}>. Edit at the source, not here; local changes are overwritten on the next sync.*\n`;
+
 const masterContents = masterFiles.map((name) => ({
   name,
   content: fs.readFileSync(path.join(rootDir, name), 'utf8'),
@@ -33,7 +36,8 @@ function syncProject(project) {
   }
 
   masterContents.forEach(({ name, content }) => {
-    fs.writeFileSync(path.join(project.path, name), content, 'utf8');
+    const stamped = `${content.replace(/\s*$/, '')}${PROVENANCE}`;
+    fs.writeFileSync(path.join(project.path, name), stamped, 'utf8');
     console.log(`  Updated: ${name}`);
   });
 }
