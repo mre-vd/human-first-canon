@@ -5,7 +5,7 @@ const rootDir = path.join(__dirname, '..');
 let errors = [];
 
 function validateRootFiles() {
-  const masters = ['CLAUDE.md', 'GEMINI.md', 'WRITING.md', 'DESIGN.md', 'DATABASE.md', 'DEVOPS.md', 'TESTING.md', 'SECURITY.md', 'ANALYSIS.md', 'AGILE.md', 'STACKS.md'];
+  const masters = ['CLAUDE.md', 'PRINCIPLES.md', 'GEMINI.md', 'WRITING.md', 'DESIGN.md', 'DATABASE.md', 'DEVOPS.md', 'TESTING.md', 'SECURITY.md', 'ANALYSIS.md', 'AGILE.md', 'STACKS.md'];
 
   masters.forEach((name) => {
     const filePath = path.join(rootDir, name);

@@ -78,13 +78,13 @@ For **self-hosted CI**, install the runner **as a service** so it starts at boot
 
 ### Operational Rest Has Zero Cost — Spend Follows Demand
 
-The cloud/cost manifestation of **The Law of Operational Rest — Zero-Active Waste** (`GEMINI.md`; *The Principle of Silence & Focus*, `CLAUDE.md`). A deployed system at rest must draw no resources and cost nothing; spend is expended only to serve a real demand, after which the system returns to free silence. Idle is the baseline, and idle is free.
+The cloud/cost manifestation of **The Law of Operational Rest — Zero-Active Waste** (`PRINCIPLES.md`; *The Principle of Silence & Focus*, `CLAUDE.md`). A deployed system at rest must draw no resources and cost nothing; spend is expended only to serve a real demand, after which the system returns to free silence. Idle is the baseline, and idle is free.
 
 - **Scale to zero by default.** Stateless compute scales to zero when idle (serverless / `min-instances=0`). Always-warm capacity is an exception that must name its force — a real latency SLA — never a default. Warmth is paid only where a human's wait is the named cost.
 - **No standing resource without a named force.** Every component that runs 24/7 — especially stateful ones (managed databases, caches, brokers) — must justify its idle cost against a named need. Prefer scale-to-zero / pay-per-use managed services (*Managed Services First*). Where a component cannot go to zero, its standing cost is named as a fact to the operator (*The Mirror of Consequences*, `CLAUDE.md`), never left as a silent drain.
 - **Wake on event, not on a clock** (*Trigger over Polling*). Prefer an event/webhook that wakes the system only when real work exists over a schedule that wakes it to find nothing. A poll that finds nothing is wasted draw; if no push channel exists, poll at the lowest frequency the need tolerates.
-- **Right-size and bound the blast radius.** Allocate the smallest CPU/memory that holds the load (*Smallest Mechanism*, `GEMINI.md`); cap maximum scale; set a budget and an alert so a runaway cannot drain spend in silence.
-- **Cost is a named consequence.** Surface the cost shape — idle vs per-use, and the dominant driver — as a technical fact at design and review time, so the operator chooses with full awareness (*The Law of the Name*, `GEMINI.md`). A surprise bill is a Mirror that was withheld.
+- **Right-size and bound the blast radius.** Allocate the smallest CPU/memory that holds the load (*Smallest Mechanism*, `PRINCIPLES.md`); cap maximum scale; set a budget and an alert so a runaway cannot drain spend in silence.
+- **Cost is a named consequence.** Surface the cost shape — idle vs per-use, and the dominant driver — as a technical fact at design and review time, so the operator chooses with full awareness (*The Law of the Name*, `PRINCIPLES.md`). A surprise bill is a Mirror that was withheld.
 
 ### AWS Conventions
 

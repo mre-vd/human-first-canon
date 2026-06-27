@@ -36,7 +36,7 @@ Security is a non-negotiable property of every change. It is not a separate "tas
 
 Security starts as a question in design and discussion, not only as implementation-time hardening: **"If someone wanted to do harm — could they, and where?"** Asked before a feature is built, it surfaces the attack surface while it is still cheap to change.
 
-This is the Mirror, not a gate (*The Law of the Name*, `GEMINI.md`): the analysis **names the holes** as facts and hands the operator/architect a map of exposure; the decision to proceed, accept the risk, or mitigate stays with the operator. Holes named early become design choices; holes found late become incidents.
+This is the Mirror, not a gate (*The Law of the Name*, `PRINCIPLES.md`): the analysis **names the holes** as facts and hands the operator/architect a map of exposure; the decision to proceed, accept the risk, or mitigate stays with the operator. Holes named early become design choices; holes found late become incidents.
 
 For every consequential feature, ask:
 

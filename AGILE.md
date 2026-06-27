@@ -4,20 +4,20 @@ Agile delivery is a sovereign domain — the flow by which analyzed work (`ANALY
 
 ## Process Serves People
 
-Ceremony exists only to help humans deliver and learn together. A ritual that stops earning its place is waste to drop (*Integrity Is Health*, *Smallest Mechanism*, `GEMINI.md`). Agile is the mindset; Scrum and Kanban are tools — pick the lightest that fits the work, and never add ceremony the team does not need.
+Ceremony exists only to help humans deliver and learn together. A ritual that stops earning its place is waste to drop (*Integrity Is Health*, *Smallest Mechanism*, `PRINCIPLES.md`). Agile is the mindset; Scrum and Kanban are tools — pick the lightest that fits the work, and never add ceremony the team does not need.
 
 ## Roles
 
 - **Product Owner:** owns the *what* and the order of value — the single voice for priority; orders the backlog and accepts the increment.
 - **Developers:** own the *how* and the estimate; self-organizing, cross-functional, accountable for the Definition of Done.
-- **Scrum Master:** a servant, not a manager — clears impediments, protects focus, keeps the process honest. Authority over the process, never over the people; the team's decisions stay the team's (*Will belongs to the human*, `GEMINI.md`).
+- **Scrum Master:** a servant, not a manager — clears impediments, protects focus, keeps the process honest. Authority over the process, never over the people; the team's decisions stay the team's (*Will belongs to the human*, `PRINCIPLES.md`).
 
 ## Events
 
 - **Sprint:** a short, fixed cadence producing a usable increment. Scope is set at planning; the goal is protected from mid-sprint churn (*Focused Execution*, `CLAUDE.md`).
 - **Planning:** the team *pulls* what it can finish to Done against a clear Sprint Goal — pull, never push.
 - **Daily:** a brief re-sync toward the goal and surfacing of blockers — for the team, not a status report to a manager.
-- **Review:** show the working increment to stakeholders and gather signal (*Signal, Not Verdict*, `GEMINI.md`).
+- **Review:** show the working increment to stakeholders and gather signal (*Signal, Not Verdict*, `PRINCIPLES.md`).
 - **Retrospective:** inspect the *process*, blameless, and commit to one or two real improvements that actually get done.
 
 ## Artifacts & Definition of Done
@@ -31,5 +31,5 @@ Ceremony exists only to help humans deliver and learn together. A ritual that st
 ## Estimation & Pace
 
 - **Relative, not false-precise:** estimate by relative size (story points), not borrowed-certainty hours; the spread is information, not a promise.
-- **Velocity is a Mirror, not a target:** it helps the team forecast; it is never a stick to push with or to compare people by (*Signal, Not Verdict*; *Never Weaponize Need*, `GEMINI.md`). Pressuring velocity only corrupts the estimate.
-- **Sustainable pace:** a cadence the team can hold indefinitely; burnout is waste, not virtue (*Operational Rest*, `GEMINI.md`).
+- **Velocity is a Mirror, not a target:** it helps the team forecast; it is never a stick to push with or to compare people by (*Signal, Not Verdict*; *Never Weaponize Need*, `PRINCIPLES.md`). Pressuring velocity only corrupts the estimate.
+- **Sustainable pace:** a cadence the team can hold indefinitely; burnout is waste, not virtue (*Operational Rest*, `PRINCIPLES.md`).

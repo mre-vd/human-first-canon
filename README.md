@@ -20,9 +20,10 @@
 
 ## Структура
 
-Канон — родина суверенних доменних файлів (єдине джерело правди). `CLAUDE.md` і апекс `GEMINI.md` діють завжди; решта читається **лише коли задача їх торкається** (карта маршрутизації у `CLAUDE.md` — економія контексту й ресурсу):
+Канон — родина суверенних доменних файлів (єдине джерело правди). `CLAUDE.md` і апекс `PRINCIPLES.md` діють завжди; решта читається **лише коли задача їх торкається** (карта маршрутизації у `CLAUDE.md` — економія контексту й ресурсу):
 
-*   `GEMINI.md` — апекс, етика, стратегія, аналіз
+*   `PRINCIPLES.md` — апекс, етика, ментальні правила
+*   `GEMINI.md` — заглушка-покажчик на `PRINCIPLES.md` (для тих, хто юзає Gemini)
 *   `WRITING.md` — текст, тон, копірайт
 *   `CLAUDE.md` — інженерія: цілісність + архітектура
 *   `STACKS.md` — код-стандарти по стеках (мови/фреймворки)
@@ -64,9 +65,10 @@ The human is the operator and the only one who decides (Source of Truth). The AI
 
 ## Structure
 
-The canon is a family of sovereign domain files (the Single Source of Truth). `CLAUDE.md` and the `GEMINI.md` apex are always in force; every other file is read **only when the task touches it** (the routing map in `CLAUDE.md` — saving context and resources):
+The canon is a family of sovereign domain files (the Single Source of Truth). `CLAUDE.md` and the `PRINCIPLES.md` apex are always in force; every other file is read **only when the task touches it** (the routing map in `CLAUDE.md` — saving context and resources):
 
-*   `GEMINI.md` — apex, ethics, strategy, analysis
+*   `PRINCIPLES.md` — apex, ethics, mental rules
+*   `GEMINI.md` — pointer stub to `PRINCIPLES.md` (for those who run Gemini)
 *   `WRITING.md` — writing, tone, content
 *   `CLAUDE.md` — engineering: integrity + architecture
 *   `STACKS.md` — per-stack code standards (languages/frameworks)
