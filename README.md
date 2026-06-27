@@ -35,12 +35,16 @@
 *   `ANALYSIS.md` — бізнес-аналітика (вимоги, історії, критерії приймання)
 *   `AGILE.md` — agile-постачання та Scrum
 
-## Застосування
+## Як користуватись
 
-*   Будь-які зміни правил — **тільки тут**, у джерелі.
-*   `node scripts/sync.js` розповсюджує канон у налаштовані проєкти; кожна копія несе **provenance-посилання** на джерело й перезаписується при наступному синку.
+Канон написаний **для Claude** (Claude Code — основний агент): `CLAUDE.md` — його завжди-завантажені інструкції, `PRINCIPLES.md` — апекс-підлога. Хто юзає Gemini — заглушка `GEMINI.md` веде на той самий `PRINCIPLES.md`.
 
-Це утримує помічників у різних робочих директоріях в єдиному актуальному контексті.
+1.  Правиш правила **лише тут**, у джерелі.
+2.  Додаєш проєкт у `sync-config.json` (`{ "name", "path" }`; шаблон — `sync-config.example.json`).
+3.  `node scripts/sync.js` — розкладає всі канон-файли по налаштованих проєктах (кожна копія з provenance-посиланням; перезаписується наступним синком).
+4.  `node scripts/validate.js` — перевіряє цілісність (заголовки майстрів, конфіг).
+
+Синк запускаєш **свідомо**, коли є зміна — жодного фонового крона (це наш *Operational Rest*). У проєкті агент завжди читає `CLAUDE.md` (+ апекс), а доменні файли — лише коли задача їх торкається.
 
 ---
 ---
@@ -80,9 +84,13 @@ The canon is a family of sovereign domain files (the Single Source of Truth). `C
 *   `ANALYSIS.md` — business analysis (requirements, stories, acceptance)
 *   `AGILE.md` — agile delivery & Scrum
 
-## Use
+## How to Use
 
-*   All rule changes happen **only here**, at the source.
-*   `node scripts/sync.js` distributes the canon to configured projects; each copy carries a **provenance backlink** to the source and is overwritten on the next sync.
+This canon is written **for Claude** (Claude Code — the primary agent): `CLAUDE.md` is its always-loaded instructions, `PRINCIPLES.md` is the apex floor. If you run Gemini, the `GEMINI.md` stub points to the same `PRINCIPLES.md`.
 
-This keeps assistants across different working directories within a single, up-to-date context.
+1.  Change rules **only here**, at the source.
+2.  Add a project to `sync-config.json` (`{ "name", "path" }`; template: `sync-config.example.json`).
+3.  `node scripts/sync.js` — writes all canon files into the configured projects (each copy carries a provenance backlink; overwritten on the next sync).
+4.  `node scripts/validate.js` — checks integrity (master headers, config).
+
+Run sync **deliberately**, when something changed — there is no background cron (that is our *Operational Rest*). In a project, the agent always reads `CLAUDE.md` (+ the apex), and pulls domain files only when the task touches them.
