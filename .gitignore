@@ -2,3 +2,6 @@ node_modules/
 .DS_Store
 sync-config.json
 sync.log
+
+# Private — the paid audit method (playbook + worked audits). Philosophy is public; the craft is not.
+private/
