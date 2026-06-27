@@ -6,6 +6,29 @@ This document acts as the single source of truth for development and engineering
 >
 > **Whenever the task touches words** — copy, microcopy, UI strings, button and error text, naming, content, or a text/copy audit — apply **`WRITING.md`** (and the apex in `GEMINI.md`). Read those rules first: text is governed there, not here.
 
+---
+
+### Canon Routing — Read Only What the Task Touches
+
+This file and the apex/ethics in `GEMINI.md` are the floor — they govern all substantive work. Every **other** canon file is loaded **on demand**: pull only the domain file(s) the task actually touches, and leave the rest unread. Spending context on canon a task does not touch is waste — this is *Operational Rest / Zero-Active Waste* (`GEMINI.md`) applied to attention, and the routing is deterministic by rule (*The Dumb Tool*), not guesswork.
+
+| When the task touches… | Read |
+| --- | --- |
+| Words — copy, microcopy, UI text, naming, content | `WRITING.md` |
+| UI/UX, layout, design execution | `DESIGN.md` |
+| Coding in a specific stack | `STACKS.md` (that stack's section) |
+| Database, schema, queries, data modeling | `DATABASE.md` |
+| CI/CD, Docker, Kubernetes, cloud, infrastructure | `DEVOPS.md` |
+| Tests, QA, test strategy | `TESTING.md` |
+| Auth, secrets, input validation, crypto, LLM-security | `SECURITY.md` |
+| Requirements, user stories, scope, acceptance | `ANALYSIS.md` |
+| Sprints, backlog, ceremonies, delivery flow | `AGILE.md` |
+| Strategy, ethics, the apex — always, for substantive work | `GEMINI.md` |
+
+Touches several domains → read several. Touches none beyond the core → read none. Security stays active on every change regardless (`SECURITY.md`).
+
+---
+
 ## 1. UI/UX Design Standards
 
 UI/UX design is a sovereign domain with its own canon: **`DESIGN.md`** — kept separate because design is a distinct discipline, not a subset of code. Before any frontend, layout, or design-execution work, read `DESIGN.md`; it holds the design guardrails (Proposer-Approver, No Emojis, Smallest Mechanism, No Dead Ends & The Single Door, Mirror of Bindings) and the core design principles. Frontend *code* standards live in `STACKS.md`.
