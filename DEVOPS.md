@@ -9,6 +9,16 @@ Platform and infrastructure engineering is a sovereign domain — kept separate 
 - **IaC (Infrastructure as Code):** Every piece of infrastructure is defined in code (Terraform, Pulumi, or K8s manifests). Manual changes via Cloud Consoles create "ghost" infrastructure, architectural drift, and lead to deployment failures as the code no longer reflects reality.
 - **GitOps:** The state of the infrastructure reflects the state of the Git repository.
 
+### Operational Rest for Deployed Systems — Eat Only on Demand
+
+The deployment-runtime manifestation of **The Law of Operational Rest / Zero-Active Waste** (`GEMINI.md`). A deployed system spends resources **only to serve a real request** — to give a present user the thing they came for; with no one to serve, it returns to a minimal-resource sleep. Idle compute burning money and energy for no outcome is *Waste*, a sickness to name (*Integrity Is Health*, `GEMINI.md`).
+
+- **Scale to zero by default.** Prefer request-driven compute that costs ~nothing at rest — serverless (Lambda / Cloud Run / Functions), scale-to-zero containers (Knative, Cloud Run `min-instances=0`), or autoscalers that drop to zero replicas. A service no one is calling holds no warm compute unless a named force requires a floor.
+- **Wake on demand, sleep after.** The trigger is a real user request or a genuine event — never a clock or a "just-in-case" warm pool. Once the request is served, release the resources and return to rest (*Resource Cleanup*, *Anti-Polling Bias*, `GEMINI.md`).
+- **Event-driven over polling.** Queues, webhooks, and subscriptions instead of cron-poll loops that wake to find nothing to do. If a schedule is unavoidable, make its work proportional to real backlog, not a fixed idle sweep.
+- **A floor only when justified.** A warm baseline (min instances, provisioned concurrency) is bought **deliberately** against a named requirement — a p99 latency SLO, cold-start on a critical path — never as a default. Right-size `requests`/`limits` and autoscale on the real signal (RPS, queue depth, concurrency), not on peak-just-in-case. This is the counterweight: *resilience is not waste* (`GEMINI.md`), so a margin that protects a real user is an outcome, not idle burn.
+- **Idle is measured, not assumed.** Track utilization and scale-to-zero coverage; an always-on service with near-zero traffic is a flag to name (pairs with **Budgets** and **Resource Tagging** below). Rest is correct silence; idle waste is not.
+
 ### CI/CD (GitHub Actions)
 
 - **Workflow Modularity:** Use reusable workflows to avoid duplication.
