@@ -1,24 +1,28 @@
 # Human-First Canon
 
-Цей репозиторій — це спроба централізувати конфігурацію та набір правил поведінки ("статут") для взаємодії зі штучним інтелектом під час розробки програмного забезпечення.
+Канон для побудови програмних систем, де **людина лишається суверенною**: вона думає й вирішує, а система — це тупий, добре зроблений інструмент, що служить.
 
-Він описує, як саме **налаштовується** ШІ: як він має аналізувати задачі, проєктувати системи та спілкуватися з користувачем. Мета — баланс, щоб розробка була безпечною, екологічною та передбачуваною.
+Це не «налаштування ШІ», а **статут**: як будувати так, щоб воля й досвід належали людині. ШІ-помічник лише пропонує варіанти й виконує схвалені команди — він **ніколи не вирішує сам**. А системи, які ми будуємо, не «думають»: вони приймають введене, структурують за правилами, зберігають і передають.
 
 *(Scroll down for the English version)*
 
-## Рольова модель
+## Серце (апекс)
 
-Підхід — мульти-агентний: кожному ШІ-агенту делегується чітко визначена функція:
+*   **Воля й досвід належать людині.** Система допомагає вчитися й називає речі своїми іменами — не проживає життя за людину.
+*   **Кінцева міра — людина.** Людина не «користувач», а причина, заради якої система існує.
+*   **Дзеркало, не Ворота.** Система називає наслідки як факти й лишає вибір людині — вона не забороняє і не вирішує замість неї.
+*   **Система не думає.** Думає лише людина; система тупа до рішень, точна до рутини.
+*   **Достатньо, щоб служити — не досконало.** Завершив — і тиша (Операційний Спокій).
 
-*   **Оператор (Людина)** — єдине джерело рішень (Source of Truth). ШІ не діє самостійно, а лише проєктує варіанти та виконує затверджені команди.
-*   **Gemini (Аналітик / Стратег)** — налаштовується на роль бізнес-аналітика, UX-стратега та архітектора. Вона допомагає валідувати ідеї та готувати чіткі технічні завдання.
-*   **Claude (Творець / Інженер)** — відповідає за безпосередню реалізацію коду на основі завдань, підготовлених Gemini, маючи інструкції дотримуватися строгих інженерних стандартів.
+## Хто діє
 
-## Синхронізація (Єдине джерело правди)
+Людина — оператор і єдиний, хто вирішує (Source of Truth). ШІ-помічник пропонує варіанти й виконує схвалене, ніколи не діючи самостійно. Канон керує **кожним агентом**, не лише одним.
 
-Канон — це родина суверенних файлів у корені цього репозиторію, що разом є єдиним джерелом правди (Single Source of Truth):
+## Структура
 
-*   `GEMINI.md` — стратегія, етика, аналіз
+Канон — родина суверенних доменних файлів (єдине джерело правди). `CLAUDE.md` і апекс `GEMINI.md` діють завжди; решта читається **лише коли задача їх торкається** (карта маршрутизації у `CLAUDE.md` — економія контексту й ресурсу):
+
+*   `GEMINI.md` — апекс, етика, стратегія, аналіз
 *   `WRITING.md` — текст, тон, копірайт
 *   `CLAUDE.md` — інженерія: цілісність + архітектура
 *   `STACKS.md` — код-стандарти по стеках (мови/фреймворки)
@@ -30,34 +34,39 @@
 *   `ANALYSIS.md` — бізнес-аналітика (вимоги, історії, критерії приймання)
 *   `AGILE.md` — agile-постачання та Scrum
 
-Щоб застосувати ці правила у реальних проєктах, використовується скрипт автоматичної синхронізації:
-*   Будь-які експерименти та зміни правил відбуваються **тільки тут**.
-*   Запуск `node scripts/sync.js` розповсюджує **всі канон-файли** по всіх налаштованих проєктах.
+## Застосування
 
-Це утримує ШІ-помічників у різних робочих директоріях в єдиному актуальному контексті.
+*   Будь-які зміни правил — **тільки тут**, у джерелі.
+*   `node scripts/sync.js` розповсюджує канон у налаштовані проєкти; кожна копія несе **provenance-посилання** на джерело й перезаписується при наступному синку.
+
+Це утримує помічників у різних робочих директоріях в єдиному актуальному контексті.
 
 ---
 ---
 
 # Human-First Canon (English)
 
-This repository is an attempt to centralize the configuration and behavioral ruleset (the "charter") for interacting with Artificial Intelligence during software development.
+A canon for building software systems where **the human stays sovereign**: the human thinks and decides, and the system is a dumb, well-made tool that serves.
 
-It describes how the AI is **configured**: how it should analyze tasks, design systems, and communicate with the user. The goal is a balance that makes development safe, ecological, and predictable.
+This is not "AI configuration" but a **charter**: how to build so that will and experience belong to the human. The AI assistant only proposes options and executes approved commands — it **never decides on its own**. And the systems we build do not "think": they take input, structure it by rules, store, and transmit.
 
-## Role Model
+## The Heart (the apex)
 
-The approach is multi-agent: each AI agent is delegated a clearly defined function:
+*   **Will and experience belong to the human.** The system helps a person learn and names things by their true names — it does not live their life for them.
+*   **The final measure is the human.** The human is not a "user" but the reason the system exists.
+*   **Mirror, not Gate.** The system names consequences as facts and leaves the choice with the human — it never forbids or decides in their place.
+*   **The system does not think.** Only the human thinks; the system is dumb to decisions, precise to routine.
+*   **Enough to serve, not perfect.** When it is done, it rests (Operational Rest).
 
-*   **Operator (Human)** — The single source of decisions (Source of Truth). The AI does not act independently; it only drafts options and executes approved commands.
-*   **Gemini (Analyst / Strategist)** — Configured for the role of business analyst, UX strategist, and architect. She helps validate ideas and prepare clear technical specifications.
-*   **Claude (Creator / Engineer)** — Responsible for the direct implementation of code based on tasks prepared by Gemini, instructed to adhere to strict engineering standards.
+## Who Acts
 
-## Synchronization (Single Source of Truth)
+The human is the operator and the only one who decides (Source of Truth). The AI assistant proposes options and executes what is approved, never acting on its own. The canon governs **every agent**, not just one.
 
-The canon is a family of sovereign files at the root of this repository, together the Single Source of Truth:
+## Structure
 
-*   `GEMINI.md` — strategy, ethics, analysis
+The canon is a family of sovereign domain files (the Single Source of Truth). `CLAUDE.md` and the `GEMINI.md` apex are always in force; every other file is read **only when the task touches it** (the routing map in `CLAUDE.md` — saving context and resources):
+
+*   `GEMINI.md` — apex, ethics, strategy, analysis
 *   `WRITING.md` — writing, tone, content
 *   `CLAUDE.md` — engineering: integrity + architecture
 *   `STACKS.md` — per-stack code standards (languages/frameworks)
@@ -69,8 +78,9 @@ The canon is a family of sovereign files at the root of this repository, togethe
 *   `ANALYSIS.md` — business analysis (requirements, stories, acceptance)
 *   `AGILE.md` — agile delivery & Scrum
 
-To apply these rules to real projects, an automatic synchronization script is used:
-*   All experiments and rule changes happen **only here**.
-*   Running `node scripts/sync.js` distributes **all canon files** across all configured projects.
+## Use
 
-This keeps AI assistants across different working directories within a single, up-to-date context.
+*   All rule changes happen **only here**, at the source.
+*   `node scripts/sync.js` distributes the canon to configured projects; each copy carries a **provenance backlink** to the source and is overwritten on the next sync.
+
+This keeps assistants across different working directories within a single, up-to-date context.
