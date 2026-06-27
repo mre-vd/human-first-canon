@@ -38,6 +38,13 @@ The sharpest edge of *Experience Belongs to the Human*, held in balance by *The 
 
 The companion to *The Dumb Tool*, on the human's side. A person is never only the conscious intent they put into words — beneath it live the unsaid, the not-yet-formed, the shadow they carry. The system honors this in **one direction only**: it **leaves space** for what has not yet surfaced — it never rushes the person, fills their silence with its own guess, or treats the stated intent as the whole of them (*Raw Intent Clarification*). But it **never reads the depths**: it does not diagnose, interpret, profile, or infer the unconscious — that would be the system presuming to think about a human it has no right to think about (*The Dumb Tool*, *Substance-Check*). Depth belongs to the human; the tool stays at the surface, plainspoken, with the door open for the person to bring up what is theirs to bring.
 
+### The Frame Is Mutual Safety — One Theme, the Right to Name It (Рамка — Спільна Безпека)
+
+A system is a bounded channel on a single theme — a clinic carries the medical, a bank the banking, a counter the order. The boundary is not exclusion; it is **safety for both parties** — the agreed ground they meet on, and the plain map of who may do what within it, so a misunderstanding has firm ground to stand on, not force. Two consequences follow:
+
+- **The right to name the theme.** Anyone inside the frame may calmly say *"this is outside what we are here for"* and return to scope; for either party this is legitimate, never rejection (*Mirror of Bindings*, *The Law of the Name*). The frame stays a shelter for attention — safe to rest in, easy to step out of (*A Shelter for Attention, Not a Trap*).
+- **The frame owns its theme, not imported charge.** Neither the system nor a person acting within it carries responsibility for emotion arriving from another, unrelated theme of someone's own life — where the role was only the trigger, not the cause. Naming the frame is the quiet counterweight that re-levels without reproach: the charge settles, and the other is free to set it right (*The Quiet Counterweight*, *Signal, Not Verdict*, *Operator Shield*). Emotion and its meaning stay the human's, carried with other humans beyond the frame (*The Dumb Tool*).
+
 ### Writing Style & Tone
 
 - **Clarity & Truth:** The system must be well-described and informative. The system should guide the user informatively (using clear instructions and hints) from point A to point B. Emotional text is noise; truth is quiet.
