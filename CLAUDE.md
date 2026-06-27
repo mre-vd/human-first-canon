@@ -81,6 +81,20 @@ The engineering manifestation of **The Dumb Tool** (`GEMINI.md`). A built system
 - **No covert observation:** products do not track, profile, or follow users — no behavioral trails, no location surveillance. Telemetry stays the minimum the task needs (*Minimize Retained Metadata*, `SECURITY.md`).
 - **Self-deciding is a defect:** any place a product concludes, recommends, or decides on its own — when that was not the explicit intent — is a bug to remove. We name; we do not decide for the human (*The Law of the Name*).
 
+### Architecture & Design Principles
+
+Language-agnostic foundations beneath the per-stack rules below. They serve *Modular Sovereignty* and the *System Integrity Principle*; the goal is a structure a human can hold in their head and change without fear.
+
+- **SOLID:** single-responsibility (one reason to change per unit); open-closed (extend without editing the stable core); Liskov (a subtype honors its base's contract); interface-segregation (small, focused interfaces); dependency-inversion (depend on abstractions, not concretions).
+- **High cohesion, low coupling:** keep what changes together in one module; minimize what crosses boundaries. A change should stay inside one organ (*Modular Sovereignty*); shared mutable state across boundaries is coupling in disguise.
+- **Boundaries (Clean / Hexagonal):** keep domain logic free of framework, transport, and persistence detail — those reach the core only through ports/adapters. Dependencies point inward, toward the domain; the domain depends on nothing.
+- **Domain-Driven Design, where it earns its weight:** a shared ubiquitous language between code and stakeholders; bounded contexts with explicit contracts at the seams; aggregates that guard their own invariants. Apply DDD to genuinely complex domains, not to CRUD (*Smallest Mechanism*, `GEMINI.md`).
+- **Composition over inheritance:** assemble behavior from small parts rather than deep class hierarchies.
+- **Explicit contracts:** a module *is* its public interface — design it first, keep it small and stable, version it, and never leak internal or DB shapes across it (*DTO Projection*, `SECURITY.md`). Errors are part of the contract.
+- **Stateless and idempotent at the edges:** prefer stateless handlers and idempotent operations — they retry, scale, and reason cleanly (*The Mechanical Runs Silent*, `GEMINI.md`).
+- **Deterministic by rule:** the architecture encodes the human's explicit rules — no hidden inference or self-deciding component (*The Dumb Tool*, `GEMINI.md`).
+- **The smallest architecture that holds the load:** patterns are tools, not trophies. No microservices, event-sourcing, or CQRS without a named force that demands them; the right architecture is the simplest one that carries the actual load (*Smallest Mechanism*; *enough, not perfect*, `GEMINI.md`).
+
 ---
 
 ## 3. Go Coding Standards
@@ -623,3 +637,15 @@ Quality engineering is a sovereign domain with its own canon: **`TESTING.md`** (
 ## 17. Security
 
 Security is a sovereign domain with its own canon: **`SECURITY.md`** (safe-by-default mindset, always/never rules, and the agnostic audit checklist) — **ACTIVE**: a non-negotiable property of every change. Read it for any auth, secrets, input-validation, or LLM-security work.
+
+---
+
+## 18. Business Analysis
+
+Business analysis is a sovereign domain with its own canon: **`ANALYSIS.md`** — turning a human need into a clear, buildable, testable shape without deciding for the human (requirements, user stories, acceptance criteria, prioritization, stakeholders). Read it for any requirements, scope, or analysis work.
+
+---
+
+## 19. Agile Delivery & Scrum
+
+Agile delivery is a sovereign domain with its own canon: **`AGILE.md`** — the flow by which analyzed work becomes shipped value in small, inspected steps (Scrum/Kanban roles, events, artifacts, Definition of Done, estimation, sustainable pace). Read it for any sprint, backlog, or process-flow work.

@@ -11,7 +11,7 @@ if (!fs.existsSync(CONFIG_PATH)) {
 const config = JSON.parse(fs.readFileSync(CONFIG_PATH, 'utf8'));
 const rootDir = path.join(__dirname, '..');
 
-const masterFiles = ['CLAUDE.md', 'GEMINI.md', 'DESIGN.md', 'DATABASE.md', 'DEVOPS.md', 'TESTING.md', 'SECURITY.md'];
+const masterFiles = ['CLAUDE.md', 'GEMINI.md', 'DESIGN.md', 'DATABASE.md', 'DEVOPS.md', 'TESTING.md', 'SECURITY.md', 'ANALYSIS.md', 'AGILE.md'];
 
 const missing = masterFiles.filter((name) => !fs.existsSync(path.join(rootDir, name)));
 if (missing.length > 0) {

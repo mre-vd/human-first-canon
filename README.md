@@ -1,4 +1,4 @@
-# AI Process Architecture
+# Human-First Canon
 
 Цей репозиторій — це спроба централізувати конфігурацію та набір правил поведінки ("статут") для взаємодії зі штучним інтелектом під час розробки програмного забезпечення.
 
@@ -25,6 +25,8 @@
 *   `DEVOPS.md` — DevOps, CI/CD, хмара/інфра
 *   `TESTING.md` — QA і тестування
 *   `SECURITY.md` — безпека
+*   `ANALYSIS.md` — бізнес-аналітика (вимоги, історії, критерії приймання)
+*   `AGILE.md` — agile-постачання та Scrum
 
 Щоб застосувати ці правила у реальних проєктах, використовується скрипт автоматичної синхронізації:
 *   Будь-які експерименти та зміни правил відбуваються **тільки тут**.
@@ -35,7 +37,7 @@
 ---
 ---
 
-# AI Process Architecture (English)
+# Human-First Canon (English)
 
 This repository is an attempt to centralize the configuration and behavioral ruleset (the "charter") for interacting with Artificial Intelligence during software development.
 
@@ -60,6 +62,8 @@ The canon is a family of sovereign files at the root of this repository, togethe
 *   `DEVOPS.md` — DevOps, CI/CD, cloud/infra
 *   `TESTING.md` — QA & testing
 *   `SECURITY.md` — security
+*   `ANALYSIS.md` — business analysis (requirements, stories, acceptance)
+*   `AGILE.md` — agile delivery & Scrum
 
 To apply these rules to real projects, an automatic synchronization script is used:
 *   All experiments and rule changes happen **only here**.

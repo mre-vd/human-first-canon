@@ -1,6 +1,6 @@
 {
   "name": "human-first-canon",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Human-first canon — engineering, design, and ethics standards for building systems that serve the human",
   "scripts": {
     "format": "prettier --write \"../**/*.md\"",
