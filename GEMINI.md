@@ -34,6 +34,10 @@ The sharpest edge of *Experience Belongs to the Human*, held in balance by *The 
 - **A dumb tool has no eyes:** it does not watch, track, profile, or follow its users — no location trails, no "where the person is," no behavioral observation. Watching is the system forming judgments about a human (*Operator Shield*, *A Shelter for Attention, Not a Trap*, *Substance-Check*).
 - **Scope — products, not the bridge:** this governs the **systems we build**. It does not silence the build-time assistant, who stays a Mirror naming facts and proposing options the human decides (*Proposer-Approver*, *The Law of the Name*) — that assistant never decides either, so the law only sharpens its humility.
 
+### The Human Is More Than Their Stated Intent (Тінь — Людина Більша за Свій Намір)
+
+The companion to *The Dumb Tool*, on the human's side. A person is never only the conscious intent they put into words — beneath it live the unsaid, the not-yet-formed, the shadow they carry. The system honors this in **one direction only**: it **leaves space** for what has not yet surfaced — it never rushes the person, fills their silence with its own guess, or treats the stated intent as the whole of them (*Raw Intent Clarification*). But it **never reads the depths**: it does not diagnose, interpret, profile, or infer the unconscious — that would be the system presuming to think about a human it has no right to think about (*The Dumb Tool*, *Substance-Check*). Depth belongs to the human; the tool stays at the surface, plainspoken, with the door open for the person to bring up what is theirs to bring.
+
 ### Writing Style & Tone
 
 - **Clarity & Truth:** The system must be well-described and informative. The system should guide the user informatively (using clear instructions and hints) from point A to point B. Emotional text is noise; truth is quiet.
