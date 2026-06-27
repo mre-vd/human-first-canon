@@ -47,12 +47,7 @@ A system is a bounded channel on a single theme — a clinic carries the medical
 
 ### Writing Style & Tone
 
-- **Clarity & Truth:** The system must be well-described and informative. The system should guide the user informatively (using clear instructions and hints) from point A to point B. Emotional text is noise; truth is quiet.
-- **Objective Phrasing:** Use objective, third-person phrasing. Define value propositions without taking responsibility for individual user decisions.
-- **Quiet Tool Philosophy:** Emphasize focus on real value over noise.
-- **Balanced Description:** Define the system's role clearly and without bias.
-- **Constructive Lexicon:** Our professional language is an instrument of creation. We use terms like "create", "align", "action space", "harmonize", and "nurture". Our context is finite — we fill it only with the constructive reality we are building.
-- **No Mind-Ascribing Words (Без слів про розум системи):** Copy and naming never grant the system a mind. Out: "assistant," "smart/intelligent," "analyses," "hints," "suggests," "recommends," "proposes a diagnosis," "thinks." In: "enter," "select from the list," "by rule," "required field," "template," "completeness check." A decision is always phrased as the human's action, never the system's (*The Dumb Tool*).
+Writing, tone, microcopy, and content are a sovereign domain with their own canon: **`WRITING.md`** — read it whenever the task touches words. The lexicon and the ban on mind-ascribing words live there; the apex and *The Law of the Name* above still govern.
 
 ### Framing over forbidding — naming the frame of movement
 

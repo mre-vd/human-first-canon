@@ -36,4 +36,4 @@ Analysis is a Mirror, not a Gate (`GEMINI.md`): it surfaces needs, options, and 
 
 - **Map who is affected** — including those downstream and the silent ones; a path that serves one by harming another fails the measure (`GEMINI.md`).
 - **Model the real flow first:** map the process as it actually happens before proposing change; name the current-state pain as facts, not blame.
-- **Plain language:** specifications are written to be understood by the people who live the process, never in jargon that hides meaning (*Writing Style & Tone*, `GEMINI.md`).
+- **Plain language:** specifications are written to be understood by the people who live the process, never in jargon that hides meaning (*Writing Style & Tone*, `WRITING.md`).

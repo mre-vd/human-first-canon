@@ -48,7 +48,7 @@ The product-design face of **The Dumb Tool** (`GEMINI.md`): the interface is a d
 - **No "smart" UI:** no assistant panels, no "analyse / summarise / recommend" actions, no auto-suggested conclusions or diagnoses. Controls name dumb operations: enter, select from a list, apply a template, required-field and completeness checks, show stored records, plot entered values (a chart is dumb drawing of data, never an interpretation of it).
 - **Decisions are the human's, phrased as theirs:** every consequential action reads as the person's own act, executed by the tool — never as the system's verdict (see **The Human's Decision Is the Hero**).
 - **No surveillance affordance:** the UI never tracks, follows, or profiles the user — no location trails, no behavioural watching. A dumb tool has no eyes.
-- **Lexicon:** copy obeys the mind-ascribing-words ban (`GEMINI.md` → Writing Style & Tone).
+- **Lexicon:** copy obeys the mind-ascribing-words ban (`WRITING.md`).
 
 ---
 
@@ -121,7 +121,7 @@ The canon gives the human authority; the interface makes that authority **felt**
 ## Текст і копірайт — джерело правди (зовнішнє)
 
 Правила мови, тону й копірайту тут **не дублюються** (single source of truth).
-Канон — глобальний `GEMINI.md` у корінні репозиторію правил, розділи **«Writing Style & Tone»** і **«Logical Navigation Outcomes»** (там і розгорнуте правило «Design Leads / Result is a Spectrum / No Silent Dead Ends»).
+Канон тексту — **`WRITING.md`** (Writing Style & Tone, лексикон, заборона слів про розум системи). Апекс і *Закон Імені* лишаються в `GEMINI.md`.
 
 > Перед написанням будь-якого тексту/копірайту в продукті — **прочитай той
 > `GEMINI.md`** (який копіюється локально в корінь вашого проєкту як `GEMINI.md`).

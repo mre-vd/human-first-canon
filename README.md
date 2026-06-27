@@ -19,7 +19,9 @@
 Канон — це родина суверенних файлів у корені цього репозиторію, що разом є єдиним джерелом правди (Single Source of Truth):
 
 *   `GEMINI.md` — стратегія, етика, аналіз
-*   `CLAUDE.md` — інженерія: цілісність + стандарти коду (мови/фреймворки)
+*   `WRITING.md` — текст, тон, копірайт
+*   `CLAUDE.md` — інженерія: цілісність + архітектура
+*   `STACKS.md` — код-стандарти по стеках (мови/фреймворки)
 *   `DESIGN.md` — UI/UX дизайн
 *   `DATABASE.md` — дані (SQL & NoSQL)
 *   `DEVOPS.md` — DevOps, CI/CD, хмара/інфра
@@ -56,7 +58,9 @@ The approach is multi-agent: each AI agent is delegated a clearly defined functi
 The canon is a family of sovereign files at the root of this repository, together the Single Source of Truth:
 
 *   `GEMINI.md` — strategy, ethics, analysis
-*   `CLAUDE.md` — engineering: integrity + code standards (languages/frameworks)
+*   `WRITING.md` — writing, tone, content
+*   `CLAUDE.md` — engineering: integrity + architecture
+*   `STACKS.md` — per-stack code standards (languages/frameworks)
 *   `DESIGN.md` — UI/UX design
 *   `DATABASE.md` — data (SQL & NoSQL)
 *   `DEVOPS.md` — DevOps, CI/CD, cloud/infra
