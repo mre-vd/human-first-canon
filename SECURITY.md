@@ -53,6 +53,11 @@ Cryptography is easy to call and hard to call correctly. These rules name the
 safe defaults; a deviation must be justified against a named authority (NIST,
 OWASP, the protocol spec) — never against convenience. The threat is silent:
 broken crypto looks identical to working crypto until someone breaks it.
+These standards are the canon's **Cryptographic Integrity** — the face of
+*Integrity Is Health* (`PRINCIPLES.md`) that guards the chain of trust: the part
+that arrives is the part that left, tamper-evident and never silent. Where
+*System Integrity* (`CLAUDE.md`) keeps parts mutually consistent, Cryptographic
+Integrity keeps them unforged.
 
 **Always:**
 
