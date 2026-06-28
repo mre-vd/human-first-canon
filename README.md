@@ -22,5 +22,3 @@ A set of technical engineering standards — coding, architecture, data, infrast
 4. Validate: `node scripts/validate.js`
 
 Sync manually, and only when something changed.
-
-> Note: the `docs/` folder hosts a separate static web app (served via GitHub Pages); it is not part of the engineering standards.
