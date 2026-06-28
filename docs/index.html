@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Аудит, що зберігає природу продукту</title>
+  <meta name="robots" content="index,follow" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="wrap">
+
+    <!-- LANDING -->
+    <section id="landing" class="view">
+      <h1>Аудит, що зберігає<br />природу продукту</h1>
+      <p class="lead">Не переробляємо продукт під чужий ідеал. Називаємо, який він є, і знаходимо, де витікає ресурс — щоб закрити діри, лишивши його собою.</p>
+      <button class="btn" data-go="start">Вперед</button>
+      <p class="fine">Нічого не зберігається. Закрив вкладку — сесія зникла.</p>
+    </section>
+
+    <!-- KEY GATE -->
+    <section id="keygate" class="view" hidden>
+      <p class="step">Ключ</p>
+      <h2>Підключи ключ Клода</h2>
+      <p class="lead">Аналіз робить Клод твоїм ключем. Ключ лишається тільки в цій вкладці (sessionStorage) і зникає, щойно ти її закриєш. Ми його нікуди не передаємо й не зберігаємо.</p>
+      <input id="key" class="field" type="password" placeholder="sk-ant-..." autocomplete="off" spellcheck="false" />
+      <div class="row">
+        <button class="btn" data-go="savekey">Продовжити</button>
+        <button class="btn ghost" data-go="back-landing">Назад</button>
+      </div>
+      <p class="fine" id="keyerr" hidden></p>
+      <p class="fine">Немає ключа? Зареєструйся на <a href="https://console.anthropic.com/settings/keys" target="_blank" rel="noopener">console.anthropic.com</a> → Settings → API Keys → Create Key. Скопіюй ключ (<code>sk-ant-…</code>) і встав сюди.</p>
+    </section>
+
+    <!-- STEP 1 — NATURE -->
+    <section id="step1" class="view" hidden>
+      <p class="step">Крок 1 / 2 — Природа</p>
+      <h2>Що це за продукт?</h2>
+      <p class="lead">Встав посилання на <strong>сайт</strong> чи <strong>GitHub-репозиторій</strong> — або просто текст: опис, копірайт, README. Усе, що людина зробила як продукт.</p>
+      <textarea id="subject" class="field area" rows="6" placeholder="https://your-product.com&#10;https://github.com/owner/repo&#10;— або —&#10;встав текст / опис продукту"></textarea>
+      <button class="btn" data-go="analyze">Назвати природу</button>
+
+      <div id="portraitBox" hidden>
+        <h3>Портрет природи</h3>
+        <div id="portrait" class="out"></div>
+
+        <div id="refineBox" hidden>
+          <p class="lead small">Не те? Доправ у кілька слів — і так, доки не скажеш «це воно».</p>
+          <textarea id="refine" class="field area" rows="3" placeholder="напр.: більше про емоційний тон; це не для бізнесу, а для…"></textarea>
+          <div class="row">
+            <button class="btn ghost" data-go="refine">Доправити</button>
+            <button class="btn" data-go="confirm">Так, це воно</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STEP 2 — AUDIT -->
+    <section id="step2" class="view" hidden>
+      <p class="step">Крок 2 / 2 — Аудит</p>
+      <h2>Де витікає ресурс</h2>
+      <p class="lead small">Проти підтвердженої природи. Кожна теча — як факт, із ціною. Закриття зберігає рідний регістр, не нормалізує продукт.</p>
+      <div id="audit" class="out"></div>
+      <div class="row" id="auditDone" hidden>
+        <button class="btn" data-go="pdf">Зберегти як PDF</button>
+        <button class="btn ghost" data-go="restart">Спочатку</button>
+      </div>
+    </section>
+
+    <footer class="foot">
+      <span>Дзеркало, не Ворота — називаємо, рішення за тобою.</span>
+      <span>Без аналітики й трекерів.</span>
+    </footer>
+  </main>
+
+  <div id="report" aria-hidden="true"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
