@@ -39,9 +39,9 @@ Quality engineering is a sovereign domain — kept separate from the engineering
 
 ## Test Selection (Run Only What the Change Needs)
 
-The resource rule applied to testing — the engineering face of *Operational Rest / Zero-Active Waste* (`PRINCIPLES.md`): a change runs **only the tests reachable from it**, not the whole suite. Energy is spent only where the change can actually break something.
+A change runs **only the tests reachable from it**, not the whole suite. Effort is spent only where the change can actually break something.
 
-- **The canon says "tests"; the project names its suites.** This rule governs test *selection*, not test *kinds*. The gate is the same everywhere — "run the affected tests, keep a full nightly" — while *which* suites exist and how each maps to a change is bound per project (Mirror of Bindings, `PRINCIPLES.md`). A project declares its own suites — unit, integration, component, browser E2E (e.g. Playwright), desktop E2E (e.g. Tauri / WebDriver), load — and wires each into the affected-set computation. The tool names below are illustrative, not mandates.
+- **The canon says "tests"; the project names its suites.** This rule governs test *selection*, not test *kinds*. The gate is the same everywhere — "run the affected tests, keep a full nightly" — while *which* suites exist and how each maps to a change is bound per project. A project declares its own suites — unit, integration, component, browser E2E (e.g. Playwright), desktop E2E (e.g. Tauri / WebDriver), load — and wires each into the affected-set computation. The tool names below are illustrative, not mandates.
 - **Affected-only execution.** Determine the minimal set of tests impacted by a diff and run just those. Three proven approaches — pick what fits the stack:
   - *Build-graph based* — derive affected targets from the dependency graph: `nx affected`, Bazel (`bazel test` over `rdeps`), Turborepo (`--filter=...[origin/main]`) with remote caching.
   - *Coverage-mapped (Test Impact Analysis)* — map each test to the lines it covers, then select tests whose covered lines changed: Datadog TIA, Azure DevOps TIA, `pytest-testmon`, Jest `--changedSince`.

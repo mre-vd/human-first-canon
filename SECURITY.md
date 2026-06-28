@@ -32,11 +32,11 @@ Security is a non-negotiable property of every change. It is not a separate "tas
 - Disclose the existence of internal-only surface: gate internal endpoints behind a source allowlist and answer disallowed callers with `404` (not `403`), so probing cannot map the private API.
 - Commit `.env` files, signing keys, or real secrets inside example/sample files (`.env.example`) to the repository.
 
-## Threat Modeling: The Adversary Question (Design-Time)
+## Threat Modeling (Design-Time)
 
 Security starts as a question in design and discussion, not only as implementation-time hardening: **"If someone wanted to do harm — could they, and where?"** Asked before a feature is built, it surfaces the attack surface while it is still cheap to change.
 
-This is the Mirror, not a gate (*The Law of the Name*, `PRINCIPLES.md`): the analysis **names the holes** as facts and hands the operator/architect a map of exposure; the decision to proceed, accept the risk, or mitigate stays with the operator. Holes named early become design choices; holes found late become incidents.
+The analysis **names the holes** as facts and hands the architect a map of exposure; the decision to proceed, accept the risk, or mitigate stays with the team. Holes named early become design choices; holes found late become incidents.
 
 For every consequential feature, ask:
 
@@ -53,11 +53,8 @@ Cryptography is easy to call and hard to call correctly. These rules name the
 safe defaults; a deviation must be justified against a named authority (NIST,
 OWASP, the protocol spec) — never against convenience. The threat is silent:
 broken crypto looks identical to working crypto until someone breaks it.
-These standards are the canon's **Cryptographic Integrity** — the face of
-*Integrity Is Health* (`PRINCIPLES.md`) that guards the chain of trust: the part
-that arrives is the part that left, tamper-evident and never silent. Where
-*System Integrity* (`CLAUDE.md`) keeps parts mutually consistent, Cryptographic
-Integrity keeps them unforged.
+These rules guard the chain of trust: the part that arrives is the part that
+left — tamper-evident, never silent.
 
 **Always:**
 

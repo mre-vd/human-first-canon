@@ -1,6 +1,6 @@
 # STACKS.md — Language & Framework Coding Standards
 
-Per-stack coding standards — the language- and framework-specific manifestation of the engineering canon (`CLAUDE.md`). Read the section for the stack you are working in. The universal principles (System Integrity, Modular Sovereignty, Architecture & Design Principles, The Dumb Tool) live in `CLAUDE.md` and always apply.
+Per-stack coding standards — the language- and framework-specific manifestation of the engineering canon (`CLAUDE.md`). Read the section for the stack you are working in. The universal principles (System Integrity, Modular Sovereignty, Architecture & Design Principles) live in `CLAUDE.md` and always apply.
 
 ## Go Coding Standards
 
@@ -365,7 +365,7 @@ Any component that reads async data MUST handle three states:
 
 ### No dead-end screens — back must always work
 
-The React application of **No Dead Ends & The Single Door** (`DESIGN.md`): every screen provides a way to progress or retreat, and every render branch provides a back affordance. Dead ends leave the user stranded and break the navigation harmony.
+Every screen provides a way to progress or retreat, and every render branch provides a back affordance. Dead ends leave the user stranded and break navigation.
 
 ### Auth rejections must clear the session and bounce to login
 
