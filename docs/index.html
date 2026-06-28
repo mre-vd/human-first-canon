@@ -12,17 +12,17 @@
 
     <!-- LANDING -->
     <section id="landing" class="view">
-      <h1>Аудит, що зберігає<br />природу продукту</h1>
-      <p class="lead">Не переробляємо продукт під чужий ідеал. Називаємо, який він є, і знаходимо, де витікає ресурс — щоб закрити діри, лишивши його собою.</p>
-      <button class="btn" data-go="start">Вперед</button>
-      <p class="fine">Нічого не зберігається. Закрив вкладку — сесія зникла.</p>
+      <h1>Подивимось на твій<br />продукт чесно</h1>
+      <p class="lead">Не переробляємо його під чужий шаблон. Розкажемо, який він насправді, і покажемо, де він даремно втрачає сили — щоб це залатати, не зламавши того, що в ньому хороше.</p>
+      <button class="btn" data-go="start">Почати</button>
+      <p class="fine">Нічого не зберігається. Закрив вкладку — і все зникло.</p>
     </section>
 
     <!-- KEY GATE -->
     <section id="keygate" class="view" hidden>
       <p class="step">Ключ</p>
-      <h2>Підключи ключ Клода</h2>
-      <p class="lead">Аналіз робить Клод твоїм ключем. Ключ лишається тільки в цій вкладці (sessionStorage) і зникає, щойно ти її закриєш. Ми його нікуди не передаємо й не зберігаємо.</p>
+      <h2>Потрібен твій ключ Клода</h2>
+      <p class="lead">Думає тут Клод — твоїм ключем. Ключ живе тільки в цій вкладці й зникає, щойно ти її закриєш. Ми його нікуди не передаємо й ніде не зберігаємо.</p>
       <input id="key" class="field" type="password" placeholder="sk-ant-..." autocomplete="off" spellcheck="false" />
       <div class="row">
         <button class="btn" data-go="savekey">Продовжити</button>
@@ -34,22 +34,22 @@
 
     <!-- STEP 1 — NATURE -->
     <section id="step1" class="view" hidden>
-      <p class="step">Крок 1 / 2 — Природа</p>
+      <p class="step">Крок 1 з 2 · Про продукт</p>
       <h2>Що це за продукт?</h2>
-      <p class="lead">Встав посилання на <strong>сайт</strong> чи <strong>GitHub-репозиторій</strong> — або просто текст: опис, копірайт, README. Усе, що людина зробила як продукт.</p>
+      <p class="lead">Встав посилання на <strong>сайт</strong> чи <strong>GitHub-репозиторій</strong> — або просто текст: опис, копірайт, README. Усе, що ти зробив як продукт.</p>
       <textarea id="subject" class="field area" rows="6" placeholder="https://your-product.com&#10;https://github.com/owner/repo&#10;— або —&#10;встав текст / опис продукту"></textarea>
-      <button class="btn" data-go="analyze">Назвати природу</button>
+      <button class="btn" data-go="analyze">Подивитися</button>
 
       <div id="portraitBox" hidden>
-        <h3>Портрет природи</h3>
+        <h3>Ось який він</h3>
         <div id="portrait" class="out"></div>
 
         <div id="refineBox" hidden>
-          <p class="lead small">Не те? Доправ у кілька слів — і так, доки не скажеш «це воно».</p>
-          <textarea id="refine" class="field area" rows="3" placeholder="напр.: більше про емоційний тон; це не для бізнесу, а для…"></textarea>
+          <p class="lead small">Не зовсім так? Підкажи в кілька слів — і так, доки не скажеш «оце воно».</p>
+          <textarea id="refine" class="field area" rows="3" placeholder="напр.: тон тепліший, ніж тут; це не для бізнесу, а для…"></textarea>
           <div class="row">
-            <button class="btn ghost" data-go="refine">Доправити</button>
-            <button class="btn" data-go="confirm">Так, це воно</button>
+            <button class="btn ghost" data-go="refine">Підправити</button>
+            <button class="btn" data-go="confirm">Так, оце воно</button>
           </div>
         </div>
       </div>
@@ -57,9 +57,9 @@
 
     <!-- STEP 2 — AUDIT -->
     <section id="step2" class="view" hidden>
-      <p class="step">Крок 2 / 2 — Аудит</p>
-      <h2>Де витікає ресурс</h2>
-      <p class="lead small">Проти підтвердженої природи. Кожна теча — як факт, із ціною. Закриття зберігає рідний регістр, не нормалізує продукт.</p>
+      <p class="step">Крок 2 з 2 · Що варто підлатати</p>
+      <h2>Де продукт даремно втрачає сили</h2>
+      <p class="lead small">Дивимось на те, що ти підтвердив. Кожне місце — з ціною: що воно коштує і що дасть, якщо це залатати. І не чіпаємо того, що робить продукт собою.</p>
       <div id="audit" class="out"></div>
       <div class="row" id="auditDone" hidden>
         <button class="btn" data-go="pdf">Зберегти як PDF</button>
@@ -68,7 +68,7 @@
     </section>
 
     <footer class="foot">
-      <span>Дзеркало, не Ворота — називаємо, рішення за тобою.</span>
+      <span>Останнє слово завжди за тобою.</span>
       <span>Без аналітики й трекерів.</span>
     </footer>
   </main>
