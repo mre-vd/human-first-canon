@@ -1,1 +1,17 @@
-[]
+[
+  {
+    "name": "Повернись живим (Come Back Alive)",
+    "link": "https://savelife.in.ua/en/donate-en/",
+    "note": "технічна підтримка ЗСУ з 2014"
+  },
+  {
+    "name": "Фонд Сергія Притули",
+    "link": "https://prytulafoundation.org/en/donation",
+    "note": "армія та цивільні; відкриті звіти"
+  },
+  {
+    "name": "UNITED24",
+    "link": "https://u24.gov.ua/donate",
+    "note": "офіційна платформа Президента; аудит Deloitte/BDO"
+  }
+]
