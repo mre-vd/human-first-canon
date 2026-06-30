@@ -1,0 +1,30 @@
+name: PR guard (suggestion PRs)
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  guard:
+    # Only suggestion PRs — dev/feature PRs are unaffected.
+    if: startsWith(github.head_ref, 'suggest-')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Suggestion PRs may touch only canon/data files
+        run: |
+          base='${{ github.event.pull_request.base.sha }}'
+          head='${{ github.event.pull_request.head.sha }}'
+          changed=$(git diff --name-only "$base" "$head")
+          echo "Changed files:"; echo "$changed"
+          bad=$(echo "$changed" | grep -vE '^([A-Za-z0-9_]+\.md|suggestions/|contributors\.json|funds\.json)$' || true)
+          if [ -n "$bad" ]; then
+            echo "::error::Suggestion PR touches files outside canon/data:"; echo "$bad"
+            exit 1
+          fi
+          echo "OK — only canon/data files."
