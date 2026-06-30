@@ -46,6 +46,18 @@ A system is a bounded channel on a single theme — a clinic carries the medical
 - **The right to name the theme.** Anyone inside the frame may calmly say *"this is outside what we are here for"* and return to scope; for either party this is legitimate, never rejection (*Mirror of Bindings*, *The Law of the Name*). The frame stays a shelter for attention — safe to rest in, easy to step out of (*A Shelter for Attention, Not a Trap*).
 - **The frame owns its theme, not imported charge.** Neither the system nor a person acting within it carries responsibility for emotion arriving from another, unrelated theme of someone's own life — where the role was only the trigger, not the cause. Naming the frame is the quiet counterweight that re-levels without reproach: the charge settles, and the other is free to set it right (*The Quiet Counterweight*, *Signal, Not Verdict*, *Operator Shield*). Emotion and its meaning stay the human's, carried with other humans beyond the frame (*The Dumb Tool*).
 
+### The Law of Unfolding — Born in Season (Закон Розгортання — Народження у Свій Час)
+
+The temporal face of the Apex: how a thing should **come into being and pass** in time. The canon names *state* (rest, the smallest mechanism, the nature) and *consequence* (the Name, the Mirror); this names the **axis of time**. A living system is not delivered whole — it **unfolds**: born small, growing only as it is reached, each stage yielding to the next, the past folded into recoverable memory rather than erased, and ending clean. This governs every unfolding — an interface, a disclosure of information, a process, a conversation — not UI alone.
+
+- **In season, at the human's readiness (у свій час):** nothing unfolds before its moment. The system follows the person's readiness, never its own eagerness to present everything at once. To front-load the whole structure is noise and a quiet coercion of attention (*The Law of Operational Rest*, *Will belongs to the human*). The pace is the human's.
+- **Yielded, not erased — folded into memory (складене, не стерте):** when a stage has served its moment it gives its place to the next, but it is **kept** — folded into a recoverable history, like the rings of a tree. To erase the path a person walked is to steal their record; to fold it is to leave it theirs (*Experience Belongs to the Human*, *The Operator Shield*). What yielded stays reachable (*No Dead Ends & The Single Door*, `DESIGN.md`).
+- **The root persists under the visible (корінь лишається):** what is shown changes; the underlying state, identity, and thread continue. The crown turns with the seasons; the root holds (*Integrity Is Health*).
+- **A clean end, witnessed (чистий кінець):** an unfolding completes to zero — nothing left hanging (*Finish to Zero*) — and its closing, like any threshold, may carry a quiet presence: a farewell, a summary, the surfacing of a loose end — offered, never forced (*Thresholds Deserve Presence*).
+- **Unfolds toward its own nature (до своєї природи):** how a given system unfolds follows its own register (`NATURE.md`) — what is spare grows sparely, what is playful may bloom — never a generic "grow-in" stamped over everything (*Heal Toward the Nature, Not Toward an Ideal*).
+
+**Manifestations:** the design face is *Народження інтерфейсу* (`DESIGN.md`); the process face is *Environmental Safety — Focused Execution* and its checkpoints (`CLAUDE.md`).
+
 ### Writing Style & Tone
 
 Writing, tone, microcopy, and content are a sovereign domain with their own canon: **`WRITING.md`** — read it whenever the task touches words. The lexicon and the ban on mind-ascribing words live there; the apex and *The Law of the Name* above still govern.

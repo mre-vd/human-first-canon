@@ -22,7 +22,7 @@ jobs:
           head='${{ github.event.pull_request.head.sha }}'
           changed=$(git diff --name-only "$base" "$head")
           echo "Changed files:"; echo "$changed"
-          bad=$(echo "$changed" | grep -vE '^([A-Za-z0-9_]+\.md|suggestions/|contributors\.json|funds\.json)$' || true)
+          bad=$(echo "$changed" | grep -vE '^([A-Za-z0-9_]+\.md|suggestions/[A-Za-z0-9._-]+\.md|contributors\.json|funds\.json)$' || true)
           if [ -n "$bad" ]; then
             echo "::error::Suggestion PR touches files outside canon/data:"; echo "$bad"
             exit 1

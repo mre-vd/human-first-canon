@@ -59,6 +59,18 @@ The principle of intentionally removing noise to improve clarity and focus. Ever
 - **Interface Decluttering:** Hide complex actions behind "Expert" toggles or progressive disclosure. The primary view must show only what is essential for the current task.
 - **Cognitive Load:** Minimize the number of things a person must hold in their head to navigate the interface.
 
+### Народження інтерфейсу — UI росте, не вивалюється (Progressive Birth)
+
+The design face of **The Law of Unfolding — Born in Season** (`PRINCIPLES.md`); it also carries **Decluttering** (above), **Operational Rest / Cognitive Silence**, and **The Human's Decision Is the Hero**. An interface is born the way a living thing is — it sees little first, then more, only as needed. It never dumps the whole structure at once, and in a linear flow it never piles spent steps on top of live ones. Like a plant: one part grows, then the next; nothing unfurls before its moment.
+
+- **In season — paced by the person, not the system:** nothing unfolds before it is reached. The next thing appears when the person's step calls for it, never front-loaded to look feature-rich (*The Law of Unfolding — in season*). The pace is theirs.
+- **Linear flow — one thing at a time:** when a step has done its job (a form submitted, a choice made), it **yields its place**; the next thing that deserves attention is born where it stood. Spent UI does not linger as noise above the live focus. The birth of the next block — with its working state — is itself the confirmation the step was accepted (pairs with *Visibility of system status*).
+- **Complex UI — disclose by growth:** reveal structure progressively, as the person reaches it — not all at once (the progressive-disclosure face of *Decluttering*). Branches grow only when needed; the rest stays folded.
+- **Yielded, not erased — folded like rings:** collapsing a spent step is not deleting it. Earlier states fold into a recoverable history — the rings under the bark — never thrown away (*The Law of Unfolding — folded into memory*). Offer exactly one small, quiet affordance to bring a step back — to review or change it; the path back is never sealed (*No Dead Ends & The Single Door*). One control, named for what it does.
+- **The root persists under the visible:** what is shown changes between steps; the underlying state — the entered values, the thread, the work so far — continues beneath. Swapping the view never silently drops the person's data (*The Law of Unfolding — the root persists*; *Integrity Is Health*).
+- **A clean end:** when the flow completes, it closes to zero with nothing left hanging; the closing screen may carry a quiet farewell or summary — offered, never forced (*Finish to Zero*; *Thresholds Deserve Presence*).
+- **Born, not flashed — and toward the product's own nature:** the transition is a calm grow-in (a brief fade and rise), never a spinner-circus or motion for its own sake (*Smallest Mechanism* — restraint over spectacle). How it grows follows the product's register (`NATURE.md`) — spare grows sparely, playful may bloom — never one stock animation everywhere (*Heal Toward the Nature*). Honour `prefers-reduced-motion`: when reduced, the next block simply appears — meaning never lives in the animation alone (*Accessibility — Respect reduced motion*).
+
 ### Conceptual Consistency & Recursive Familiarity
 Interfaces must be architected so that the person's mental model scales effortlessly across the entire system.
 - **Component Recursion:** Reuse interaction patterns (e.g., how a "Workbench" or "Sidebar" opens) identically across all modules.

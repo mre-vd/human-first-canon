@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>human-first — аудит, що зберігає природу продукту</title>
+  <title>nature-audit — аудит, що зберігає природу продукту</title>
   <meta name="robots" content="index,follow" />
   <link rel="stylesheet" href="styles.css" />
 </head>
@@ -11,7 +11,7 @@
   <main class="wrap">
 
     <header class="brand">
-      <button class="brand-link" data-go="home" aria-label="На головну"><svg class="brand-mark" viewBox="0 0 64 64" width="22" height="22" fill="none" aria-hidden="true"><circle cx="32" cy="22" r="6" fill="currentColor"/><line x1="14" y1="32" x2="50" y2="32" stroke="currentColor" stroke-width="4"/><circle cx="32" cy="42" r="6" stroke="currentColor" stroke-width="4" stroke-opacity="0.32"/></svg><span class="brand-word">human-first<span class="brand-dot">.</span></span></button>
+      <button class="brand-link" data-go="home" aria-label="На головну"><svg class="brand-mark" viewBox="0 0 64 64" width="22" height="22" fill="none" aria-hidden="true"><circle cx="32" cy="22" r="6" fill="currentColor"/><line x1="14" y1="32" x2="50" y2="32" stroke="currentColor" stroke-width="4"/><circle cx="32" cy="42" r="6" stroke="currentColor" stroke-width="4" stroke-opacity="0.32"/></svg><span class="brand-word">nature-audit<span class="brand-dot">.</span></span></button>
     </header>
 
     <!-- LANDING -->
@@ -31,15 +31,23 @@
     <!-- STEP 1 — NATURE -->
     <section id="step1" class="view" hidden>
       <p class="step">Крок 1 з 2 · Про продукт</p>
-      <h2>Що це за продукт?</h2>
-      <p class="lead">Вставте посилання на <strong>сайт</strong> чи <strong>GitHub-репозиторій</strong> — або просто текст: опис, копірайт, README. Усе, що ви зробили як продукт.</p>
-      <textarea id="subject" class="field area" rows="6" placeholder="https://your-product.com&#10;https://github.com/owner/repo&#10;— або —&#10;вставте текст / опис продукту"></textarea>
-      <button class="btn" data-go="analyze">Подивитися</button>
-      <p class="fine">Окрім вашого матеріалу, Клод пошукає в інтернеті, що про продукт писали — відгуки, статті, згадки, — щоб портрет був повніший. Для цього назва чи посилання на продукт ідуть у веб-пошук.</p>
+
+      <div id="ask">
+        <h2>Що це за продукт?</h2>
+        <p class="lead">Вставте посилання на <strong>сайт</strong> чи <strong>GitHub-репозиторій</strong> — або просто текст: опис, копірайт, README. Усе, що ви зробили як продукт.</p>
+        <textarea id="subject" class="field area" rows="6" placeholder="https://your-product.com&#10;https://github.com/owner/repo&#10;— або —&#10;вставте текст / опис продукту"></textarea>
+        <button class="btn" data-go="analyze">Подивитися</button>
+        <p class="fine">Окрім вашого матеріалу, Клод пошукає в інтернеті, що про продукт писали — відгуки, статті, згадки, — щоб портрет був повніший. Для цього назва чи посилання на продукт ідуть у веб-пошук.</p>
+      </div>
+
+      <button class="linkbtn askpeek" id="askPeek" data-go="ask-peek" hidden>← змінити продукт</button>
 
       <div id="portraitBox" hidden>
         <h3>Ось картина, що склалася <span class="spinner" id="spin1" hidden aria-label="Клод працює"></span></h3>
         <div id="portrait" class="out"></div>
+
+        <button class="linkbtn histtoggle" id="historyToggle" data-go="history-toggle" hidden></button>
+        <div id="portraitHistory" class="history" hidden></div>
 
         <div id="refineBox" hidden>
           <p class="lead small">Не зовсім так? Підкажіть у кілька слів — і так, доки не скажете «оце воно».</p>
@@ -69,7 +77,7 @@
 
     <footer class="foot">
       <span>Останнє слово завжди за вами.</span>
-      <span><button class="linkbtn" data-go="canon">Канони</button> · Чистий аудит. Без аналітики й трекерів.</span>
+      <span><button class="linkbtn" data-go="contact">Написати авторам</button> · <button class="linkbtn" data-go="canon">Канони</button> · Чистий аудит. Без аналітики й трекерів.</span>
     </footer>
   </main>
 
@@ -102,6 +110,21 @@
       <div id="canonNav" class="canon-nav"></div>
       <pre id="canonBody" class="canon-body"></pre>
       <div class="row"><button class="btn ghost" data-go="canon-close">Закрити</button></div>
+    </div>
+  </div>
+
+  <!-- CONTACT THE AUTHORS (email) -->
+  <div id="contactModal" class="modal" hidden>
+    <div class="modal-card">
+      <h3>Написати авторам</h3>
+      <p class="fine">Напишіть, що думаєте — лист піде авторам на пошту. Лишите email — зможуть відповісти.</p>
+      <textarea id="ctText" class="field area" rows="5" placeholder="Ваше повідомлення"></textarea>
+      <input id="ctEmail" class="field" type="email" placeholder="Email для відповіді (опційно)" />
+      <p class="fine" id="ctStatus" hidden></p>
+      <div class="row">
+        <button class="btn" data-go="ct-send">Надіслати</button>
+        <button class="btn ghost" data-go="ct-close">Закрити</button>
+      </div>
     </div>
   </div>
 

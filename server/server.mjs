@@ -7,6 +7,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { Readable } from "node:stream";
 import { Firestore } from "@google-cloud/firestore";
+import nodemailer from "nodemailer";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const DOCS_DIR = path.join(__dirname, "..", "docs");
@@ -16,6 +17,17 @@ const ANTHROPIC_API_KEY = process.env.ANTHROPIC_API_KEY;
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 const GH_REPO = process.env.GITHUB_REPO || "malkoromanievgenovich/human-first-canon";
 const GH_BASE = process.env.GITHUB_BASE || "main";
+const GMAIL_USER = process.env.GMAIL_USER;
+const GMAIL_APP_PASS = process.env.GMAIL_APP_PASS;
+
+// Gmail SMTP transporter for the "write to the authors" channel (lazy — built on first use).
+let mailer = null;
+function getMailer() {
+  if (mailer) return mailer;
+  if (!GMAIL_USER || !GMAIL_APP_PASS) return null;
+  mailer = nodemailer.createTransport({ service: "gmail", auth: { user: GMAIL_USER, pass: GMAIL_APP_PASS } });
+  return mailer;
+}
 
 const MODEL = "claude-opus-4-8";
 const MAX_TOKENS = 8000;
@@ -216,6 +228,32 @@ app.post("/api/suggest", async (req, res) => {
     res.json({ ok: true, url: pr.html_url });
   } catch (e) {
     res.status(502).json({ error: "Не вдалося створити PR: " + e.message });
+  }
+});
+
+// --- Write to the authors → plain email (separate channel from the suggestion-PR flow). ---
+app.post("/api/contact", async (req, res) => {
+  if (foreignOrigin(req)) return res.status(403).json({ error: "Заборонене джерело запиту." });
+  if (rateLimited(clientIp(req), 3)) return res.status(429).json({ error: "Забагато надсилань. Спробуйте за хвилину." });
+  const tx = getMailer();
+  if (!tx) return res.status(500).json({ error: "Пошту не налаштовано на сервері." });
+
+  const message = clean(req.body?.message, 8000);
+  const from = clean(req.body?.email, 200);
+  if (!message) return res.status(400).json({ error: "Порожнє повідомлення." });
+  const validFrom = /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(from) ? from : "";
+
+  try {
+    await tx.sendMail({
+      from: `nature-audit <${GMAIL_USER}>`,
+      to: GMAIL_USER,
+      ...(validFrom ? { replyTo: validFrom } : {}),
+      subject: "nature-audit — зворотний зв'язок",
+      text: message + "\n\n— " + (validFrom ? `від: ${validFrom}` : "контакт не вказано"),
+    });
+    res.json({ ok: true });
+  } catch (e) {
+    res.status(502).json({ error: "Не вдалося надіслати: " + e.message });
   }
 });
 

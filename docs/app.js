@@ -13,17 +13,40 @@ function show(view) {
   window.scrollTo(0, 0);
 }
 
+/* ----- progressive birth: a spent step yields, the next is born in its place ----- */
+function regrow(el) {
+  el.classList.remove("grow");
+  void el.offsetWidth; // restart the animation
+  el.classList.add("grow");
+}
+function born(el) {
+  el.hidden = false;
+  regrow(el);
+}
+function yieldStep(el, done) {
+  el.classList.add("yield");
+  let called = false;
+  const finish = () => {
+    if (called) return;
+    called = true;
+    el.classList.remove("yield");
+    el.hidden = true;
+    if (done) done();
+  };
+  el.addEventListener("transitionend", finish, { once: true });
+  setTimeout(finish, 320); // fallback for reduced-motion / no transition
+}
+
 /* ----- token meter: accumulate one call's usage and render it ----- */
 function addUsage(u) {
   if (!u) return;
   tokens.input += u.input || 0;
   tokens.output += u.output || 0;
   tokens.searches += u.searches || 0;
-  const total = (tokens.input + tokens.output).toLocaleString("uk-UA");
-  const search = tokens.searches ? `, ${tokens.searches} веб-пошук(ів)` : "";
+  const search = tokens.searches ? ` (${tokens.searches} веб-пошук(ів))` : "";
   // Opus 4.8: $5/1M in, $25/1M out; web search $10/1000. Shown as our gift, not a bill.
   const cost = (tokens.input / 1e6) * 5 + (tokens.output / 1e6) * 25 + (tokens.searches / 1000) * 10;
-  const text = `Вартість цього розбору: ≈$${cost.toFixed(2)} (${total} токенів${search}).`;
+  const text = `Вартість цього розбору: ≈$${cost.toFixed(2)}${search}.`;
   document.querySelectorAll(".tok").forEach((el) => {
     el.textContent = text;
     el.hidden = false;
@@ -231,6 +254,46 @@ async function openFeedback() {
 function closeFeedback() {
   $("fbModal").hidden = true;
 }
+
+/* ----- write to the authors (email channel) ----- */
+function openContact() {
+  $("ctStatus").hidden = true;
+  $("ctText").value = "";
+  $("ctEmail").value = "";
+  $("contactModal").hidden = false;
+}
+function closeContact() {
+  $("contactModal").hidden = true;
+}
+async function sendContact() {
+  const message = $("ctText").value.trim();
+  const status = $("ctStatus");
+  const setStatus = (t) => {
+    status.textContent = t;
+    status.hidden = false;
+  };
+  if (!message) return setStatus("Напишіть кілька слів.");
+  const btn = document.querySelector('[data-go="ct-send"]');
+  btn.disabled = true;
+  status.hidden = true;
+  try {
+    const r = await fetch("/api/contact", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ message, email: $("ctEmail").value.trim() }),
+    });
+    const j = await r.json().catch(() => ({}));
+    if (r.ok && j.ok) {
+      setStatus("Дякуємо — лист надіслано.");
+      $("ctText").value = "";
+    } else {
+      setStatus(j.error || "Не вдалося надіслати.");
+    }
+  } catch {
+    setStatus("Мережа недоступна.");
+  }
+  btn.disabled = false;
+}
 function toggleWho() {
   $("fbWho").hidden = !$("fbShow").checked;
 }
@@ -346,7 +409,18 @@ async function analyze() {
   if (!input) return;
   const btn = document.querySelector('[data-go="analyze"]');
   btn.disabled = true;
-  btn.textContent = "Читаю продукт…";
+
+  $("refineBox").hidden = true;
+  const out = $("portrait");
+  out.textContent = "";
+
+  // the ask form did its job — it yields its place; the portrait is born where it stood
+  yieldStep($("ask"), () => {
+    $("askPeek").hidden = false;
+    $("spin1").hidden = false;
+    born($("portraitBox"));
+    window.scrollTo(0, 0);
+  });
 
   productText = await fetchSubject(input);
   conversation = [
@@ -355,13 +429,6 @@ async function analyze() {
       content: `ОСЬ ПРОДУКТ:\n\n${productText}\n\nОпишіть простими словами, який він.`,
     },
   ];
-
-  $("portraitBox").hidden = false;
-  $("refineBox").hidden = true;
-  const out = $("portrait");
-  out.textContent = "";
-  btn.textContent = "Готую…";
-  $("spin1").hidden = false;
 
   await streamClaude({
     system: NATURE_SYSTEM,
@@ -372,6 +439,9 @@ async function analyze() {
     onError: (msg) => {
       out.textContent = "⚠ " + msg;
       $("spin1").hidden = true;
+      // bring the form back so they can fix and retry — never a dead end
+      $("askPeek").hidden = true;
+      born($("ask"));
       btn.disabled = false;
       btn.textContent = "Подивитися";
     },
@@ -380,6 +450,7 @@ async function analyze() {
       addUsage(usage);
       $("spin1").hidden = true;
       $("refineBox").hidden = false;
+      renderHistory();
       btn.disabled = false;
       btn.textContent = "Подивитися ще раз";
     },
@@ -412,14 +483,72 @@ async function refine() {
       conversation.push({ role: "assistant", content: full });
       addUsage(usage);
       $("spin1").hidden = true;
+      renderHistory();
       btn.disabled = false;
     },
   });
 }
 
+/* ----- bring back the ask form (review or change the product) — no dead end ----- */
+function peekAsk() {
+  $("askPeek").hidden = true;
+  born($("ask"));
+}
+
+/* ----- portrait history: earlier versions fold into rings, never erased ----- */
+function renderHistory() {
+  const box = $("portraitHistory");
+  const toggle = $("historyToggle");
+  const assistants = conversation.filter((m) => m.role === "assistant");
+  const prev = assistants.slice(0, -1); // every version before the current one
+  if (!prev.length) {
+    toggle.hidden = true;
+    box.hidden = true;
+    box.innerHTML = "";
+    return;
+  }
+  const corrections = conversation.filter((m, i) => i > 0 && m.role === "user").map((m) => m.content);
+  box.innerHTML = "";
+  prev.forEach((a, i) => {
+    const item = document.createElement("div");
+    item.className = "history-item";
+    const label = document.createElement("p");
+    label.className = "step";
+    label.textContent = `Версія ${i + 1}`;
+    const body = document.createElement("div");
+    body.className = "out";
+    body.textContent = a.content;
+    item.appendChild(label);
+    item.appendChild(body);
+    if (corrections[i]) {
+      const corr = document.createElement("p");
+      corr.className = "fine corr";
+      corr.textContent = `Ваше уточнення: ${corrections[i]}`;
+      item.appendChild(corr);
+    }
+    box.appendChild(item);
+  });
+  box.hidden = true; // folded by default — the current version stays the focus
+  toggle.dataset.label = `показати попередні версії (${prev.length})`;
+  toggle.textContent = toggle.dataset.label;
+  toggle.hidden = false;
+}
+function toggleHistory() {
+  const box = $("portraitHistory");
+  const toggle = $("historyToggle");
+  if (box.hidden) {
+    born(box);
+    toggle.textContent = "сховати попередні версії";
+  } else {
+    box.hidden = true;
+    toggle.textContent = toggle.dataset.label;
+  }
+}
+
 async function confirmNature() {
   confirmedNature = $("portrait").textContent;
   show("step2");
+  regrow($("step2")); // the audit is born as step 1 yields
   const out = $("audit");
   out.textContent = "";
   $("spin2").hidden = false;
@@ -459,6 +588,11 @@ function restart() {
   $("audit").textContent = "";
   $("portraitBox").hidden = true;
   $("auditDone").hidden = true;
+  $("askPeek").hidden = true;
+  $("ask").hidden = false; // the ask form is the first thing again
+  $("historyToggle").hidden = true;
+  $("portraitHistory").hidden = true;
+  $("portraitHistory").innerHTML = "";
   document.querySelectorAll(".tok").forEach((el) => {
     el.textContent = "";
     el.hidden = true;
@@ -474,6 +608,8 @@ document.addEventListener("click", (e) => {
     case "home": show("landing"); break;
     case "start": startFlow(); break;
     case "analyze": analyze(); break;
+    case "ask-peek": peekAsk(); break;
+    case "history-toggle": toggleHistory(); break;
     case "refine": refine(); break;
     case "confirm": confirmNature(); break;
     case "pdf": downloadPdf(); break;
@@ -483,6 +619,9 @@ document.addEventListener("click", (e) => {
     case "fb-toggle": toggleWho(); break;
     case "canon": openCanon(); break;
     case "canon-close": closeCanon(); break;
+    case "contact": openContact(); break;
+    case "ct-send": sendContact(); break;
+    case "ct-close": closeContact(); break;
     case "restart": restart(); break;
   }
 });
