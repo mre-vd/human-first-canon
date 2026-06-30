@@ -497,6 +497,7 @@ document.addEventListener("click", (e) => {
   const go = e.target.closest("[data-go]");
   if (!go) return;
   switch (go.dataset.go) {
+    case "home": show("landing"); break;
     case "start": startFlow(); break;
     case "analyze": analyze(); break;
     case "refine": refine(); break;
