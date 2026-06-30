@@ -1,0 +1,29 @@
+name: Quorum auto-merge
+
+on:
+  pull_request_review:
+    types: [submitted]
+  schedule:
+    - cron: "30 * * * *" # hourly safety sweep (catches label/approval changes)
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+jobs:
+  auto-merge:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - run: node scripts/auto-merge.mjs
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPO: ${{ github.repository }}
+          # How many distinct human approvals are required. 1 = you at the start;
+          # raise it as you add trusted reviewers, and the loop sustains itself.
+          MIN_APPROVALS: "1"
