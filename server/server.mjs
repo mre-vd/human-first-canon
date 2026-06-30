@@ -242,27 +242,6 @@ app.get("/api/contributors", async (_req, res) => {
   }
 });
 
-// --- Funds list (verified charities; donations go directly to their own jars). ---
-app.get("/api/funds", async (_req, res) => {
-  try {
-    let text;
-    if (GITHUB_TOKEN) {
-      const f = await gh("GET", `/repos/${GH_REPO}/contents/funds.json?ref=${GH_BASE}`);
-      text = unb64(f.content);
-    } else {
-      const r = await fetch(`https://raw.githubusercontent.com/${GH_REPO}/${GH_BASE}/funds.json`, {
-        headers: { "user-agent": "nature-audit" },
-      });
-      if (!r.ok) return res.json([]);
-      text = await r.text();
-    }
-    const list = JSON.parse(text);
-    res.json(Array.isArray(list) ? list.slice(0, 100) : []);
-  } catch {
-    res.json([]);
-  }
-});
-
 // --- Canon files (read-only; no black box — the user can see what governs the audit). ---
 const CANON_FILES = [
   "PRINCIPLES.md", "WRITING.md", "DESIGN.md", "STACKS.md", "DATABASE.md",
