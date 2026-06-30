@@ -60,13 +60,13 @@ const AUDIT_SYSTEM =
   "рекомендацію, не як остаточну правду чи вирок; де не певні — так і кажіть. Пишіть мовою продукту, тепло й розмовно, без термінів.";
 
 /* ----- streaming call via our backend (the Claude key lives server-side) ----- */
-async function streamClaude({ system, messages, tools, onText, onDone, onError }) {
+async function streamClaude({ system, messages, tools, phase, onText, onDone, onError }) {
   let res;
   try {
     res = await fetch("/api/audit", {
       method: "POST",
       headers: { "content-type": "application/json" },
-      body: JSON.stringify({ system, messages, ...(tools ? { tools } : {}) }),
+      body: JSON.stringify({ system, messages, phase, ...(tools ? { tools } : {}) }),
     });
   } catch (e) {
     onError("Мережа недоступна: " + e.message);
@@ -296,20 +296,24 @@ async function analyze() {
   const out = $("portrait");
   out.textContent = "";
   btn.textContent = "Готую…";
+  $("spin1").hidden = false;
 
   await streamClaude({
     system: NATURE_SYSTEM,
     messages: conversation,
     tools: [WEB_SEARCH_TOOL],
+    phase: "portrait",
     onText: (full) => (out.textContent = full),
     onError: (msg) => {
       out.textContent = "⚠ " + msg;
+      $("spin1").hidden = true;
       btn.disabled = false;
       btn.textContent = "Подивитися";
     },
     onDone: (full, usage) => {
       conversation.push({ role: "assistant", content: full });
       addUsage(usage);
+      $("spin1").hidden = true;
       $("refineBox").hidden = false;
       btn.disabled = false;
       btn.textContent = "Подивитися ще раз";
@@ -326,19 +330,23 @@ async function refine() {
   $("refine").value = "";
   const out = $("portrait");
   out.textContent = "";
+  $("spin1").hidden = false;
 
   await streamClaude({
     system: NATURE_SYSTEM,
     messages: conversation,
     tools: [WEB_SEARCH_TOOL],
+    phase: "portrait",
     onText: (full) => (out.textContent = full),
     onError: (msg) => {
       out.textContent = "⚠ " + msg;
+      $("spin1").hidden = true;
       btn.disabled = false;
     },
     onDone: (full, usage) => {
       conversation.push({ role: "assistant", content: full });
       addUsage(usage);
+      $("spin1").hidden = true;
       btn.disabled = false;
     },
   });
@@ -349,8 +357,10 @@ async function confirmNature() {
   show("step2");
   const out = $("audit");
   out.textContent = "";
+  $("spin2").hidden = false;
   await streamClaude({
     system: AUDIT_SYSTEM,
+    phase: "audit",
     messages: [
       {
         role: "user",
@@ -360,9 +370,13 @@ async function confirmNature() {
       },
     ],
     onText: (full) => (out.textContent = full),
-    onError: (msg) => (out.textContent = "⚠ " + msg),
+    onError: (msg) => {
+      out.textContent = "⚠ " + msg;
+      $("spin2").hidden = true;
+    },
     onDone: (full, usage) => {
       addUsage(usage);
+      $("spin2").hidden = true;
       $("auditDone").hidden = false;
     },
   });

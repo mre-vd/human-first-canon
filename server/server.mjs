@@ -20,27 +20,39 @@ const GH_BASE = process.env.GITHUB_BASE || "main";
 const MODEL = "claude-opus-4-8";
 const MAX_TOKENS = 8000;
 
-// Persistent per-IP daily cap on audit calls (in-memory would reset on scale-to-zero).
-// One full audit = analyze + a few refinements + the audit step, so the cap counts
-// calls, not "audits" — the default leaves room for ~one session per IP per UTC day.
-const AUDIT_DAILY_MAX = Number(process.env.AUDIT_DAILY_MAX || 8);
+// Persistent per-IP daily caps (in-memory would reset on scale-to-zero).
+// Two counters per IP/UTC-day:
+//   audits — completed audit steps (phase "audit"); the "1 audit/day" cap.
+//   calls  — every /api/audit call; bounds portrait/refine spam (cost guard).
+// One full audit = analyze + a few refinements + the audit step, so the audit
+// step is capped separately from total calls, and a normal session still works.
+const AUDIT_DAILY_MAX = Number(process.env.AUDIT_DAILY_MAX || 1);
+const CALLS_DAILY_MAX = Number(process.env.CALLS_DAILY_MAX || 20);
 const firestore = new Firestore({ databaseId: process.env.FIRESTORE_DB || "nature-audit" });
 
-async function overDailyCap(ip) {
-  if (!ip || ip === "?") return false;
+async function checkDailyCap(ip, phase) {
+  if (!ip || ip === "?") return { ok: true };
   const day = new Date().toISOString().slice(0, 10); // UTC date
   const ref = firestore.collection("audit_quota").doc(`${day}_${ip}`);
   try {
     return await firestore.runTransaction(async (tx) => {
       const snap = await tx.get(ref);
-      const n = snap.exists ? snap.data().n || 0 : 0;
-      if (n >= AUDIT_DAILY_MAX) return true;
-      tx.set(ref, { n: n + 1, day, at: new Date().toISOString() }, { merge: true });
-      return false;
+      const d = snap.exists ? snap.data() : {};
+      const calls = d.calls || 0;
+      const audits = d.audits || 0;
+      if (calls >= CALLS_DAILY_MAX) return { ok: false, error: "Забагато запитів сьогодні. Спробуйте завтра." };
+      if (phase === "audit" && audits >= AUDIT_DAILY_MAX) return { ok: false, error: "Ви вже зробили аудит сьогодні. Спробуйте завтра." };
+      tx.set(ref, {
+        calls: calls + 1,
+        audits: audits + (phase === "audit" ? 1 : 0),
+        day,
+        at: new Date().toISOString(),
+      }, { merge: true });
+      return { ok: true };
     });
   } catch (e) {
     console.error("quota check failed (fail-open):", e.message);
-    return false; // don't block legit users if Firestore hiccups; the key spend cap is the hard bound
+    return { ok: true }; // don't block legit users on a Firestore hiccup; the key spend cap is the hard bound
   }
 }
 
@@ -81,7 +93,8 @@ app.post("/api/audit", async (req, res) => {
   if (foreignOrigin(req)) return res.status(403).json({ error: "Заборонене джерело запиту." });
   if (!ANTHROPIC_API_KEY) return res.status(500).json({ error: "Ключ Клода не налаштовано на сервері." });
   if (rateLimited(clientIp(req), 10)) return res.status(429).json({ error: "Забагато запитів. Спробуйте за хвилину." });
-  if (await overDailyCap(clientIp(req))) return res.status(429).json({ error: "На сьогодні ліміт аудитів вичерпано. Спробуйте завтра." });
+  const cap = await checkDailyCap(clientIp(req), req.body?.phase);
+  if (!cap.ok) return res.status(429).json({ error: cap.error });
 
   const { system, messages, tools } = req.body || {};
   if (typeof system !== "string" || !Array.isArray(messages)) {
