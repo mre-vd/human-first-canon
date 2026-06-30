@@ -1,0 +1,7 @@
+<svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" fill="none" role="img">
+  <title>human-first canon</title>
+  <desc>A solid dot on a hairline with a hollow reflected dot below — mirror, not gate.</desc>
+  <circle cx="32" cy="22" r="6" fill="currentColor"/>
+  <line x1="14" y1="32" x2="50" y2="32" stroke="currentColor" stroke-width="1.5"/>
+  <circle cx="32" cy="42" r="6" stroke="currentColor" stroke-width="1.5" stroke-opacity="0.32"/>
+</svg>

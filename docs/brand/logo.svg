@@ -1,0 +1,9 @@
+<svg width="300" height="80" viewBox="0 0 300 80" xmlns="http://www.w3.org/2000/svg" fill="none" role="img" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif">
+  <title>human-first canon</title>
+  <desc>The mirror mark beside the human-first canon wordmark, for light backgrounds.</desc>
+  <circle cx="34" cy="26" r="6" fill="#111111"/>
+  <line x1="16" y1="40" x2="52" y2="40" stroke="#111111" stroke-width="1.5"/>
+  <circle cx="34" cy="54" r="6" stroke="#111111" stroke-width="1.5" stroke-opacity="0.30"/>
+  <text x="78" y="38" font-size="26" font-weight="500" fill="#111111">human-first</text>
+  <text x="79" y="59" font-size="13" letter-spacing="5" fill="#666666">CANON</text>
+</svg>
