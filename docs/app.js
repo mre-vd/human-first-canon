@@ -23,7 +23,7 @@ function addUsage(u) {
   const search = tokens.searches ? `, ${tokens.searches} веб-пошук(ів)` : "";
   // Opus 4.8: $5/1M in, $25/1M out; web search $10/1000. Shown as our gift, not a bill.
   const cost = (tokens.input / 1e6) * 5 + (tokens.output / 1e6) * 25 + (tokens.searches / 1000) * 10;
-  const text = `Цей розбір коштував нам ≈$${cost.toFixed(2)} (${total} токенів${search}) — і він уже ваш. Нічого не винні.`;
+  const text = `Вартість цього розбору: ≈$${cost.toFixed(2)} (${total} токенів${search}).`;
   document.querySelectorAll(".tok").forEach((el) => {
     el.textContent = text;
     el.hidden = false;
