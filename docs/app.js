@@ -572,6 +572,7 @@ async function confirmNature() {
       addUsage(usage);
       $("spin2").hidden = true;
       $("auditDone").hidden = false;
+      born($("thanksBox")); // a clean end: the quiet "if it was valuable" is born last
     },
   });
 }
@@ -588,6 +589,7 @@ function restart() {
   $("audit").textContent = "";
   $("portraitBox").hidden = true;
   $("auditDone").hidden = true;
+  $("thanksBox").hidden = true;
   $("askPeek").hidden = true;
   $("ask").hidden = false; // the ask form is the first thing again
   $("historyToggle").hidden = true;
