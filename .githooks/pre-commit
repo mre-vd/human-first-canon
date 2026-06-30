@@ -1,0 +1,13 @@
+#!/bin/sh
+# Trigger, not poll (PRINCIPLES.md: Operational Rest): the copy lint runs on
+# every commit, only over staged docs copy. Enable once with:
+#   git config core.hooksPath .githooks
+#
+# Bypass for an emergency commit with: git commit --no-verify
+
+if git diff --cached --name-only | grep -q '^docs/index\.html$'; then
+  node scripts/lint-copy.mjs || {
+    echo "pre-commit: copy lint failed — commit aborted."
+    exit 1
+  }
+fi

@@ -1,18 +1,32 @@
 "use strict";
 
 /* ----- session-only state (closes with the tab) ----- */
-const KEY_STORE = "n*audit*claude*key";
 let conversation = []; // step-1 message history (user/assistant)
 let productText = ""; // the subject material
 let confirmedNature = ""; // locked after "Так, це воно"
+const tokens = { input: 0, output: 0, searches: 0 }; // running cost of this analysis
 
 const $ = (id) => document.getElementById(id);
-const views = ["landing", "keygate", "step1", "step2"];
+const views = ["landing", "step1", "step2"];
 function show(view) {
   views.forEach((v) => ($(v).hidden = v !== view));
   window.scrollTo(0, 0);
 }
-const getKey = () => sessionStorage.getItem(KEY_STORE) || "";
+
+/* ----- token meter: accumulate one call's usage and render it ----- */
+function addUsage(u) {
+  if (!u) return;
+  tokens.input += u.input || 0;
+  tokens.output += u.output || 0;
+  tokens.searches += u.searches || 0;
+  const total = (tokens.input + tokens.output).toLocaleString("uk-UA");
+  const search = tokens.searches ? `, ${tokens.searches} веб-пошук(ів)` : "";
+  const text = `Витрачено на аналіз: ${total} токенів (вхід ${tokens.input.toLocaleString("uk-UA")} + вихід ${tokens.output.toLocaleString("uk-UA")})${search}.`;
+  document.querySelectorAll(".tok").forEach((el) => {
+    el.textContent = text;
+    el.hidden = false;
+  });
+}
 
 /* ----- the operational method (client-side prompts) ----- */
 const NATURE_SYSTEM =
@@ -28,7 +42,8 @@ const NATURE_SYSTEM =
   "кажи лише те, що справді є в матеріалі або що ти справді знайшов у пошуку. Чужі відгуки й оцінки — це те, як " +
   "продукт бачать ззовні, а не його суть: не приймай чужий вирок за природу продукту й не повторюй різких слів " +
   "як факт про нього. Не радь, що змінити, не переробляй його під «правильно», не вирішуй за людину — просто " +
-  "опиши, який він. Пиши мовою матеріалу. Коротко й живо.";
+  "опиши, який він. Це спроба зібрати цілісну картину, а не остаточна правда про продукт; де не певен — так і " +
+  "кажи. Пиши мовою матеріалу. Коротко й живо.";
 
 /* web search runs server-side on Anthropic's infra — gathers public mentions of the subject product */
 const WEB_SEARCH_TOOL = { type: "web_search_20260209", name: "web_search" };
@@ -41,28 +56,17 @@ const AUDIT_SYSTEM =
   "і скажи; не вигадуй вад, щоб було що показати. Те, що знаходиш, — це місця, де щось заплуталося в самому " +
   "продукті, а не провина автора: говори про продукт, не докоряй людині. Латай так, щоб продукт лишився собою: не " +
   "перероблюй його характер під чужий шаблон. У кінці окремо назви те, що чіпати не варто — бо саме це робить його " +
-  "собою. Не наказуй і не вирішуй за людину — показуй, а вибір лиши їй. Пиши мовою продукту, тепло й розмовно, без термінів.";
+  "собою. Не наказуй і не вирішуй за людину — показуй, а вибір лиши їй. Подавай це як спробу зібрати картину й " +
+  "рекомендацію, не як остаточну правду чи вирок; де не певен — так і кажи. Пиши мовою продукту, тепло й розмовно, без термінів.";
 
-/* ----- streaming call to Anthropic (BYO key, direct browser) ----- */
+/* ----- streaming call via our backend (the Claude key lives server-side) ----- */
 async function streamClaude({ system, messages, tools, onText, onDone, onError }) {
   let res;
   try {
-    res = await fetch("https://api.anthropic.com/v1/messages", {
+    res = await fetch("/api/audit", {
       method: "POST",
-      headers: {
-        "content-type": "application/json",
-        "x-api-key": getKey(),
-        "anthropic-version": "2023-06-01",
-        "anthropic-dangerous-direct-browser-access": "true",
-      },
-      body: JSON.stringify({
-        model: "claude-opus-4-8",
-        max_tokens: 8000,
-        stream: true,
-        system,
-        messages,
-        ...(tools ? { tools } : {}),
-      }),
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ system, messages, ...(tools ? { tools } : {}) }),
     });
   } catch (e) {
     onError("Мережа недоступна: " + e.message);
@@ -72,9 +76,9 @@ async function streamClaude({ system, messages, tools, onText, onDone, onError }
     let detail = res.status + "";
     try {
       const j = await res.json();
-      detail = j.error?.message || detail;
+      detail = j.error || detail;
     } catch {}
-    onError(res.status === 401 ? "Ключ не прийнято (401). Перевірте ключ Клода." : "Помилка API: " + detail);
+    onError("Помилка: " + detail);
     return;
   }
 
@@ -82,6 +86,7 @@ async function streamClaude({ system, messages, tools, onText, onDone, onError }
   const decoder = new TextDecoder();
   let buffer = "";
   let full = "";
+  const usage = { input: 0, output: 0, searches: 0 };
   for (;;) {
     const { done, value } = await reader.read();
     if (done) break;
@@ -98,6 +103,12 @@ async function streamClaude({ system, messages, tools, onText, onDone, onError }
         if (ev.type === "content_block_delta" && ev.delta?.type === "text_delta") {
           full += ev.delta.text;
           onText(full);
+        } else if (ev.type === "message_start" && ev.message?.usage) {
+          const u = ev.message.usage;
+          usage.input += (u.input_tokens || 0) + (u.cache_read_input_tokens || 0) + (u.cache_creation_input_tokens || 0);
+        } else if (ev.type === "message_delta" && ev.usage) {
+          if (typeof ev.usage.output_tokens === "number") usage.output = ev.usage.output_tokens;
+          usage.searches += ev.usage.server_tool_use?.web_search_requests || 0;
         } else if (ev.type === "error") {
           onError(ev.error?.message || "Помилка стріму");
           return;
@@ -105,7 +116,7 @@ async function streamClaude({ system, messages, tools, onText, onDone, onError }
       } catch {}
     }
   }
-  onDone(full);
+  onDone(full, usage);
 }
 
 /* ----- fetch the subject: GitHub repo, website URL, or raw pasted text ----- */
@@ -175,20 +186,51 @@ function downloadPdf() {
 
 /* ----- flow ----- */
 function startFlow() {
-  show(getKey() ? "step1" : "keygate");
+  show("step1");
 }
 
-function saveKey() {
-  const v = $("key").value.trim();
-  const err = $("keyerr");
-  if (!v.startsWith("sk-")) {
-    err.textContent = "Це не схоже на ключ Клода (має починатися з sk-…).";
-    err.hidden = false;
+/* ----- feedback to the authors (sent via the backend) ----- */
+function openFeedback() {
+  $("fbStatus").hidden = true;
+  $("fbText").value = "";
+  $("fbCtx").checked = false;
+  $("fbModal").hidden = false;
+}
+function closeFeedback() {
+  $("fbModal").hidden = true;
+}
+async function sendFeedback() {
+  const text = $("fbText").value.trim();
+  const status = $("fbStatus");
+  if (!text) {
+    status.textContent = "Напишіть кілька слів.";
+    status.hidden = false;
     return;
   }
-  sessionStorage.setItem(KEY_STORE, v);
-  err.hidden = true;
-  show("step1");
+  const context = $("fbCtx").checked
+    ? `КАРТИНА:\n${confirmedNature}\n\nАУДИТ:\n${$("audit").textContent}`
+    : "";
+  const btn = document.querySelector('[data-go="fb-send"]');
+  btn.disabled = true;
+  status.hidden = true;
+  try {
+    const r = await fetch("/api/feedback", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ message: text, context }),
+    });
+    if (r.ok) {
+      status.textContent = "Дякуємо — надіслано авторам.";
+      $("fbText").value = "";
+    } else {
+      const j = await r.json().catch(() => ({}));
+      status.textContent = j.error || "Не вдалося надіслати.";
+    }
+  } catch {
+    status.textContent = "Мережа недоступна.";
+  }
+  status.hidden = false;
+  btn.disabled = false;
 }
 
 async function analyze() {
@@ -222,8 +264,9 @@ async function analyze() {
       btn.disabled = false;
       btn.textContent = "Подивитися";
     },
-    onDone: (full) => {
+    onDone: (full, usage) => {
       conversation.push({ role: "assistant", content: full });
+      addUsage(usage);
       $("refineBox").hidden = false;
       btn.disabled = false;
       btn.textContent = "Подивитися ще раз";
@@ -250,8 +293,9 @@ async function refine() {
       out.textContent = "⚠ " + msg;
       btn.disabled = false;
     },
-    onDone: (full) => {
+    onDone: (full, usage) => {
       conversation.push({ role: "assistant", content: full });
+      addUsage(usage);
       btn.disabled = false;
     },
   });
@@ -274,7 +318,10 @@ async function confirmNature() {
     ],
     onText: (full) => (out.textContent = full),
     onError: (msg) => (out.textContent = "⚠ " + msg),
-    onDone: () => ($("auditDone").hidden = false),
+    onDone: (full, usage) => {
+      addUsage(usage);
+      $("auditDone").hidden = false;
+    },
   });
 }
 
@@ -282,11 +329,18 @@ function restart() {
   conversation = [];
   productText = "";
   confirmedNature = "";
+  tokens.input = 0;
+  tokens.output = 0;
+  tokens.searches = 0;
   $("subject").value = "";
   $("portrait").textContent = "";
   $("audit").textContent = "";
   $("portraitBox").hidden = true;
   $("auditDone").hidden = true;
+  document.querySelectorAll(".tok").forEach((el) => {
+    el.textContent = "";
+    el.hidden = true;
+  });
   show("step1");
 }
 
@@ -296,12 +350,13 @@ document.addEventListener("click", (e) => {
   if (!go) return;
   switch (go.dataset.go) {
     case "start": startFlow(); break;
-    case "savekey": saveKey(); break;
-    case "back-landing": show("landing"); break;
     case "analyze": analyze(); break;
     case "refine": refine(); break;
     case "confirm": confirmNature(); break;
     case "pdf": downloadPdf(); break;
+    case "feedback": openFeedback(); break;
+    case "fb-send": sendFeedback(); break;
+    case "fb-close": closeFeedback(); break;
     case "restart": restart(); break;
   }
 });

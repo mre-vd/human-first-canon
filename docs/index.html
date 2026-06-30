@@ -13,23 +13,9 @@
     <!-- LANDING -->
     <section id="landing" class="view">
       <h1>Портрет вашого<br />продукту</h1>
-      <p class="lead">Спроба зібрати портрет вашого продукту з інформації про нього — вашого матеріалу й того, що про нього пишуть. Не переробляє під чужий шаблон; показує, де він даремно втрачає сили, щоб ви це залатали, не зламавши того, що в ньому хороше.</p>
+      <p class="lead">Спроба зібрати цілісну картину вашого продукту з інформації про нього — вашого матеріалу й того, що про нього пишуть. Не остаточна правда, а спроба й рекомендація: не переробляє під чужий шаблон, а показує, де він даремно втрачає сили, щоб ви це залатали, не зламавши того, що в ньому хороше.</p>
       <button class="btn" data-go="start">Почати</button>
       <p class="fine">Нічого не зберігається. Закрили вкладку — і все зникло.</p>
-    </section>
-
-    <!-- KEY GATE -->
-    <section id="keygate" class="view" hidden>
-      <p class="step">Ключ</p>
-      <h2>Потрібен ваш ключ Клода</h2>
-      <p class="lead">Працює тут Клод — вашим ключем. Ключ живе тільки в цій вкладці й зникає, щойно ви її закриєте. Ми його нікуди не передаємо й ніде не зберігаємо.</p>
-      <input id="key" class="field" type="password" placeholder="sk-ant-..." autocomplete="off" spellcheck="false" />
-      <div class="row">
-        <button class="btn" data-go="savekey">Продовжити</button>
-        <button class="btn ghost" data-go="back-landing">Назад</button>
-      </div>
-      <p class="fine" id="keyerr" hidden></p>
-      <p class="fine">Немає ключа? Зареєструйтеся на <a href="https://console.anthropic.com/settings/keys" target="_blank" rel="noopener">console.anthropic.com</a> → Settings → API Keys → Create Key. Скопіюйте ключ (<code>sk-ant-…</code>) і вставте сюди.</p>
     </section>
 
     <!-- STEP 1 — NATURE -->
@@ -42,7 +28,7 @@
       <p class="fine">Окрім вашого матеріалу, Клод пошукає в інтернеті, що про продукт писали — відгуки, статті, згадки, — щоб портрет був повніший. Для цього назва чи посилання на продукт ідуть у веб-пошук.</p>
 
       <div id="portraitBox" hidden>
-        <h3>Ось який він</h3>
+        <h3>Ось картина, що склалася</h3>
         <div id="portrait" class="out"></div>
 
         <div id="refineBox" hidden>
@@ -53,6 +39,7 @@
             <button class="btn" data-go="confirm">Так, оце воно</button>
           </div>
         </div>
+        <p class="fine tok" hidden></p>
       </div>
     </section>
 
@@ -60,10 +47,12 @@
     <section id="step2" class="view" hidden>
       <p class="step">Крок 2 з 2 · Що варто підлатати</p>
       <h2>Де продукт даремно втрачає сили</h2>
-      <p class="lead small">Тільки те, що ви підтвердили. Кожне місце — з ціною: що воно коштує і що дасть, якщо це залатати. А те, що робить продукт собою, лишається недоторканим.</p>
+      <p class="lead small">Це спроба зібрати картину, а не вирок: рекомендація, не остаточна правда — вирішуєте ви. Тільки те, що ви підтвердили. Кожне місце — з ціною: що воно коштує і що дасть, якщо це залатати. А те, що робить продукт собою, лишається недоторканим.</p>
       <div id="audit" class="out"></div>
+      <p class="fine tok" hidden></p>
       <div class="row" id="auditDone" hidden>
         <button class="btn" data-go="pdf">Зберегти як PDF</button>
+        <button class="btn ghost" data-go="feedback">Поділитися з авторами</button>
         <button class="btn ghost" data-go="restart">Спочатку</button>
       </div>
     </section>
@@ -73,6 +62,21 @@
       <span>Без аналітики й трекерів.</span>
     </footer>
   </main>
+
+  <!-- FEEDBACK POPUP -->
+  <div id="fbModal" class="modal" hidden>
+    <div class="modal-card">
+      <h3>Поділитися спостереженням з авторами</h3>
+      <p class="fine">Якщо в роботі з системою виринуло щось, що могло б покращити канон чи сам інструмент — напишіть. Піде авторам проєкту. Нічого, крім цього тексту (і, за бажанням, картини та аудиту), не надсилається.</p>
+      <textarea id="fbText" class="field area" rows="5" placeholder="Що ви помітили?"></textarea>
+      <label class="fine fbcheck"><input type="checkbox" id="fbCtx" /> Додати картину продукту й аудит як контекст</label>
+      <p class="fine" id="fbStatus" hidden></p>
+      <div class="row">
+        <button class="btn" data-go="fb-send">Надіслати</button>
+        <button class="btn ghost" data-go="fb-close">Закрити</button>
+      </div>
+    </div>
+  </div>
 
   <div id="report" aria-hidden="true"></div>
 
