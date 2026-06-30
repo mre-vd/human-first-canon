@@ -21,7 +21,9 @@ function addUsage(u) {
   tokens.searches += u.searches || 0;
   const total = (tokens.input + tokens.output).toLocaleString("uk-UA");
   const search = tokens.searches ? `, ${tokens.searches} веб-пошук(ів)` : "";
-  const text = `Витрачено на аналіз: ${total} токенів (вхід ${tokens.input.toLocaleString("uk-UA")} + вихід ${tokens.output.toLocaleString("uk-UA")})${search}.`;
+  // Opus 4.8: $5/1M in, $25/1M out; web search $10/1000. Shown as our gift, not a bill.
+  const cost = (tokens.input / 1e6) * 5 + (tokens.output / 1e6) * 25 + (tokens.searches / 1000) * 10;
+  const text = `Цей розбір коштував нам ≈$${cost.toFixed(2)} (${total} токенів${search}) — і він уже ваш. Нічого не винні.`;
   document.querySelectorAll(".tok").forEach((el) => {
     el.textContent = text;
     el.hidden = false;
@@ -307,20 +309,23 @@ async function loadFunds() {
     const r = await fetch("/api/funds");
     const list = await r.json();
     if (!Array.isArray(list) || !list.length) return;
-    const ul = $("funds");
-    ul.innerHTML = "";
-    for (const f of list) {
-      if (!f || !f.name || !f.link) continue;
-      const li = document.createElement("li");
-      const a = document.createElement("a");
-      a.href = f.link;
-      a.target = "_blank";
-      a.rel = "noopener";
-      a.textContent = f.note ? `${f.name} — ${f.note}` : `Підтримати: ${f.name}`;
-      li.appendChild(a);
-      ul.appendChild(li);
-    }
-    if (ul.children.length) $("fundsBox").hidden = false;
+    const valid = list.filter((f) => f && f.name && f.link);
+    if (!valid.length) return;
+    // Render into every funds list (post-audit moment + the landing's open door).
+    document.querySelectorAll(".funds-list").forEach((ul) => {
+      ul.innerHTML = "";
+      for (const f of valid) {
+        const li = document.createElement("li");
+        const a = document.createElement("a");
+        a.href = f.link;
+        a.target = "_blank";
+        a.rel = "noopener";
+        a.textContent = f.note ? `${f.name} — ${f.note}` : `Підтримати: ${f.name}`;
+        li.appendChild(a);
+        ul.appendChild(li);
+      }
+    });
+    document.querySelectorAll(".fundsbox").forEach((el) => (el.hidden = false));
   } catch { /* silent — block stays hidden */ }
 }
 
