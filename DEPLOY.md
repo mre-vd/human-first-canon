@@ -18,16 +18,16 @@ gcloud config set project <YOUR_PROJECT_ID>
 gcloud services enable run.googleapis.com cloudbuild.googleapis.com secretmanager.googleapis.com
 ```
 
-## Secrets (recommended — Secret Manager, not plain env vars)
+## Secrets (Secret Manager)
 
 ```sh
-printf '%s' 'sk-ant-...'              | gcloud secrets create anthropic-key   --data-file=-
-printf '%s' 'roman.malko@gmail.com'   | gcloud secrets create gmail-user      --data-file=-
-printf '%s' 'xxxxxxxxxxxxxxxx'        | gcloud secrets create gmail-app-pass   --data-file=-
+printf '%s' 'sk-ant-...'      | gcloud secrets create nature-audit-anthropic-key --data-file=-
+printf '%s' 'github_pat_...'  | gcloud secrets create nature-audit-github-token  --data-file=-
 ```
 
-`gmail-app-pass` is a 16-char **Google App Password** (Google Account → Security
-→ 2-Step Verification → App passwords), not your Gmail login.
+`nature-audit-github-token` is a **fine-grained GitHub PAT** scoped to
+`malkoromanievgenovich/human-first-canon` with **Contents: Read & write** and
+**Pull requests: Read & write**. It opens suggestion PRs; you review and merge.
 
 ## Deploy (from the repo root)
 
@@ -39,8 +39,8 @@ gcloud run deploy nature-audit \
   --cpu 1 --memory 512Mi \
   --min-instances 0 --max-instances 3 \
   --concurrency 40 \
-  --set-secrets ANTHROPIC_API_KEY=anthropic-key:latest,GMAIL_USER=gmail-user:latest,GMAIL_APP_PASSWORD=gmail-app-pass:latest \
-  --set-env-vars FEEDBACK_TO=roman.malko@gmail.com
+  --set-secrets ANTHROPIC_API_KEY=nature-audit-anthropic-key:latest,GITHUB_TOKEN=nature-audit-github-token:latest \
+  --set-env-vars GITHUB_REPO=malkoromanievgenovich/human-first-canon,GITHUB_BASE=main
 ```
 
 `--min-instances 0` is the minimal tariff: it scales to zero, so idle ≈ $0 — you

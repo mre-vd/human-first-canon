@@ -16,6 +16,11 @@
       <p class="lead">Спроба зібрати цілісну картину вашого продукту з інформації про нього — вашого матеріалу й того, що про нього пишуть. Не остаточна правда, а спроба й рекомендація: не переробляє під чужий шаблон, а показує, де він даремно втрачає сили, щоб ви це залатали, не зламавши того, що в ньому хороше.</p>
       <button class="btn" data-go="start">Почати</button>
       <p class="fine">Нічого не зберігається. Закрили вкладку — і все зникло.</p>
+
+      <div id="creditsBox" class="credits" hidden>
+        <p class="step">Ті, хто покращив канони</p>
+        <ul id="credits" class="credits-list"></ul>
+      </div>
     </section>
 
     <!-- STEP 1 — NATURE -->
@@ -52,24 +57,30 @@
       <p class="fine tok" hidden></p>
       <div class="row" id="auditDone" hidden>
         <button class="btn" data-go="pdf">Зберегти як PDF</button>
-        <button class="btn ghost" data-go="feedback">Поділитися з авторами</button>
+        <button class="btn ghost" data-go="feedback">Запропонувати покращення</button>
         <button class="btn ghost" data-go="restart">Спочатку</button>
       </div>
     </section>
 
     <footer class="foot">
       <span>Останнє слово завжди за вами.</span>
-      <span>Без аналітики й трекерів.</span>
+      <span>Чистий аудит. Без аналітики й трекерів.</span>
     </footer>
   </main>
 
-  <!-- FEEDBACK POPUP -->
+  <!-- SUGGESTION POPUP -->
   <div id="fbModal" class="modal" hidden>
     <div class="modal-card">
-      <h3>Поділитися спостереженням з авторами</h3>
-      <p class="fine">Якщо в роботі з системою виринуло щось, що могло б покращити канон чи сам інструмент — напишіть. Піде авторам проєкту. Нічого, крім цього тексту (і, за бажанням, картини та аудиту), не надсилається.</p>
-      <textarea id="fbText" class="field area" rows="5" placeholder="Що ви помітили?"></textarea>
-      <label class="fine fbcheck"><input type="checkbox" id="fbCtx" /> Додати картину продукту й аудит як контекст</label>
+      <h3>Запропонувати покращення канону</h3>
+      <p class="fine">Якщо в роботі з системою виринуло щось, що могло б покращити канон чи сам інструмент — напишіть. Це створить Pull Request у репозиторії канону; автори переглянуть і вирішать.</p>
+      <textarea id="fbText" class="field area" rows="5" placeholder="Що варто покращити?"></textarea>
+      <label class="fine fbcheck"><input type="checkbox" id="fbCtx" /> Додати картину продукту й аудит як контекст (увійде в Pull Request)</label>
+      <label class="fine fbcheck"><input type="checkbox" id="fbShow" data-go="fb-toggle" /> Показати мене серед тих, хто покращив канони</label>
+      <div id="fbWho" hidden>
+        <input id="fbName" class="field" type="text" placeholder="Ім'я (обов'язково)" />
+        <input id="fbCompany" class="field" type="text" placeholder="Компанія (опційно)" />
+        <input id="fbLink" class="field" type="url" placeholder="Посилання — сайт чи профіль (опційно)" />
+      </div>
       <p class="fine" id="fbStatus" hidden></p>
       <div class="row">
         <button class="btn" data-go="fb-send">Надіслати</button>

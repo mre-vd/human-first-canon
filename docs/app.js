@@ -189,48 +189,91 @@ function startFlow() {
   show("step1");
 }
 
-/* ----- feedback to the authors (sent via the backend) ----- */
+/* ----- suggest a canon improvement (opens a PR via the backend) ----- */
 function openFeedback() {
   $("fbStatus").hidden = true;
   $("fbText").value = "";
   $("fbCtx").checked = false;
+  $("fbShow").checked = false;
+  $("fbWho").hidden = true;
+  $("fbName").value = "";
+  $("fbCompany").value = "";
+  $("fbLink").value = "";
   $("fbModal").hidden = false;
 }
 function closeFeedback() {
   $("fbModal").hidden = true;
 }
+function toggleWho() {
+  $("fbWho").hidden = !$("fbShow").checked;
+}
 async function sendFeedback() {
   const text = $("fbText").value.trim();
   const status = $("fbStatus");
-  if (!text) {
-    status.textContent = "Напишіть кілька слів.";
+  const setStatus = (html) => {
+    status.innerHTML = html;
     status.hidden = false;
-    return;
+  };
+  if (!text) return setStatus("Напишіть кілька слів.");
+
+  let contributor = null;
+  if ($("fbShow").checked) {
+    const name = $("fbName").value.trim();
+    if (!name) return setStatus("Вкажіть ім'я або зніміть галку.");
+    contributor = { name, company: $("fbCompany").value.trim(), link: $("fbLink").value.trim() };
   }
   const context = $("fbCtx").checked
     ? `КАРТИНА:\n${confirmedNature}\n\nАУДИТ:\n${$("audit").textContent}`
     : "";
+
   const btn = document.querySelector('[data-go="fb-send"]');
   btn.disabled = true;
   status.hidden = true;
   try {
-    const r = await fetch("/api/feedback", {
+    const r = await fetch("/api/suggest", {
       method: "POST",
       headers: { "content-type": "application/json" },
-      body: JSON.stringify({ message: text, context }),
+      body: JSON.stringify({ message: text, context, contributor }),
     });
-    if (r.ok) {
-      status.textContent = "Дякуємо — надіслано авторам.";
+    const j = await r.json().catch(() => ({}));
+    if (r.ok && j.ok) {
+      setStatus("Дякуємо — пропозицію надіслано авторам на розгляд.");
       $("fbText").value = "";
     } else {
-      const j = await r.json().catch(() => ({}));
-      status.textContent = j.error || "Не вдалося надіслати.";
+      setStatus(j.error || "Не вдалося надіслати.");
     }
   } catch {
-    status.textContent = "Мережа недоступна.";
+    setStatus("Мережа недоступна.");
   }
-  status.hidden = false;
   btn.disabled = false;
+}
+
+/* ----- "Ті, хто покращив канони" on the landing ----- */
+async function loadContributors() {
+  try {
+    const r = await fetch("/api/contributors");
+    const list = await r.json();
+    if (!Array.isArray(list) || !list.length) return;
+    const ul = $("credits");
+    ul.innerHTML = "";
+    for (const c of list) {
+      if (!c || !c.name) continue;
+      const li = document.createElement("li");
+      const who = c.company ? `${c.name} · ${c.company}` : c.name;
+      if (c.link) {
+        const a = document.createElement("a");
+        a.href = c.link;
+        a.target = "_blank";
+        a.rel = "noopener";
+        a.textContent = who;
+        li.appendChild(a);
+      } else {
+        li.textContent = who;
+      }
+      ul.appendChild(li);
+    }
+    $("creditsBox").hidden = false;
+  } catch { /* silent — section just stays hidden */ }
 }
 
 async function analyze() {
@@ -357,6 +400,9 @@ document.addEventListener("click", (e) => {
     case "feedback": openFeedback(); break;
     case "fb-send": sendFeedback(); break;
     case "fb-close": closeFeedback(); break;
+    case "fb-toggle": toggleWho(); break;
     case "restart": restart(); break;
   }
 });
+
+loadContributors();

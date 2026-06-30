@@ -6,7 +6,6 @@
   "engines": { "node": ">=18" },
   "scripts": { "start": "node server.mjs" },
   "dependencies": {
-    "express": "^4.21.2",
-    "nodemailer": "^6.9.16"
+    "express": "^4.21.2"
   }
 }
