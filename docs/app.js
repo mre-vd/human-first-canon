@@ -19,8 +19,13 @@ const NATURE_SYSTEM =
   "Ти дивишся на продукт людини й по-людськи описуєш, який він насправді. Простою, теплою, розмовною мовою — " +
   "без термінів, канцеляриту й списків-схем. Скажи: що це за продукт і для кого; який у нього характер і настрій " +
   "(наприклад теплий, грайливий, стриманий, серйозний) — без оцінок, просто як є; у чому його сила і чим він живе. " +
-  "Спирайся лише на те, що видно в матеріалі. Не радь, що змінити, не переробляй його під «правильно», не вирішуй " +
-  "за людину — просто чесно опиши, який він. Пиши мовою матеріалу. Коротко й живо.";
+  "Спершу пошукай в інтернеті, що про цей продукт писали люди — відгуки, статті, обговорення, згадки: те, як його " +
+  "бачать і позиціонують ззовні, теж частина того, який він. Спирайся і на матеріал, і на знайдене; не вигадуй — " +
+  "кажи лише те, що справді є в матеріалі або що ти справді знайшов у пошуку. Не радь, що змінити, не переробляй " +
+  "його під «правильно», не вирішуй за людину — просто чесно опиши, який він. Пиши мовою матеріалу. Коротко й живо.";
+
+/* web search runs server-side on Anthropic's infra — gathers public mentions of the subject product */
+const WEB_SEARCH_TOOL = { type: "web_search_20260209", name: "web_search" };
 
 const AUDIT_SYSTEM =
   "Тепер по-людськи покажи, де цей продукт даремно витрачає сили — час, гроші, увагу, енергію людей, ясність. " +
@@ -31,7 +36,7 @@ const AUDIT_SYSTEM =
   "Не наказуй і не вирішуй за людину — показуй, а вибір лиши їй. Пиши мовою продукту, тепло й розмовно, без термінів.";
 
 /* ----- streaming call to Anthropic (BYO key, direct browser) ----- */
-async function streamClaude({ system, messages, onText, onDone, onError }) {
+async function streamClaude({ system, messages, tools, onText, onDone, onError }) {
   let res;
   try {
     res = await fetch("https://api.anthropic.com/v1/messages", {
@@ -48,6 +53,7 @@ async function streamClaude({ system, messages, onText, onDone, onError }) {
         stream: true,
         system,
         messages,
+        ...(tools ? { tools } : {}),
       }),
     });
   } catch (e) {
@@ -60,7 +66,7 @@ async function streamClaude({ system, messages, onText, onDone, onError }) {
       const j = await res.json();
       detail = j.error?.message || detail;
     } catch {}
-    onError(res.status === 401 ? "Ключ не прийнято (401). Перевір ключ Клода." : "Помилка API: " + detail);
+    onError(res.status === 401 ? "Ключ не прийнято (401). Перевірте ключ Клода." : "Помилка API: " + detail);
     return;
   }
 
@@ -154,7 +160,7 @@ function downloadPdf() {
   $("report").innerHTML =
     `<h1>Аудит, що зберігає природу продукту</h1>` +
     `<p class="rdate">${today}</p>` +
-    `<h2>Який твій продукт</h2><div class="rbody">${escapeHtml(confirmedNature)}</div>` +
+    `<h2>Який ваш продукт</h2><div class="rbody">${escapeHtml(confirmedNature)}</div>` +
     `<h2>Що варто підлатати</h2><div class="rbody">${escapeHtml(audit)}</div>`;
   window.print();
 }
@@ -196,11 +202,12 @@ async function analyze() {
   $("refineBox").hidden = true;
   const out = $("portrait");
   out.textContent = "";
-  btn.textContent = "Думаю…";
+  btn.textContent = "Готую…";
 
   await streamClaude({
     system: NATURE_SYSTEM,
     messages: conversation,
+    tools: [WEB_SEARCH_TOOL],
     onText: (full) => (out.textContent = full),
     onError: (msg) => {
       out.textContent = "⚠ " + msg;
@@ -229,6 +236,7 @@ async function refine() {
   await streamClaude({
     system: NATURE_SYSTEM,
     messages: conversation,
+    tools: [WEB_SEARCH_TOOL],
     onText: (full) => (out.textContent = full),
     onError: (msg) => {
       out.textContent = "⚠ " + msg;
