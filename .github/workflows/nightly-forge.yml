@@ -20,8 +20,8 @@ jobs:
           node-version: "20"
       - run: node scripts/forge.mjs
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GITHUB_REPO: ${{ github.repository }}
-          GITHUB_BASE: main
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+          GH_BASE: main
           # Add ANTHROPIC_API_KEY as a repo Actions secret to activate; until then the script is inert.
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}

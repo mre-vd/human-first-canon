@@ -10,8 +10,8 @@
 // loop sustains itself without you. No redeploy needed — the site reads the
 // canon live. It never merges on its own judgement (Proposer-Approver).
 
-const TOKEN = process.env.GITHUB_TOKEN;
-const REPO = process.env.GITHUB_REPO;
+const TOKEN = process.env.GH_TOKEN || process.env.GITHUB_TOKEN;
+const REPO = process.env.GH_REPO || process.env.GITHUB_REPO;
 const MIN_APPROVALS = Number(process.env.MIN_APPROVALS || 1);
 
 if (!TOKEN || !REPO) { console.error("auto-merge: missing GITHUB_TOKEN / GITHUB_REPO"); process.exit(1); }

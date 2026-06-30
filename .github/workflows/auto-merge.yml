@@ -22,8 +22,8 @@ jobs:
           node-version: "20"
       - run: node scripts/auto-merge.mjs
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GITHUB_REPO: ${{ github.repository }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
           # How many distinct human approvals are required. 1 = you at the start;
           # raise it as you add trusted reviewers, and the loop sustains itself.
           MIN_APPROVALS: "1"

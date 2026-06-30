@@ -5,9 +5,9 @@
 // verdict as a comment and set a label. It NEVER merges — the human does
 // (Proposer-Approver, PRINCIPLES.md). Inert until ANTHROPIC_API_KEY is set.
 
-const TOKEN = process.env.GITHUB_TOKEN;
-const REPO = process.env.GITHUB_REPO;
-const BASE = process.env.GITHUB_BASE || "main";
+const TOKEN = process.env.GH_TOKEN || process.env.GITHUB_TOKEN;
+const REPO = process.env.GH_REPO || process.env.GITHUB_REPO;
+const BASE = process.env.GH_BASE || process.env.GITHUB_BASE || "main";
 const KEY = process.env.ANTHROPIC_API_KEY;
 
 if (!KEY) {
