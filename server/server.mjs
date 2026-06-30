@@ -38,10 +38,24 @@ function rateLimited(ip, max, windowMs = 60_000) {
 const clientIp = (req) =>
   (req.headers["x-forwarded-for"] || "").split(",")[0].trim() || req.ip || "?";
 
+// Reject requests whose Origin is a different host than ours (blocks cross-site
+// browser abuse). Not bulletproof — a non-browser client can forge/omit Origin;
+// the real cost bound is a spend cap on the Anthropic key. See DEPLOY.md.
+function foreignOrigin(req) {
+  const origin = req.headers.origin;
+  if (!origin) return false; // same-origin fetches may omit it; don't block
+  try {
+    return new URL(origin).host !== req.headers.host;
+  } catch {
+    return true;
+  }
+}
+
 // --- Audit proxy: injects the server-held key, streams the SSE response through. ---
 app.post("/api/audit", async (req, res) => {
+  if (foreignOrigin(req)) return res.status(403).json({ error: "Заборонене джерело запиту." });
   if (!ANTHROPIC_API_KEY) return res.status(500).json({ error: "Ключ Клода не налаштовано на сервері." });
-  if (rateLimited(clientIp(req), 20)) return res.status(429).json({ error: "Забагато запитів. Спробуйте за хвилину." });
+  if (rateLimited(clientIp(req), 10)) return res.status(429).json({ error: "Забагато запитів. Спробуйте за хвилину." });
 
   const { system, messages, tools } = req.body || {};
   if (typeof system !== "string" || !Array.isArray(messages)) {
@@ -105,6 +119,7 @@ const clean = (s, n) => String(s || "").trim().slice(0, n);
 
 // --- Suggestion → Pull Request (author reviews & merges). ---
 app.post("/api/suggest", async (req, res) => {
+  if (foreignOrigin(req)) return res.status(403).json({ error: "Заборонене джерело запиту." });
   if (!GITHUB_TOKEN) return res.status(500).json({ error: "GitHub не налаштовано на сервері." });
   if (rateLimited(clientIp(req), 5)) return res.status(429).json({ error: "Забагато надсилань. Спробуйте за хвилину." });
 
