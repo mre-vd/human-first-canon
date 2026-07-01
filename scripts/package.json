@@ -1,6 +1,6 @@
 {
   "name": "ai-process-architecture",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "Engineering, design, and process standards for software development",
   "scripts": {
     "format": "prettier --write \"../**/*.md\"",
