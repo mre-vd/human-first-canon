@@ -7,6 +7,15 @@ let confirmedNature = ""; // locked after "Так, це воно"
 const tokens = { input: 0, output: 0, searches: 0 }; // running cost of this analysis
 
 const $ = (id) => document.getElementById(id);
+
+/* ----- plain-text guard: the audit is living prose, not markdown; strip stray markers ----- */
+function plainText(s) {
+  return String(s)
+    .replace(/^\s*[-*]\s+/gm, "— ") // list markers → dash
+    .replace(/\*/g, "") // any remaining bold/italic asterisks
+    .replace(/__/g, "")
+    .replace(/^#{1,6}\s+/gm, ""); // heading hashes
+}
 const views = ["landing", "step1", "step2"];
 function show(view) {
   views.forEach((v) => ($(v).hidden = v !== view));
@@ -46,7 +55,7 @@ function addUsage(u) {
   const search = tokens.searches ? ` (${tokens.searches} веб-пошук(ів))` : "";
   // Opus 4.8: $5/1M in, $25/1M out; web search $10/1000. Shown as our gift, not a bill.
   const cost = (tokens.input / 1e6) * 5 + (tokens.output / 1e6) * 25 + (tokens.searches / 1000) * 10;
-  const text = `Вартість цього розбору: ≈$${cost.toFixed(2)}${search}.`;
+  const text = `Фактична вартість цього розбору для нас: ≈$${cost.toFixed(2)}${search}. Аудит безкоштовний.`;
   document.querySelectorAll(".tok").forEach((el) => {
     el.textContent = text;
     el.hidden = false;
@@ -68,7 +77,7 @@ const NATURE_SYSTEM =
   "продукт бачать ззовні, а не його суть: не приймайте чужий вирок за природу продукту й не повторюйте різких слів " +
   "як факт про нього. Не радьте, що змінити, не переробляйте його під «правильно», не вирішуйте за людину — просто " +
   "опишіть, який він. Це спроба зібрати цілісну картину, а не остаточна правда про продукт; де не певні — так і " +
-  "кажіть. Пишіть мовою матеріалу. Коротко й живо.";
+  "кажіть. Пишіть мовою матеріалу. Коротко й живо. Пишіть звичайним текстом, без markdown — без зірочок (* чи **), ґраток (#) і списків із дефісів: лише живі абзаци.";
 
 /* web search runs server-side on Anthropic's infra — gathers public mentions of the subject product */
 const WEB_SEARCH_TOOL = { type: "web_search_20260209", name: "web_search" };
@@ -82,7 +91,7 @@ const AUDIT_SYSTEM =
   "продукті, а не провина автора: говоріть про продукт, не докоряйте людині. Латайте так, щоб продукт лишився собою: не " +
   "переробляйте його характер під чужий шаблон. У кінці окремо назвіть те, що чіпати не варто — бо саме це робить його " +
   "собою. Не наказуйте і не вирішуйте за людину — показуйте, а вибір лишіть їй. Подавайте це як спробу зібрати картину й " +
-  "рекомендацію, не як остаточну правду чи вирок; де не певні — так і кажіть. Пишіть мовою продукту, тепло й розмовно, без термінів.";
+  "рекомендацію, не як остаточну правду чи вирок; де не певні — так і кажіть. Пишіть мовою продукту, тепло й розмовно, без термінів. Пишіть звичайним текстом, без markdown — без зірочок (* чи **), ґраток (#) і списків із дефісів: лише живі абзаци.";
 
 const SUGGEST_SYSTEM =
   "Ви аналізуєте сесію аудиту, щоб знайти, що можна покращити в каноні чи в самому інструменті. " +
@@ -435,7 +444,7 @@ async function analyze() {
     messages: conversation,
     tools: [WEB_SEARCH_TOOL],
     phase: "portrait",
-    onText: (full) => (out.textContent = full),
+    onText: (full) => (out.textContent = plainText(full)),
     onError: (msg) => {
       out.textContent = "⚠ " + msg;
       $("spin1").hidden = true;
@@ -473,7 +482,7 @@ async function refine() {
     messages: conversation,
     tools: [WEB_SEARCH_TOOL],
     phase: "portrait",
-    onText: (full) => (out.textContent = full),
+    onText: (full) => (out.textContent = plainText(full)),
     onError: (msg) => {
       out.textContent = "⚠ " + msg;
       $("spin1").hidden = true;
@@ -517,7 +526,7 @@ function renderHistory() {
     label.textContent = `Версія ${i + 1}`;
     const body = document.createElement("div");
     body.className = "out";
-    body.textContent = a.content;
+    body.textContent = plainText(a.content);
     item.appendChild(label);
     item.appendChild(body);
     if (corrections[i]) {
@@ -563,7 +572,7 @@ async function confirmNature() {
           `ОСЬ ПРОДУКТ:\n\n${productText}\n\nПокажіть простими словами, де він даремно втрачає сили.`,
       },
     ],
-    onText: (full) => (out.textContent = full),
+    onText: (full) => (out.textContent = plainText(full)),
     onError: (msg) => {
       out.textContent = "⚠ " + msg;
       $("spin2").hidden = true;
