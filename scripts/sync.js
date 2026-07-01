@@ -19,7 +19,7 @@ if (missing.length > 0) {
   process.exit(1);
 }
 
-const CANON_URL = 'https://github.com/mre-vd/human-first-canon';
+const CANON_URL = 'https://github.com/malkoromanievgenovich/ai-process-architecturea';
 const PROVENANCE = `\n\n---\n*Synced from the canon — single source of truth: <${CANON_URL}>. Edit at the source, not here; local changes are overwritten on the next sync.*\n`;
 
 const masterContents = masterFiles.map((name) => ({
