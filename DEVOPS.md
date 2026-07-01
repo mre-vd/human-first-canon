@@ -86,6 +86,16 @@ A deployed system at rest must draw no resources and cost nothing; spend is expe
 - **Right-size and bound the blast radius.** Allocate the smallest CPU/memory that holds the load; cap maximum scale; set a budget and an alert so a runaway cannot drain spend in silence.
 - **Cost is a named consequence.** Surface the cost shape — idle vs per-use, and the dominant driver — as a technical fact at design and review time, so the operator chooses with full awareness. A surprise bill is a warning that was withheld.
 
+### Serverless-First, Expand on Proven Need
+
+The default form of any component is the most minimal, most constrained one that runs the task — and it is widened only when a named force proves the minimal form insufficient. This is least-privilege applied to infrastructure: just as access starts private and opens only where a caller demands it, capacity starts at serverless / scale-to-zero and grows only where load, latency, or a hard constraint demands it. You cannot un-spend a standing resource as cheaply as you can add one; start narrow, expand on evidence.
+
+- **Serverless is the starting point, not the optimization.** Reach for scale-to-zero managed compute (Cloud Run, Lambda, serverless Postgres) first. A VM, a standing cluster, an always-warm instance, or a self-managed datastore is an expansion that must cite the specific force that ruled the serverless form out — never the default.
+- **Expand only under a named force.** "It might scale," "it feels more robust," or "it's the usual setup" are not forces. A real force is measured or contractual: a latency SLA that cold-start violates, a throughput ceiling hit in practice, a compliance boundary, a workload the serverless tier cannot express. No force named → the minimal form stays.
+- **One axis at a time.** When expansion is justified, widen the single dimension the force demands (more memory, a warm min-instance, a read replica) — not the whole topology. Escalate VM → cluster → mesh only as each prior rung is proven to fall short.
+- **Every expansion carries a standing cost — name it.** Moving off serverless adds idle draw that no longer follows demand. State that cost as a technical fact at the moment of expansion, so the operator accepts it knowingly (*Cost is a named consequence*, above).
+- **Re-collapse when the force disappears.** If the pressure that justified an expansion is gone, the component returns to its minimal form. Standing capacity is not a ratchet; drift back to serverless is part of the lifecycle, not a special project.
+
 ### AWS Conventions
 
 #### IAM & Security
