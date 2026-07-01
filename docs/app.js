@@ -249,7 +249,7 @@ async function openFeedback() {
   if (!conversation.length) return;
   const ta = $("fbText");
   ta.disabled = true;
-  ta.placeholder = "Клод аналізує сесію…";
+  ta.placeholder = "Готуємо чернетку з сесії…";
   await streamClaude({
     system: SUGGEST_SYSTEM,
     messages: [

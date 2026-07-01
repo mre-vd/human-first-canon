@@ -2,7 +2,7 @@
   "name": "nature-audit-server",
   "private": true,
   "type": "module",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "engines": { "node": ">=18" },
   "scripts": { "start": "node server.mjs" },
   "dependencies": {
