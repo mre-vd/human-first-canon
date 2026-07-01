@@ -14,7 +14,7 @@ Platform and infrastructure engineering is a sovereign domain — kept separate 
 - **Workflow Modularity:** Use reusable workflows to avoid duplication.
 - **Security:** Use OIDC for cloud provider authentication. Never use long-lived secrets/keys.
 - **Validation:** Every PR must trigger linting, security scanning (Trivy, Snyk), and unit tests.
-- **Version Gates:** The CI/CD pipeline must enforce that any PR with code changes bumps the project/module version. Prior to merging, the pipeline must check for version collisions with parallel merges/releases and require or automate a bump to a higher, unique value if a collision occurs. Any automated bump must be visible and finalized in the PR before merge — the operator sees and verifies the final version state before it lands (*Pull Request Versioning*, `CLAUDE.md`).
+- **Version Gates:** The CI/CD pipeline must enforce that any PR with code changes bumps the project/module version. Prior to merging, the pipeline must check for version collisions with parallel merges/releases and require or automate a bump to a higher, unique value if a collision occurs. Any automated bump must be visible and finalized in the PR before merge — the operator sees and verifies the final version state before it lands (*Pull Request Versioning*, `CLAUDE.md`, §2.5).
 - **Post-Merge Release & Summary:** Upon merging a PR, the deployment/release workflow must display or publish a brief summary of what was done and the version containing the changes (e.g., as a GitHub Release, Slack notification, or release log).
 
 ### Stable Auto-Pipeline: Fix → Affected Tests → Merge Queue → Auto-Merge
@@ -31,7 +31,7 @@ A change should flow to a green `main` with minimal human friction and zero brok
 
 ### Local Developer Setup
 
-The pipeline is event-driven — locally it runs through git hooks, never on system boot (boot-time execution would violate *Operational Rest*: it would run with no change to test). The hooks are cross-platform and run identically on **Windows, macOS, and Linux** — in any shell (PowerShell or Git Bash on Windows, bash/zsh on macOS and Linux). One-time setup per clone:
+The pipeline is event-driven — locally it runs through git hooks, never on system boot (boot-time execution would run with no change to test, wasting cycles). The hooks are cross-platform and run identically on **Windows, macOS, and Linux** — in any shell (PowerShell or Git Bash on Windows, bash/zsh on macOS and Linux). One-time setup per clone:
 
 ```bash
 pip install pre-commit                     # all OSes; alt: brew (macOS), pipx, or the OS package manager (Linux)
@@ -76,15 +76,15 @@ For **self-hosted CI**, install the runner **as a service** so it starts at boot
 - **Resource Tagging:** Every resource MUST have standard tags: `Project`, `Environment`, `Owner`, and `CostCenter`.
 - **Least Privilege:** Apply IAM roles and policies with the minimum permissions required for the task.
 
-### Operational Rest Has Zero Cost — Spend Follows Demand
+### Idle Costs Nothing — Spend Follows Demand
 
-The cloud/cost manifestation of **The Law of Operational Rest — Zero-Active Waste** (`PRINCIPLES.md`; *The Principle of Silence & Focus*, `CLAUDE.md`). A deployed system at rest must draw no resources and cost nothing; spend is expended only to serve a real demand, after which the system returns to free silence. Idle is the baseline, and idle is free.
+A deployed system at rest must draw no resources and cost nothing; spend is expended only to serve real demand, after which the system returns to zero. Idle is the baseline, and idle is free.
 
 - **Scale to zero by default.** Stateless compute scales to zero when idle (serverless / `min-instances=0`). Always-warm capacity is an exception that must name its force — a real latency SLA — never a default. Warmth is paid only where a human's wait is the named cost.
-- **No standing resource without a named force.** Every component that runs 24/7 — especially stateful ones (managed databases, caches, brokers) — must justify its idle cost against a named need. Prefer scale-to-zero / pay-per-use managed services (*Managed Services First*). Where a component cannot go to zero, its standing cost is named as a fact to the operator (*The Mirror of Consequences*, `CLAUDE.md`), never left as a silent drain.
-- **Wake on event, not on a clock** (*Trigger over Polling*). Prefer an event/webhook that wakes the system only when real work exists over a schedule that wakes it to find nothing. A poll that finds nothing is wasted draw; if no push channel exists, poll at the lowest frequency the need tolerates.
-- **Right-size and bound the blast radius.** Allocate the smallest CPU/memory that holds the load (*Smallest Mechanism*, `PRINCIPLES.md`); cap maximum scale; set a budget and an alert so a runaway cannot drain spend in silence.
-- **Cost is a named consequence.** Surface the cost shape — idle vs per-use, and the dominant driver — as a technical fact at design and review time, so the operator chooses with full awareness (*The Law of the Name*, `PRINCIPLES.md`). A surprise bill is a Mirror that was withheld.
+- **No standing resource without a named force.** Every component that runs 24/7 — especially stateful ones (managed databases, caches, brokers) — must justify its idle cost against a named need. Prefer scale-to-zero / pay-per-use managed services (*Managed Services First*). Where a component cannot go to zero, its standing cost is named as a fact to the operator, never left as a silent drain.
+- **Wake on event, not on a clock.** Prefer an event/webhook that wakes the system only when real work exists over a schedule that wakes it to find nothing. A poll that finds nothing is wasted draw; if no push channel exists, poll at the lowest frequency the need tolerates.
+- **Right-size and bound the blast radius.** Allocate the smallest CPU/memory that holds the load; cap maximum scale; set a budget and an alert so a runaway cannot drain spend in silence.
+- **Cost is a named consequence.** Surface the cost shape — idle vs per-use, and the dominant driver — as a technical fact at design and review time, so the operator chooses with full awareness. A surprise bill is a warning that was withheld.
 
 ### AWS Conventions
 

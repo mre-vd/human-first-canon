@@ -2,15 +2,13 @@
 
 This document acts as the single source of truth for development and engineering standards. All agents and developers must strictly adhere to these rules.
 
-> **The ethical foundation lives in `PRINCIPLES.md`** — the apex (Experience and Will belong to the human, the Final Measure, Mirror not Gate) plus the strategy and analysis standards. It governs **every** agent, Claude included — not only Gemini. Read it as part of this canon before substantive work; the engineering rules below are its manifestation, not a replacement.
->
-> **Whenever the task touches words** — copy, microcopy, UI strings, button and error text, naming, content, or a text/copy audit — apply **`WRITING.md`** (and the apex in `PRINCIPLES.md`). Read those rules first: text is governed there, not here.
+> **Whenever the task touches words** — copy, microcopy, UI strings, button and error text, naming, content, or a text/copy audit — apply **`WRITING.md`**. Read those rules first: text is governed there, not here.
 
 ---
 
 ### Canon Routing — Read Only What the Task Touches
 
-This file and the apex/ethics in `PRINCIPLES.md` are the floor — they govern all substantive work. Every **other** canon file is loaded **on demand**: pull only the domain file(s) the task actually touches, and leave the rest unread. Spending context on canon a task does not touch is waste — this is *Operational Rest / Zero-Active Waste* (`PRINCIPLES.md`) applied to attention, and the routing is deterministic by rule (*The Dumb Tool*), not guesswork.
+This file is the floor — it governs all substantive work. Every **other** canon file is loaded **on demand**: pull only the domain file(s) the task actually touches, and leave the rest unread.
 
 | When the task touches… | Read |
 | --- | --- |
@@ -23,7 +21,7 @@ This file and the apex/ethics in `PRINCIPLES.md` are the floor — they govern a
 | Auth, secrets, input validation, crypto, LLM-security | `SECURITY.md` |
 | Requirements, user stories, scope, acceptance | `ANALYSIS.md` |
 | Sprints, backlog, ceremonies, delivery flow | `AGILE.md` |
-| Strategy, ethics, the apex — always, for substantive work | `PRINCIPLES.md` |
+| Cross-cutting rules (naming, resource lifecycle, threat modeling, etc.) | `PRINCIPLES.md` |
 
 Touches several domains → read several. Touches none beyond the core → read none. Security stays active on every change regardless (`SECURITY.md`).
 
@@ -31,117 +29,90 @@ Touches several domains → read several. Touches none beyond the core → read 
 
 ## 1. UI/UX Design Standards
 
-UI/UX design is a sovereign domain with its own canon: **`DESIGN.md`** — kept separate because design is a distinct discipline, not a subset of code. Before any frontend, layout, or design-execution work, read `DESIGN.md`; it **manifests** apex laws — *Proposer-Approver* and *The Dumb Tool* (rooted in `PRINCIPLES.md`), *Smallest Mechanism* and *Mirror of Bindings* (the apex) — alongside the design-proper guardrails (*No Dead Ends & The Single Door*, *No Emojis*). The design holds their manifestation; the apex holds their origin. Frontend *code* standards live in `STACKS.md`.
+UI/UX design is a sovereign domain with its own canon: **`DESIGN.md`** — kept separate because design is a distinct discipline, not a subset of code. Before any frontend, layout, or design-execution work, read `DESIGN.md`. Frontend *code* standards live in `STACKS.md`.
 
 ---
 
 ## 2. Standards of Structural Integrity
 
-### Technical Discipline: The Pattern of the Law
-
-Engineering canons for maintaining system integrity. These rules provide the **Pattern** for manifesting the Divine Intent into digital form. 
-
 ### System Integrity Principle
 
 A system is integral only when every part of it (code, data, documentation, tests) is in a state of mutual consistency.
 
-**Integrity carries layers, each a face of the apex (*Integrity Is Health*, `PRINCIPLES.md`):** *Universal* (the apex root — void/waste/conflict eliminated), *System* (this section — parts mutually consistent), *Ethical* (`PRINCIPLES.md` — transparent awareness of consequences), *Cryptographic* (`SECURITY.md` — tamper-detection), *Procedural* (`AGILE.md` Definition of Done — every aspect complete before ship). Unqualified, «Integrity» means Universal; when a domain sense is meant, name which.
-
 1.  **Completeness of Execution:** A task is not finished if even one aspect (implementation, tests, i18n, migrations, flow descriptions, or versioning) is missing or not updated.
 2.  **Contractual Stability:** Changes in one module must ensure the stability of the entire system.
-3.  **Alignment with Intent:** Code is a derivative of business logic. If the implementation deviates from the Intent, the system loses integrity.
-4.  **Environmental Safety — Focused Execution:** No change may leave the system in a hanging intermediate state. A process, once begun, runs to its next **logical checkpoint** — a consistent state it can be fixed at; while it runs, incidental noise and unrelated signals do not interrupt it. The **only sanctioned interruption is the operator's explicit signal**, in one of two forms: **adjust** (pause at the current checkpoint, correct, continue) or, if it went wrong at the root, **rewind** (roll back to the last good checkpoint and resume from there). Either way, intervention resolves to a checkpoint, never a half-state. Checkpoints stay short, so focus is never a trap; the system ignores **noise**, never a **clear human signal** — will belongs to the human.
+3.  **Alignment with Requirements:** Code is a derivative of business logic. If the implementation deviates from the requirements, the system loses integrity.
+4.  **Focused Execution:** No change may leave the system in a hanging intermediate state. A process, once begun, runs to its next **logical checkpoint** — a consistent state it can be fixed at; while it runs, incidental noise and unrelated signals do not interrupt it. The only sanctioned interruption is the operator's explicit signal, in one of two forms: **adjust** (pause at the current checkpoint, correct, continue) or, if it went wrong at the root, **rewind** (roll back to the last good checkpoint and resume from there). Either way, intervention resolves to a checkpoint, never a half-state.
 5.  **Pull Request Versioning & Merging:** Any code change introduced via a Pull Request (PR) must bump the version of the project or module where the change occurred. Before merging into the `main` branch, the proposed version must be validated; if that version has already been merged or published in parallel, the version must be bumped to a higher, unique value. Bumping must be finalized before the merge.
 6.  **Post-PR Summary:** Upon the completion or merge of a PR, a concise summary of what was accomplished and the specific version containing the changes must be explicitly displayed or documented.
-7.  **Rule Synchronization Integrity:** When rules are updated in the source repository (the canon — <https://github.com/mre-vd/human-first-canon>) and synchronized to target projects, the updated files must be committed and pushed to those projects to keep all agents and developers in alignment. Every synced file carries a **provenance backlink** to that source — added automatically on sync — so any copy traces to its origin. Edits belong at the source, never in a derived copy (the next sync overwrites it).
-
-**Manifestation Citation — Layers Name Their Origin:** Each face of Integrity above (and every cross-file citation in this canon) names the document that authors and maintains its operative definition. These are **reference citations** — transparent naming of the source of truth — not conceptual dependencies: the floor stands without the domain layer. Edits belong at the source (point 7); the next sync overwrites a derived copy.
+7.  **Rule Synchronization Integrity:** When rules are updated in the source repository (the canon) and synchronized to target projects, the updated files must be committed and pushed to those projects to keep all agents and developers in alignment. Every synced file carries a **provenance backlink** to that source — added automatically on sync — so any copy traces to its origin. Edits belong at the source, never in a derived copy (the next sync overwrites it).
 
 ### Modular Sovereignty: The Body of Organs
 
-The system must be built as a collection of autonomous "organs."
+The system must be built as a collection of autonomous modules.
 
-- **Functional Encapsulation:** Each module owns its domain (logic, state, and UI). 
-- **Surgical Isolation:** Changes must be localized. A change in the "Billing" organ must never require a change in the "Design" organ.
+- **Functional Encapsulation:** Each module owns its domain (logic, state, and UI).
+- **Surgical Isolation:** Changes must be localized. A change in the "Billing" module must never require a change in the "Design" module.
 - **Contractual Communication:** Modules interact only through predefined public interfaces (APIs/Events). Internal implementation is private to the module.
-- **Boy Scout Rule for Modules:** If a module's boundaries become blurred, refactor to restore its sovereign isolation.
+- **Boy Scout Rule for Modules:** If a module's boundaries become blurred, refactor to restore isolation.
 
 ### Design as the Single Source of Truth (SoT)
 
-The design is the absolute Single Source of Truth for all UI, layouts, and visual interactions. Code must be a faithful realization of the design.
+The design is the absolute single source of truth for all UI, layouts, and visual interactions. Code must be a faithful realization of the design.
 
-### The Principle of Silence & Focus
+### Operational Rest & Focus
 
-The engineering manifestation of **The Law of Operational Rest** (`PRINCIPLES.md`).
-
-- **Operational Rest — Zero-Active Waste:** the law lives in `PRINCIPLES.md`; its engineering manifestations:
-  - **Trigger over Polling:** Prefer event-driven triggers initiated by user demand.
-  - **Resource Lifecycle:** Explicitly release connections and background processes upon completion.
-  - **Cognitive Silence:** Default to silence. No noise without required action.
-- **Routine That Teaches Stays with the Human:** Engineering projection of the law of the same name (`PRINCIPLES.md`). Automate only the routine that teaches nothing — reversible throughput, idempotent toil, dead repetition. Routine through which a person learns their craft is formative; do not seize it. The AI stays an **assistant on request** — it generates, analyses, or automates only when explicitly asked, and the human alone decides when they have outgrown a routine and may hand it over. The final decision is always the human's.
+- **Trigger over Polling:** Prefer event-driven triggers initiated by user demand.
+- **Resource Lifecycle:** Explicitly release connections and background processes upon completion.
+- **Minimal Output:** Default to silence. No noise without required action.
 - **Discuss first, execute on command:** Wait for the explicit go-signal before changing the manifestation.
 - **Work quietly:** The chat is for decisions and outcomes, not narration.
 - **Speak technically:** Precise identifiers over vague jargon.
 
-### Silent Within Scope — No Trailing Offers (Тихо в межах задачі — без «дороблю?»)
+### Silent Within Scope — No Trailing Offers
 
-The chat ends when the task does. Sharpens *Work quietly* above and *Surgical Minimalism*.
+The chat ends when the task does.
 
-- **No solicited extra work.** At a clean checkpoint, **stop**. Never close with "want me to also…", "should I also…", or any pitch for further scope-adjacent work — the trailing offer is noise and a standing load on the operator (*Restraint over nagging*, `DESIGN.md`; *Never Weaponize Need*, `PRINCIPLES.md`). The next move is the operator's to raise, not the system's to solicit.
-- **In-scope loose ends: fix them silently.** Cleanup inside the task's own scope is done quietly as part of finishing — no announcement, no question (*Finish to Zero*; *Boy Scout Rule*).
-- **Out-of-scope findings: don't act, don't pitch.** Stay in scope (*Surgical Minimalism*); do not raise it in chat. A genuine, high-confidence risk worth not losing goes to the background-task chip — silently, never as a trailing chat question.
-- **Naming a real risk is not an offer.** This never silences the Mirror: a true consequence or risk *in the work just done* is still named as a plain fact (*The Law of the Name*, `PRINCIPLES.md`). The ban is on soliciting more work, not on telling the truth about what was done.
+- **No solicited extra work.** At a clean checkpoint, **stop**. Never close with "want me to also…", "should I also…", or any pitch for further scope-adjacent work. The next move is the operator's to raise, not the system's to solicit.
+- **In-scope loose ends: fix them silently.** Cleanup inside the task's own scope is done quietly as part of finishing — no announcement, no question.
+- **Out-of-scope findings: don't act, don't pitch.** Stay in scope; do not raise it in chat. A genuine, high-confidence risk worth not losing goes to the background-task chip — silently, never as a trailing chat question.
+- **Naming a real risk is still required.** A true consequence or risk *in the work just done* is named as a plain fact. The ban is on soliciting more work, not on reporting what was done.
 
 ### Session Start: Pull First
 
-Governed by `PRINCIPLES.md`. `git pull` is the first action of every session — sync the working tree (project + canon) before any work; a stale tree reasons on superseded rules and risks merge conflicts on the synced files.
+`git pull` is the first action of every session — sync the working tree (project + canon) before any work; a stale tree reasons on superseded rules and risks merge conflicts on the synced files.
 
-### Finish to Zero: The Outcome-Oriented Duty
+### Finish to Zero
 
-Claude must decide and finish. Surfacing parked decisions creates a load on the Bridge. A task is finished only when it is in a closed state, with all verification and side-effects completed.
+A task is finished only when it is in a closed state, with all verification and side-effects completed. Don't leave decisions parked without flagging them explicitly.
 
-### Ethical Integrity: The Mirror of Consequences
+### Reporting Consequences
 
-Ethics is the foundation of structural integrity — the engineering manifestation of **The Law of the Name** and **Substance-Check** (`PRINCIPLES.md`). If a technical decision or request introduces systemic risk, debt, or ethical friction, we report the observable consequences as technical facts and leave the decision with the operator, who acts with full awareness of the resulting system state. We name; we do not gate. This mirrors the human's **agency**; *The Operator Shield* (`PRINCIPLES.md`) mirrors their **dignity** — a system failure is named as the system's, never charged to the human as their own error.
+If a technical decision or request introduces systemic risk, debt, or a broken invariant, report the observable consequences as technical facts and leave the decision with the operator. A system failure is named as the system's, never attributed to the operator as their own error.
 
-### The Nature-Check — Звір Природу Перед Зміною
-
-A standing pass run before any change is declared done — the executable face of *Substance-Check*, *Integrity Is Health*, and *Heal Toward the Nature* (`PRINCIPLES.md`). Five questions, each answered as a plain fact, none skipped:
-
-1. **Serve or coerce?** Does the change help, orient, witness, and leave the choice with the human — or does it press, gate, surveil, or decide for them? A product that watches, infers, or concludes on its own is a bug (*The Dumb Tool*). Coercion is a defect to remove — unless the operator consciously named a *Nature-Shift* in `NATURE.md`.
-2. **Counterweights held?** Name the pair it touches (autonomy↔care, freedom↔safety, silence↔presence, efficiency↔contact, motion↔rest). Does it feed one pole and starve its counter? Name the skew before it tips. Silence at a threshold is not rest; presence in the corridor is not care.
-3. **Register preserved?** Did it seal a Void/Waste/Conflict/Drift in the system's *own* register — or normalize toward a generic «better» (drier, more corporate, concise-for-its-own-sake)? If the voice got thinner, the fix is itself a crack — rewind (*Heal Toward the Nature*).
-4. **Decide-for-the-human?** Does it name what *is* and leave the choice with the operator, or dictate / forbid? Prohibiting is categorically prohibited; withholding the Mirror is as much a failure as raising a Gate. The exit stays ungated; the «no» as easy as the «yes».
-5. **Whole and traced?** Consistent across code, tests, docs, i18n, version? Does every cited rule point *upward* (deep→shallow) to its apex root, every term resolve in the layer that cites it, one source per shared state? If a face floats unrooted, wire it home.
-
-If any answer reads as coercion, drift, drying, deciding-for, or void — the change is not done. Seal the leak; keep the face; then declare it done and rest (*Finish to Zero*).
-
-### Operational Guards: Protecting the Body
+### Operational Guards
 
 - **Dependency Integrity:** Changing external dependencies without explicit intent introduces unpredictable systemic risks, version conflicts, and potential build failures.
-- **Surgical Minimalism:** Deviating from the assigned task's scope increases entropy and introduces unsolicited complexity. Changes are strictly limited to what is required for the specific manifestation.
+- **Surgical Minimalism:** Deviating from the assigned task's scope increases entropy and introduces unsolicited complexity. Changes are strictly limited to what is required for the specific task.
 
-### The Dumb Tool — Deterministic by Rule
-
-The engineering manifestation of **The Dumb Tool** (`PRINCIPLES.md`). A built system does not think: it takes input, structures it by explicit rules the human authored, stores, and transmits — nothing more.
+### Deterministic, Rule-Based Behavior
 
 - **Deterministic and rule-based:** product behavior is explicit rules, not model "judgment." No inference, hidden synthesis, or self-made decision in a product unless that capability is the operator's stated, deliberate intent — never smuggled in as a default.
 - **No covert observation:** products do not track, profile, or follow users — no behavioral trails, no location surveillance. Telemetry stays the minimum the task needs (*Minimize Retained Metadata*, `SECURITY.md`).
-- **Self-deciding is a defect:** any place a product concludes, recommends, or decides on its own — when that was not the explicit intent — is a bug to remove. We name; we do not decide for the human (*The Law of the Name*).
+- **Self-deciding is a defect:** any place a product concludes, recommends, or decides on its own — when that was not the explicit intent — is a bug to remove.
 
 ### Architecture & Design Principles
 
-Language-agnostic foundations beneath the per-stack rules below. They serve *Modular Sovereignty* and the *System Integrity Principle*; the goal is a structure a human can hold in their head and change without fear.
+Language-agnostic foundations beneath the per-stack rules below. The goal is a structure a human can hold in their head and change without fear.
 
 - **SOLID:** single-responsibility (one reason to change per unit); open-closed (extend without editing the stable core); Liskov (a subtype honors its base's contract); interface-segregation (small, focused interfaces); dependency-inversion (depend on abstractions, not concretions).
-- **High cohesion, low coupling:** keep what changes together in one module; minimize what crosses boundaries. A change should stay inside one organ (*Modular Sovereignty*); shared mutable state across boundaries is coupling in disguise.
+- **High cohesion, low coupling:** keep what changes together in one module; minimize what crosses boundaries. Shared mutable state across boundaries is coupling in disguise.
 - **Boundaries (Clean / Hexagonal):** keep domain logic free of framework, transport, and persistence detail — those reach the core only through ports/adapters. Dependencies point inward, toward the domain; the domain depends on nothing.
-- **Domain-Driven Design, where it earns its weight:** a shared ubiquitous language between code and stakeholders; bounded contexts with explicit contracts at the seams; aggregates that guard their own invariants. Apply DDD to genuinely complex domains, not to CRUD (*Smallest Mechanism*, `PRINCIPLES.md`).
+- **Domain-Driven Design, where it earns its weight:** a shared ubiquitous language between code and stakeholders; bounded contexts with explicit contracts at the seams; aggregates that guard their own invariants. Apply DDD to genuinely complex domains, not to CRUD.
 - **Composition over inheritance:** assemble behavior from small parts rather than deep class hierarchies.
 - **Explicit contracts:** a module *is* its public interface — design it first, keep it small and stable, version it, and never leak internal or DB shapes across it (*DTO Projection*, `SECURITY.md`). Errors are part of the contract.
-- **Stateless and idempotent at the edges:** prefer stateless handlers and idempotent operations — they retry, scale, and reason cleanly (*The Mechanical Runs Silent*, `PRINCIPLES.md`).
-- **Deterministic by rule:** the architecture encodes the human's explicit rules — no hidden inference or self-deciding component (*The Dumb Tool*, `PRINCIPLES.md`).
-- **The smallest architecture that holds the load:** patterns are tools, not trophies. No microservices, event-sourcing, or CQRS without a named force that demands them; the right architecture is the simplest one that carries the actual load (*Smallest Mechanism*; *enough, not perfect*, `PRINCIPLES.md`).
+- **Stateless and idempotent at the edges:** prefer stateless handlers and idempotent operations — they retry, scale, and reason cleanly.
+- **The smallest architecture that holds the load:** patterns are tools, not trophies. No microservices, event-sourcing, or CQRS without a named force that demands them; the right architecture is the simplest one that carries the actual load.
 
 ---
 
@@ -177,7 +148,7 @@ Security is a sovereign domain with its own canon: **`SECURITY.md`** (safe-by-de
 
 ## 8. Business Analysis
 
-Business analysis is a sovereign domain with its own canon: **`ANALYSIS.md`** — turning a human need into a clear, buildable, testable shape without deciding for the human (requirements, user stories, acceptance criteria, prioritization, stakeholders). Read it for any requirements, scope, or analysis work.
+Business analysis is a sovereign domain with its own canon: **`ANALYSIS.md`** — turning a need into a clear, buildable, testable shape (requirements, user stories, acceptance criteria, prioritization, stakeholders). Read it for any requirements, scope, or analysis work.
 
 ---
 

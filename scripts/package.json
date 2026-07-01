@@ -1,7 +1,7 @@
 {
-  "name": "human-first-canon",
-  "version": "1.0.6",
-  "description": "Human-first canon — engineering, design, and ethics standards for building systems that serve the human",
+  "name": "ai-process-architecture",
+  "version": "1.0.7",
+  "description": "Engineering, design, and process standards for software development",
   "scripts": {
     "format": "prettier --write \"../**/*.md\"",
     "validate": "node validate.js",

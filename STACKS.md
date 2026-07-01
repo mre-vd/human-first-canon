@@ -1,6 +1,6 @@
 # STACKS.md — Language & Framework Coding Standards
 
-Per-stack coding standards — the language- and framework-specific manifestation of the engineering canon (`CLAUDE.md`). Read the section for the stack you are working in. The universal principles (System Integrity, Modular Sovereignty, Architecture & Design Principles, The Dumb Tool) live in `CLAUDE.md` and always apply.
+Per-stack coding standards — the language- and framework-specific manifestation of the engineering canon (`CLAUDE.md`). Read the section for the stack you are working in. The universal principles (System Integrity, Modular Sovereignty, Architecture & Design Principles) live in `CLAUDE.md` and always apply.
 
 ## Go Coding Standards
 
